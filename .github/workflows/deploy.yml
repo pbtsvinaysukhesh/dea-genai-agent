@@ -1,17 +1,7 @@
-name: Deploy to Production
+name: Deploy to Production (Disabled - Use Railway.app)
 
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - 'v*'
-  workflow_run:
-    workflows: ["Docker Build & Push"]
-    types:
-      - completed
-    branches:
-      - main
+  # Disabled: Deploy via Railway.app instead
   workflow_dispatch:
     inputs:
       environment:
