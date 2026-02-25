@@ -96,7 +96,6 @@ README.md
 CONTRIBUTING.md
 LICENSE
 .editorconfig
-pyproject.toml
 
 # Large files
 *.tar.gz
