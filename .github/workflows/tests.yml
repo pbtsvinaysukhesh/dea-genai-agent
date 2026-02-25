@@ -147,4 +147,4 @@ jobs:
       - name: Test image build
         run: |
           docker build -t test-image:latest .
-          echo "✅ Docker image built successfully"
+          echo "Docker image built successfully"
