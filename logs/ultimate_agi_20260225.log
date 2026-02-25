@@ -53,3 +53,73 @@ Configuration:
 2026-02-25 23:17:08,586 - INFO -   [OK] Extracted 1596 chars
 2026-02-25 23:17:08,586 - INFO - [10/20] Deep scraping: GauS: Diff...
 2026-02-25 23:17:10,343 - INFO - [Playwright] Scraping: GauS: Differentiable Scheduling Optimization via G...
+2026-02-25 23:28:29,873 - INFO - ================================================================================
+2026-02-25 23:28:29,876 - INFO - ULTIMATE AGI RESEARCH SYSTEM
+2026-02-25 23:28:29,876 - INFO - Playwright + CrewAI + AI Council
+2026-02-25 23:28:29,878 - INFO - ================================================================================
+2026-02-25 23:28:29,981 - INFO - 
+Configuration:
+2026-02-25 23:28:29,981 - INFO -   Threshold: 60
+2026-02-25 23:28:29,990 - INFO -   Playwright: True
+2026-02-25 23:28:29,990 - INFO -   CrewAI: True
+2026-02-25 23:28:30,224 - INFO - [HITL] Initialized (auto-approve: 0.85, review threshold: 90)
+2026-02-25 23:28:30,224 - INFO - [EmailTracker] Loaded 4 previously sent papers
+2026-02-25 23:28:30,224 - INFO - [Archiver] Results directory: results
+2026-02-25 23:28:30,228 - INFO - 
+================================================================================
+2026-02-25 23:28:30,228 - INFO - STAGE 1: DEEP WEB SCRAPING
+2026-02-25 23:28:30,228 - INFO - ================================================================================
+2026-02-25 23:28:31,159 - INFO - Fetching 13 arXiv queries...
+2026-02-25 23:29:03,348 - INFO - Processing 5 web sources...
+2026-02-25 23:29:05,355 - INFO - [RSS] Found 10 items in https://machinelearning.apple.com/rss.xml
+2026-02-25 23:29:08,989 - INFO - [HTML] RSS empty, attempting scrape: https://developer.qualcomm.com/rss/blog
+2026-02-25 23:29:08,999 - WARNING - [-] Could not extract content from: https://developer.qualcomm.com/rss/blog
+2026-02-25 23:29:11,455 - WARNING - Dead Link (400): https://ai.meta.com/blog/feed
+2026-02-25 23:29:16,566 - INFO - [RSS] Found 855 items in https://openai.com/blog/rss.xml
+2026-02-25 23:29:22,153 - WARNING - Dead Link (404): https://deepmind.com/blog/feed.xml
+2026-02-25 23:29:22,165 - INFO - Collected 1097 articles via RSS/API
+2026-02-25 23:29:22,165 - INFO - Enhancing articles with deep content extraction...
+2026-02-25 23:29:22,168 - INFO - [1/20] Deep scraping: Probing Gr...
+2026-02-25 23:29:25,250 - INFO - [Playwright] Scraping: Probing Graph Neural Network Activation Patterns T...
+2026-02-25 23:29:59,721 - INFO -   [OK] Extracted 1024 chars
+2026-02-25 23:29:59,736 - INFO - [2/20] Deep scraping: DRESS: A C...
+2026-02-25 23:30:01,842 - INFO - [Playwright] Scraping: DRESS: A Continuous Framework for Structural Graph...
+2026-02-25 23:30:33,467 - INFO -   [OK] Extracted 1380 chars
+2026-02-25 23:30:33,467 - INFO - [3/20] Deep scraping: On Electri...
+2026-02-25 23:30:35,535 - INFO - [Playwright] Scraping: On Electric Vehicle Energy Demand Forecasting and ...
+2026-02-25 23:31:07,341 - INFO -   [OK] Extracted 1905 chars
+2026-02-25 23:31:07,341 - INFO - [4/20] Deep scraping: UrbanFM: S...
+2026-02-25 23:31:09,325 - INFO - [Playwright] Scraping: UrbanFM: Scaling Urban Spatio-Temporal Foundation ...
+2026-02-25 23:31:10,916 - INFO -   [OK] Extracted 1927 chars
+2026-02-25 23:31:10,916 - INFO - [5/20] Deep scraping: Bikelution...
+2026-02-25 23:31:12,859 - INFO - [Playwright] Scraping: Bikelution: Federated Gradient-Boosting for Scalab...
+2026-02-25 23:31:30,641 - INFO -   [OK] Extracted 959 chars
+2026-02-25 23:31:30,641 - INFO - [6/20] Deep scraping: TrajGPT-R:...
+2026-02-25 23:31:30,838 - ERROR - Future exception was never retrieved
+future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed\nCall log:\n  - waiting for locator("a:has-text(\\"HTML\\")").first\n    - locator resolved to <a class="mobile-submission-download" href="https://arxiv.org/html/2602.20671v1">HTML (experimental)</a>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n      - waiting 100ms\n    29 × waiting for element to be visible, enabled and stable\n       - element is not visible\n     - retrying click action\n       - waiting 500ms\n')>
+playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
+Call log:
+  - waiting for locator("a:has-text(\"HTML\")").first
+    - locator resolved to <a class="mobile-submission-download" href="https://arxiv.org/html/2602.20671v1">HTML (experimental)</a>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+      - waiting 100ms
+    29 × waiting for element to be visible, enabled and stable
+       - element is not visible
+     - retrying click action
+       - waiting 500ms
+
+2026-02-25 23:31:32,411 - INFO - [Playwright] Scraping: TrajGPT-R: Generating Urban Mobility Trajectory wi...
+2026-02-25 23:32:04,311 - INFO -   [OK] Extracted 1451 chars
+2026-02-25 23:32:04,315 - INFO - [7/20] Deep scraping: Amortized ...
+2026-02-25 23:32:06,436 - INFO - [Playwright] Scraping: Amortized Bayesian inference for actigraph time sh...
+2026-02-25 23:32:38,124 - INFO -   [OK] Extracted 1264 chars
+2026-02-25 23:32:38,124 - INFO - [8/20] Deep scraping: Benchmarki...
+2026-02-25 23:32:39,579 - WARNING - 
+[INTERRUPTED]
