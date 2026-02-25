@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AGI Research Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+
+<style>
+/* ─── DESIGN TOKENS ──────────────────────────────────────────────── */
+:root {
+  --obsidian:   #0a0b0d;
+  --surface:    #111318;
+  --surface2:   #191d24;
+  --surface3:   #21262f;
+  --border:     #2a313c;
+  --amber:      #f5a623;
+  --amber-dim:  #b87316;
+  --amber-glow: rgba(245,166,35,0.12);
+  --amber-text: #fbbf46;
+  --cyan:       #38c7b8;
+  --crimson:    #e85d5d;
+  --sage:       #7ecf9e;
+  --text-1:     #e8eaf0;
+  --text-2:     #9aa3b2;
+  --text-3:     #5a6474;
+  --font-display: 'Syne', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+  --font-serif:   'Instrument Serif', serif;
+  --radius:     6px;
+  --shadow:     0 4px 24px rgba(0,0,0,0.5);
+}
+
+/* ─── RESET ──────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;height:100%}
+body{
+  background:var(--obsidian);
+  color:var(--text-1);
+  font-family:var(--font-mono);
+  font-size:14px;
+  line-height:1.6;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ─── GRAIN OVERLAY ──────────────────────────────────────────────── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:9999;
+  opacity:0.6;
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────────── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--surface)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* ─── LAYOUT ─────────────────────────────────────────────────────── */
+.app{display:grid;grid-template-rows:56px 1fr;height:100vh}
+
+/* ─── HEADER ─────────────────────────────────────────────────────── */
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  position:relative;z-index:100;
+}
+.logo{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--font-display);font-size:15px;font-weight:700;
+  letter-spacing:.04em;color:var(--text-1);
+}
+.logo-mark{
+  width:28px;height:28px;
+  background:var(--amber);
+  border-radius:4px;
+  display:grid;place-items:center;
+  font-size:14px;
+}
+.logo-sub{font-weight:400;color:var(--text-3);font-size:12px;font-family:var(--font-mono)}
+
+.header-actions{display:flex;align-items:center;gap:8px}
+.pill{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:20px;
+  font-size:11px;font-family:var(--font-mono);
+  border:1px solid var(--border);
+  background:var(--surface2);
+  color:var(--text-2);cursor:pointer;
+  transition:all .2s;
+}
+.pill:hover{border-color:var(--amber);color:var(--amber)}
+.pill.active{background:var(--amber-glow);border-color:var(--amber);color:var(--amber)}
+.dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.dot.pulse{animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ─── MAIN GRID ──────────────────────────────────────────────────── */
+.main{
+  display:grid;
+  grid-template-columns:220px 1fr 340px;
+  overflow:hidden;
+  height:100%;
+}
+
+/* ─── SIDEBAR ────────────────────────────────────────────────────── */
+.sidebar{
+  border-right:1px solid var(--border);
+  background:var(--surface);
+  overflow-y:auto;
+  display:flex;flex-direction:column;
+}
+.sidebar-section{padding:16px 0}
+.sidebar-label{
+  padding:4px 16px 8px;
+  font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--text-3);
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 16px;
+  font-size:12px;color:var(--text-2);
+  cursor:pointer;transition:all .15s;
+  border-left:2px solid transparent;
+}
+.nav-item:hover{color:var(--text-1);background:var(--surface2)}
+.nav-item.active{
+  color:var(--amber);
+  border-left-color:var(--amber);
+  background:var(--amber-glow);
+}
+.nav-icon{font-size:14px;width:18px;text-align:center}
+
+.stat-card{
+  margin:8px 12px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:12px;
+}
+.stat-num{
+  font-family:var(--font-display);
+  font-size:28px;font-weight:800;
+  color:var(--amber);line-height:1;
+}
+.stat-lbl{font-size:10px;color:var(--text-3);margin-top:3px;letter-spacing:.06em;text-transform:uppercase}
+
+/* ─── CONTENT ────────────────────────────────────────────────────── */
+.content{
+  display:flex;flex-direction:column;
+  overflow:hidden;background:var(--obsidian);
+}
+.content-header{
+  padding:20px 24px 0;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.content-title{
+  font-family:var(--font-display);font-size:20px;font-weight:700;
+  color:var(--text-1);
+}
+.content-meta{font-size:11px;color:var(--text-3);margin-top:2px;font-family:var(--font-mono)}
+
+.toolbar{
+  display:flex;align-items:center;gap:8px;
+  padding:14px 24px;flex-shrink:0;
+  border-bottom:1px solid var(--border);
+}
+.search-box{
+  flex:1;display:flex;align-items:center;gap:8px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);padding:7px 12px;
+  transition:border-color .2s;
+}
+.search-box:focus-within{border-color:var(--amber)}
+.search-box input{
+  background:none;border:none;outline:none;
+  color:var(--text-1);font-family:var(--font-mono);font-size:13px;
+  flex:1;width:100%;
+}
+.search-box input::placeholder{color:var(--text-3)}
+.btn{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:var(--radius);
+  font-size:12px;font-family:var(--font-mono);
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--text-2);cursor:pointer;
+  transition:all .2s;white-space:nowrap;
+}
+.btn:hover{border-color:var(--amber);color:var(--amber)}
+.btn.primary{
+  background:var(--amber);border-color:var(--amber);
+  color:var(--obsidian);font-weight:500;
+}
+.btn.primary:hover{background:#ffc843;filter:drop-shadow(0 0 8px rgba(245,166,35,.4))}
+.btn.danger{border-color:var(--crimson);color:var(--crimson)}
+
+/* ─── PAPERS LIST ────────────────────────────────────────────────── */
+.papers-list{
+  flex:1;overflow-y:auto;
+  padding:16px 24px;
+  display:flex;flex-direction:column;gap:10px;
+}
+
+.paper-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px;
+  cursor:pointer;
+  transition:all .2s;
+  position:relative;
+  overflow:hidden;
+  animation:slideIn .3s ease both;
+}
+@keyframes slideIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.paper-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--border);transition:background .2s;
+}
+.paper-card:hover{border-color:var(--amber-dim);background:var(--surface2)}
+.paper-card:hover::before{background:var(--amber)}
+.paper-card.selected{border-color:var(--amber);background:var(--surface2)}
+.paper-card.selected::before{background:var(--amber)}
+
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.card-title{
+  font-family:var(--font-serif);font-style:italic;
+  font-size:14px;color:var(--text-1);line-height:1.4;
+  flex:1;
+}
+.score-badge{
+  flex-shrink:0;
+  font-family:var(--font-display);font-weight:700;font-size:20px;
+  line-height:1;
+}
+.score-badge.high{color:var(--sage)}
+.score-badge.mid{color:var(--amber)}
+.score-badge.low{color:var(--text-3)}
+
+.card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+.tag{
+  padding:2px 8px;border-radius:3px;
+  font-size:10px;letter-spacing:.04em;
+  background:var(--surface3);
+  color:var(--text-3);border:1px solid var(--border);
+}
+.tag.impact-high{background:rgba(126,207,158,.1);color:var(--sage);border-color:rgba(126,207,158,.3)}
+.tag.impact-med{background:rgba(245,166,35,.1);color:var(--amber);border-color:rgba(245,166,35,.3)}
+.tag.platform{background:rgba(56,199,184,.1);color:var(--cyan);border-color:rgba(56,199,184,.3)}
+
+.card-insight{
+  margin-top:10px;padding:8px 10px;
+  background:var(--surface3);border-radius:4px;
+  font-size:11px;color:var(--text-2);line-height:1.5;
+  border-left:2px solid var(--amber-dim);
+}
+
+/* ─── CHAT PANEL ─────────────────────────────────────────────────── */
+.chat-panel{
+  border-left:1px solid var(--border);
+  background:var(--surface);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+.chat-header{
+  padding:16px 18px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.chat-title{
+  font-family:var(--font-display);font-size:13px;font-weight:700;
+  color:var(--text-1);
+}
+.chat-context{
+  font-size:10px;color:var(--amber);font-family:var(--font-mono);
+  margin-top:2px;
+}
+
+.chat-messages{
+  flex:1;overflow-y:auto;
+  padding:16px;
+  display:flex;flex-direction:column;gap:12px;
+}
+
+.msg{display:flex;flex-direction:column;gap:4px}
+.msg.user{align-items:flex-end}
+.msg.assistant{align-items:flex-start}
+
+.msg-bubble{
+  max-width:88%;
+  padding:10px 12px;
+  border-radius:var(--radius);
+  font-size:12px;line-height:1.6;
+}
+.msg.user .msg-bubble{
+  background:var(--amber-glow);
+  border:1px solid rgba(245,166,35,.3);
+  color:var(--amber-text);
+}
+.msg.assistant .msg-bubble{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  color:var(--text-1);
+}
+
+.msg-time{font-size:9px;color:var(--text-3);padding:0 4px}
+
+/* typing cursor */
+.typing-cursor::after{
+  content:'▋';
+  animation:blink .7s infinite;
+  color:var(--amber);
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* action chip from AI */
+.action-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:6px;padding:4px 10px;
+  background:rgba(126,207,158,.12);
+  border:1px solid rgba(126,207,158,.3);
+  border-radius:3px;font-size:10px;color:var(--sage);cursor:pointer;
+}
+.action-chip:hover{background:rgba(126,207,158,.2)}
+
+.chat-input-area{
+  border-top:1px solid var(--border);
+  padding:12px;flex-shrink:0;
+}
+.chat-context-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 10px;margin-bottom:8px;
+  background:var(--amber-glow);
+  border:1px solid rgba(245,166,35,.25);
+  border-radius:4px;font-size:10px;color:var(--amber);
+}
+.chat-context-pill .remove{
+  margin-left:auto;cursor:pointer;opacity:.6;
+}
+.chat-context-pill .remove:hover{opacity:1}
+
+.chat-input-row{
+  display:flex;align-items:flex-end;gap:8px;
+}
+textarea#chatInput{
+  flex:1;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  color:var(--text-1);
+  font-family:var(--font-mono);font-size:12px;
+  padding:9px 12px;
+  resize:none;outline:none;
+  min-height:40px;max-height:120px;
+  line-height:1.5;
+  transition:border-color .2s;
+}
+textarea#chatInput:focus{border-color:var(--amber)}
+textarea#chatInput::placeholder{color:var(--text-3)}
+
+.send-btn{
+  width:36px;height:36px;
+  background:var(--amber);
+  border:none;border-radius:var(--radius);
+  display:grid;place-items:center;
+  cursor:pointer;flex-shrink:0;
+  transition:all .2s;color:var(--obsidian);font-size:15px;
+}
+.send-btn:hover{background:#ffc843;filter:drop-shadow(0 0 8px rgba(245,166,35,.5))}
+.send-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* ─── PIPELINE MODAL ─────────────────────────────────────────────── */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;place-items:center;
+  z-index:1000;backdrop-filter:blur(4px);
+}
+.modal-overlay.open{display:grid}
+.modal{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:28px;width:min(480px,90vw);
+  box-shadow:var(--shadow);
+}
+.modal-title{
+  font-family:var(--font-display);font-size:18px;font-weight:700;
+  color:var(--text-1);margin-bottom:4px;
+}
+.modal-sub{font-size:11px;color:var(--text-3);margin-bottom:24px}
+
+.progress-track{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:4px;height:8px;overflow:hidden;margin-bottom:8px;
+}
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--amber-dim),var(--amber));
+  border-radius:4px;
+  transition:width .6s ease;
+  position:relative;overflow:hidden;
+}
+.progress-fill::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+  animation:shimmer 1.5s infinite;
+}
+@keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.progress-msg{font-size:11px;color:var(--text-2);margin-bottom:20px;min-height:18px}
+
+.log-box{
+  background:var(--obsidian);border:1px solid var(--border);
+  border-radius:4px;padding:10px;
+  height:140px;overflow-y:auto;
+  font-size:11px;color:var(--text-3);
+  font-family:var(--font-mono);
+}
+.log-line{padding:1px 0;line-height:1.5}
+.log-line.ok{color:var(--sage)}
+.log-line.err{color:var(--crimson)}
+
+/* ─── DETAIL VIEW ────────────────────────────────────────────────── */
+.detail-panel{
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  background:var(--obsidian);
+}
+.detail-panel.open{display:flex}
+
+.detail-body{flex:1;overflow-y:auto;padding:24px}
+.detail-field{
+  margin-bottom:20px;
+}
+.field-label{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-3);margin-bottom:6px;
+}
+.field-value{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:10px 12px;
+  font-size:12px;color:var(--text-1);line-height:1.6;
+  position:relative;
+}
+.field-value.editable{cursor:pointer}
+.field-value.editable:hover{border-color:var(--amber-dim)}
+.edit-indicator{
+  position:absolute;top:8px;right:8px;
+  font-size:10px;color:var(--text-3);
+}
+
+/* ─── VIEWS ──────────────────────────────────────────────────────── */
+.view{display:none}
+.view.active{display:flex;flex-direction:column;flex:1;overflow:hidden}
+
+/* ─── PIPELINE VIEW ──────────────────────────────────────────────── */
+.pipeline-grid{
+  padding:24px;flex:1;overflow-y:auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;align-content:start;
+}
+.pipeline-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;
+}
+.pipeline-card-title{
+  font-family:var(--font-display);font-size:13px;font-weight:600;
+  color:var(--text-1);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.pipeline-card-title span{font-size:16px}
+
+/* ─── HITL VIEW ──────────────────────────────────────────────────── */
+.hitl-list{padding:20px 24px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.hitl-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.hitl-title{font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--text-1)}
+.hitl-meta{display:flex;gap:8px;flex-wrap:wrap}
+.hitl-actions{display:flex;gap:8px}
+.btn.approve{background:rgba(126,207,158,.15);border-color:var(--sage);color:var(--sage)}
+.btn.approve:hover{background:rgba(126,207,158,.3)}
+.btn.reject{background:rgba(232,93,93,.1);border-color:var(--crimson);color:var(--crimson)}
+.btn.reject:hover{background:rgba(232,93,93,.2)}
+
+/* ─── EMPTY STATE ────────────────────────────────────────────────── */
+.empty{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:12px;
+  color:var(--text-3);
+}
+.empty-icon{font-size:40px;opacity:.3}
+.empty-title{font-family:var(--font-display);font-size:16px;color:var(--text-2)}
+.empty-sub{font-size:12px;max-width:240px;text-align:center;line-height:1.6}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────── */
+@media (max-width:900px){
+  .main{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .chat-panel{display:none;position:fixed;inset:0;z-index:200}
+  .chat-panel.mobile-open{display:flex}
+}
+@media (max-width:600px){
+  .content-title{font-size:16px}
+  .toolbar{flex-wrap:wrap}
+}
+
+/* ─── LOADING SKELETONS ──────────────────────────────────────────── */
+.skeleton{
+  background:linear-gradient(90deg,var(--surface) 25%,var(--surface2) 50%,var(--surface) 75%);
+  background-size:200% 100%;
+  animation:skel 1.5s infinite;
+  border-radius:4px;
+}
+@keyframes skel{from{background-position:200%}to{background-position:-200%}}
+
+/* ─── TOAST ──────────────────────────────────────────────────────── */
+#toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:6px;padding:10px 20px;
+  font-size:12px;color:var(--text-1);
+  box-shadow:var(--shadow);transition:transform .3s;z-index:9000;
+  white-space:nowrap;
+}
+#toast.show{transform:translateX(-50%) translateY(0)}
+#toast.success{border-color:var(--sage);color:var(--sage)}
+#toast.error{border-color:var(--crimson);color:var(--crimson)}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<!-- ─── HEADER ──────────────────────────────────────────────────── -->
+<header>
+  <div class="logo">
+    <div class="logo-mark">⬡</div>
+    <div>
+      AGI Research Intelligence
+      <div class="logo-sub">On-Device AI Memory Monitor</div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <div class="pill" id="wsStatus">
+      <div class="dot" id="wsDot" style="background:var(--text-3)"></div>
+      <span id="wsLabel">Connecting…</span>
+    </div>
+    <button class="btn primary" onclick="openPipelineModal()">▶ Run Pipeline</button>
+    <button class="btn" onclick="toggleChat()" id="chatToggle" style="display:none">💬 Chat</button>
+  </div>
+</header>
+
+<!-- ─── MAIN ────────────────────────────────────────────────────── -->
+<div class="main">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigation</div>
+      <div class="nav-item active" data-view="papers" onclick="switchView('papers',this)">
+        <span class="nav-icon">📄</span> Papers
+      </div>
+      <div class="nav-item" data-view="pipeline" onclick="switchView('pipeline',this)">
+        <span class="nav-icon">⚙️</span> Pipeline
+      </div>
+      <div class="nav-item" data-view="hitl" onclick="switchView('hitl',this)">
+        <span class="nav-icon">🔍</span> HITL Review
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Live Stats</div>
+      <div class="stat-card">
+        <div class="stat-num" id="statTotal">—</div>
+        <div class="stat-lbl">Papers analysed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statAvg">—</div>
+        <div class="stat-lbl">Avg relevance score</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statTop">—</div>
+        <div class="stat-lbl">Top score</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statPending">—</div>
+        <div class="stat-lbl">HITL pending</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Content Area -->
+  <div class="content">
+
+    <!-- ── PAPERS VIEW ── -->
+    <div class="view active" id="view-papers">
+      <div class="content-header">
+        <div>
+          <div class="content-title">Research Papers</div>
+          <div class="content-meta" id="papersCount">Loading…</div>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="search-box">
+          <span style="color:var(--text-3)">⌕</span>
+          <input type="text" id="searchInput" placeholder="Search papers, insights…"
+                 oninput="filterPapers(this.value)"/>
+        </div>
+        <select class="btn" id="platformFilter" onchange="filterPapers(document.getElementById('searchInput').value)"
+                style="cursor:pointer">
+          <option value="">All Platforms</option>
+          <option value="Mobile">Mobile</option>
+          <option value="Laptop">Laptop</option>
+          <option value="Both">Both</option>
+        </select>
+        <button class="btn" onclick="loadPapers()">↻ Refresh</button>
+      </div>
+      <div class="papers-list" id="papersList">
+        <div class="skeleton" style="height:90px"></div>
+        <div class="skeleton" style="height:90px"></div>
+        <div class="skeleton" style="height:90px"></div>
+      </div>
+    </div>
+
+    <!-- ── PIPELINE VIEW ── -->
+    <div class="view" id="view-pipeline">
+      <div class="content-header">
+        <div>
+          <div class="content-title">Pipeline Control</div>
+          <div class="content-meta">Collect → Scrape → Analyse → Archive → Email</div>
+        </div>
+      </div>
+      <div class="pipeline-grid" id="pipelineGrid">
+        <div class="pipeline-card">
+          <div class="pipeline-card-title"><span>📡</span> Data Collection</div>
+          <div class="stat-num" style="font-size:18px" id="pipeTotal">—</div>
+          <div class="stat-lbl">Papers in last run</div>
+        </div>
+        <div class="pipeline-card">
+          <div class="pipeline-card-title"><span>🔒</span> HITL Status</div>
+          <div class="stat-num" style="font-size:18px;color:var(--cyan)" id="hitlPending">—</div>
+          <div class="stat-lbl">Awaiting human review</div>
+        </div>
+        <div class="pipeline-card">
+          <div class="pipeline-card-title"><span>💾</span> Archive</div>
+          <div style="font-size:12px;color:var(--text-2)">
+            Daily snapshots in <code style="color:var(--amber)">results/daily/</code><br>
+            Monthly rollup in <code style="color:var(--amber)">results/archive/</code>
+          </div>
+        </div>
+        <div class="pipeline-card">
+          <div class="pipeline-card-title"><span>📧</span> Email Tracker</div>
+          <div style="font-size:12px;color:var(--text-2)">
+            Smart dedup — never re-sends the same paper.<br>
+            Track file: <code style="color:var(--amber)">data/email_sent_tracker.json</code>
+          </div>
+        </div>
+        <div class="pipeline-card" style="grid-column:1/-1">
+          <div class="pipeline-card-title"><span>🔄</span> Pipeline Status</div>
+          <div class="progress-track" style="margin-bottom:6px">
+            <div class="progress-fill" id="pipeProgressFill" style="width:0%"></div>
+          </div>
+          <div class="progress-msg" id="pipeProgressMsg">Idle — click Run Pipeline to start</div>
+          <button class="btn primary" onclick="openPipelineModal()" style="margin-top:8px">▶ Run Now</button>
+          <button class="btn danger" onclick="stopPipeline()" style="margin-top:8px">■ Stop</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HITL VIEW ── -->
+    <div class="view" id="view-hitl">
+      <div class="content-header">
+        <div>
+          <div class="content-title">HITL Review Queue</div>
+          <div class="content-meta" id="hitlCount">Loading…</div>
+        </div>
+        <button class="btn" onclick="loadHITL()">↻ Refresh</button>
+      </div>
+      <div class="hitl-list" id="hitlList">
+        <div class="skeleton" style="height:100px"></div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- Chat Panel -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div>
+        <div class="chat-title">Research Assistant</div>
+        <div class="chat-context" id="chatContextLabel">No paper selected</div>
+      </div>
+      <button class="btn" onclick="clearChat()" style="font-size:11px;padding:4px 8px">Clear</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg assistant">
+        <div class="msg-bubble">
+          Hey! I'm your AGI research assistant. Select a paper and ask me anything —
+          I can explain findings, edit analyses, compare papers, or answer technical questions.
+          <br><br>
+          Try: <em>"Summarise the memory insight"</em> or <em>"Update the engineering takeaway to…"</em>
+        </div>
+        <div class="msg-time">Now</div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <div class="chat-context-pill" id="contextPill" style="display:none">
+        <span>📎</span>
+        <span id="contextPillTitle" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+        <span class="remove" onclick="clearContext()">✕</span>
+      </div>
+      <div class="chat-input-row">
+        <textarea id="chatInput" rows="1" placeholder="Ask anything about the selected paper…"
+                  onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()" title="Send">➤</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ─── PIPELINE MODAL ──────────────────────────────────────────── -->
+<div class="modal-overlay" id="pipelineModal" onclick="if(event.target===this)closePipelineModal()">
+  <div class="modal">
+    <div class="modal-title">Run AGI Pipeline</div>
+    <div class="modal-sub">Playwright → AI Council → Qdrant → HITL → Archive → Email</div>
+    <div class="progress-track">
+      <div class="progress-fill" id="modalProgressFill" style="width:0%"></div>
+    </div>
+    <div class="progress-msg" id="modalProgressMsg">Ready to start…</div>
+    <div class="log-box" id="pipelineLog"></div>
+    <div style="display:flex;gap:8px;margin-top:20px">
+      <button class="btn primary" id="pipelineStartBtn" onclick="startPipeline()">▶ Start</button>
+      <button class="btn danger" onclick="stopPipeline()">■ Stop</button>
+      <button class="btn" onclick="closePipelineModal()" style="margin-left:auto">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- ─── PAPER DETAIL DRAWER ──────────────────────────────────────── -->
+<div class="modal-overlay" id="detailOverlay" onclick="if(event.target===this)closeDetail()">
+  <div class="modal" style="width:min(640px,95vw);max-height:85vh;display:flex;flex-direction:column;padding:0">
+    <div style="padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+      <div class="modal-title" id="detailTitle" style="font-size:15px;font-family:var(--font-serif);font-style:italic"></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn" onclick="chatAboutPaper()" style="font-size:11px">💬 Ask AI</button>
+        <button class="btn" onclick="closeDetail()" style="font-size:11px">✕</button>
+      </div>
+    </div>
+    <div class="detail-body" id="detailBody"></div>
+  </div>
+</div>
+
+<!-- ─── JAVASCRIPT ──────────────────────────────────────────────── -->
+<script>
+// ── CONFIG ─────────────────────────────────────────────────────────────
+const API = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? `http://${window.location.host}`
+  : 'https://your-api.railway.app';  // update after deploy
+
+const WS_URL = API.replace('http','ws') + '/ws/chat';
+const WS_PIPE = API.replace('http','ws') + '/ws/pipeline';
+
+// ── STATE ──────────────────────────────────────────────────────────────
+let allPapers = [];
+let selectedPaperId = null;
+let selectedPaper = null;
+let ws = null;
+let wsPipe = null;
+let chatHistory = [];
+let streaming = false;
+
+// ── WEBSOCKET ──────────────────────────────────────────────────────────
+function connectWS() {
+  try {
+    ws = new WebSocket(WS_URL);
+    ws.onopen  = () => setWsStatus(true);
+    ws.onclose = () => { setWsStatus(false); setTimeout(connectWS, 3000); };
+    ws.onerror = () => setWsStatus(false);
+    ws.onmessage = (e) => handleWsMessage(JSON.parse(e.data));
+  } catch(err) { setWsStatus(false); }
+}
+
+function setWsStatus(ok) {
+  document.getElementById('wsDot').style.background = ok ? 'var(--sage)' : 'var(--crimson)';
+  document.getElementById('wsLabel').textContent = ok ? 'Connected' : 'Disconnected';
+}
+
+function handleWsMessage(data) {
+  if (data.type === 'token') appendStreamToken(data.content);
+  else if (data.type === 'done') finishStream();
+}
+
+// ── PAPERS ─────────────────────────────────────────────────────────────
+async function loadPapers() {
+  try {
+    const r = await fetch(`${API}/api/papers/?limit=100&min_score=0`);
+    const d = await r.json();
+    allPapers = d.papers || [];
+    renderPapers(allPapers);
+    document.getElementById('papersCount').textContent =
+      `${allPapers.length} papers · sorted by relevance score`;
+  } catch(e) {
+    document.getElementById('papersList').innerHTML =
+      `<div class="empty"><div class="empty-icon">⚠</div>
+       <div class="empty-title">API Unavailable</div>
+       <div class="empty-sub">Start the FastAPI server and add demo data to see papers.</div></div>`;
+  }
+}
+
+function renderPapers(papers) {
+  const el = document.getElementById('papersList');
+  if (!papers.length) {
+    el.innerHTML = `<div class="empty">
+      <div class="empty-icon">📭</div>
+      <div class="empty-title">No papers found</div>
+      <div class="empty-sub">Run the pipeline or adjust your filters.</div>
+    </div>`;
+    return;
+  }
+  el.innerHTML = papers.map((p,i) => paperCard(p,i)).join('');
+}
+
+function paperCard(p, i) {
+  const score = p.relevance_score || 0;
+  const scoreClass = score>=85?'high':score>=65?'mid':'low';
+  const impact = p.dram_impact || 'Unknown';
+  const impactClass = impact==='High'?'impact-high':impact==='Medium'?'impact-med':'';
+  const delay = Math.min(i * 40, 400);
+
+  return `<div class="paper-card ${p._id===selectedPaperId?'selected':''}"
+               onclick="selectPaper('${p._id}')"
+               style="animation-delay:${delay}ms">
+    <div class="card-top">
+      <div class="card-title">${escHtml(p.title||'Untitled')}</div>
+      <div class="score-badge ${scoreClass}">${score}</div>
+    </div>
+    <div class="card-tags">
+      ${p.platform?`<span class="tag platform">${p.platform}</span>`:''}
+      ${p.model_type&&p.model_type!=='Unknown'?`<span class="tag">${p.model_type}</span>`:''}
+      ${impact!=='Unknown'?`<span class="tag ${impactClass}">${impact} DRAM</span>`:''}
+      ${p.source?`<span class="tag">${p.source}</span>`:''}
+    </div>
+    ${p.memory_insight && p.memory_insight!=='Unknown'
+      ? `<div class="card-insight">${escHtml(p.memory_insight.slice(0,140))}${p.memory_insight.length>140?'…':''}</div>`
+      : ''}
+  </div>`;
+}
+
+function filterPapers(query) {
+  const q = query.toLowerCase();
+  const platform = document.getElementById('platformFilter').value.toLowerCase();
+  const filtered = allPapers.filter(p => {
+    const matchQ = !q || p.title?.toLowerCase().includes(q) ||
+                         p.memory_insight?.toLowerCase().includes(q) ||
+                         p.engineering_takeaway?.toLowerCase().includes(q);
+    const matchP = !platform || (p.platform||'').toLowerCase() === platform;
+    return matchQ && matchP;
+  });
+  renderPapers(filtered);
+}
+
+function selectPaper(id) {
+  selectedPaperId = id;
+  selectedPaper = allPapers.find(p => p._id === id);
+  // Update selected state
+  document.querySelectorAll('.paper-card').forEach(c =>
+    c.classList.toggle('selected', c.onclick?.toString().includes(id)));
+  if (selectedPaper) {
+    document.getElementById('chatContextLabel').textContent = selectedPaper.title?.slice(0,45)+'…';
+    document.getElementById('contextPillTitle').textContent = selectedPaper.title?.slice(0,50)+'…';
+    document.getElementById('contextPill').style.display = 'flex';
+    openDetail(selectedPaper);
+  }
+}
+
+// ── DETAIL VIEW ────────────────────────────────────────────────────────
+function openDetail(p) {
+  document.getElementById('detailTitle').textContent = p.title||'Untitled';
+  document.getElementById('detailBody').innerHTML = buildDetailFields(p);
+  document.getElementById('detailOverlay').classList.add('open');
+}
+function closeDetail() { document.getElementById('detailOverlay').classList.remove('open'); }
+
+function buildDetailFields(p) {
+  const fields = [
+    {key:'relevance_score', label:'Relevance Score'},
+    {key:'platform',        label:'Platform'},
+    {key:'model_type',      label:'Model Type'},
+    {key:'dram_impact',     label:'DRAM Impact'},
+    {key:'memory_insight',  label:'Memory Insight', editable:true},
+    {key:'engineering_takeaway', label:'Engineering Takeaway', editable:true},
+    {key:'deployment_feasibility', label:'Deployment Feasibility', editable:true},
+  ];
+  return fields.map(f => {
+    const val = p[f.key] || '—';
+    return `<div class="detail-field">
+      <div class="field-label">${f.label}</div>
+      <div class="field-value ${f.editable?'editable':''}"
+           ${f.editable?`onclick="editField('${p._id}','${f.key}',this)"`:''}>
+        ${escHtml(String(val))}
+        ${f.editable?`<span class="edit-indicator">✏</span>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function editField(pid, field, el) {
+  const current = el.firstChild?.textContent?.trim() || '';
+  const newVal = prompt(`Edit ${field}:`, current);
+  if (newVal === null || newVal === current) return;
+  try {
+    const r = await fetch(`${API}/api/papers/${pid}`, {
+      method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({[field]: newVal})
+    });
+    if (r.ok) {
+      const d = await r.json();
+      // Update local
+      const idx = allPapers.findIndex(p=>p._id===pid);
+      if (idx>-1) allPapers[idx] = d.paper;
+      openDetail(d.paper);
+      toast('Field updated ✓', 'success');
+    }
+  } catch(e) { toast('Update failed', 'error'); }
+}
+
+function chatAboutPaper() {
+  closeDetail();
+  // Focus chat
+  document.getElementById('chatInput').focus();
+}
+
+// ── CHAT ───────────────────────────────────────────────────────────────
+function clearContext() {
+  selectedPaperId = null;
+  selectedPaper = null;
+  document.getElementById('contextPill').style.display = 'none';
+  document.getElementById('chatContextLabel').textContent = 'No paper selected';
+}
+
+function clearChat() {
+  chatHistory = [];
+  document.getElementById('chatMessages').innerHTML = '';
+}
+
+function handleKey(e) {
+  if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+function autoResize(ta) {
+  ta.style.height = 'auto';
+  ta.style.height = Math.min(ta.scrollHeight, 120) + 'px';
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const content = input.value.trim();
+  if (!content || streaming) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+
+  appendMsg('user', content);
+  chatHistory.push({role:'user', content});
+
+  const assistantEl = appendMsg('assistant', '', true);
+  streaming = true;
+  document.getElementById('sendBtn').disabled = true;
+
+  const payload = JSON.stringify({
+    content,
+    paper_id: selectedPaperId,
+    context: chatHistory.slice(-6)
+  });
+
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(payload);
+  } else {
+    // REST fallback
+    try {
+      const r = await fetch(`${API}/api/chat/message`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({content, paper_id: selectedPaperId, context: chatHistory.slice(-6)})
+      });
+      const d = await r.json();
+      const bubble = assistantEl.querySelector('.msg-bubble');
+      bubble.classList.remove('typing-cursor');
+      bubble.textContent = d.response;
+      chatHistory.push({role:'assistant', content: d.response});
+    } catch(e) {
+      assistantEl.querySelector('.msg-bubble').textContent = 'Error connecting to API.';
+    }
+    streaming = false;
+    document.getElementById('sendBtn').disabled = false;
+    scrollChat();
+  }
+}
+
+let currentStreamEl = null;
+let currentStreamText = '';
+
+function appendMsg(role, content, streaming=false) {
+  const el = document.createElement('div');
+  el.className = `msg ${role}`;
+  const time = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  el.innerHTML = `
+    <div class="msg-bubble ${streaming?'typing-cursor':''}">
+      ${escHtml(content)}
+    </div>
+    <div class="msg-time">${time}</div>`;
+  document.getElementById('chatMessages').appendChild(el);
+  scrollChat();
+  if (streaming) { currentStreamEl = el.querySelector('.msg-bubble'); currentStreamText = ''; }
+  return el;
+}
+
+function appendStreamToken(token) {
+  if (!currentStreamEl) return;
+  currentStreamText += token;
+  currentStreamEl.textContent = currentStreamText;
+  scrollChat();
+}
+
+function finishStream() {
+  if (currentStreamEl) {
+    currentStreamEl.classList.remove('typing-cursor');
+    chatHistory.push({role:'assistant', content: currentStreamText});
+    // Check for update action
+    parseAndApplyAction(currentStreamText);
+    currentStreamEl = null;
+    currentStreamText = '';
+  }
+  streaming = false;
+  document.getElementById('sendBtn').disabled = false;
+}
+
+async function parseAndApplyAction(text) {
+  const m = text.match(/```json\s*([\s\S]*?)\s*```/);
+  if (!m) return;
+  try {
+    const action = JSON.parse(m[1]);
+    if (action.action === 'update_paper' && selectedPaperId) {
+      const r = await fetch(`${API}/api/papers/${selectedPaperId}`, {
+        method:'PUT',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({[action.field]: action.value})
+      });
+      if (r.ok) {
+        const d = await r.json();
+        const idx = allPapers.findIndex(p=>p._id===selectedPaperId);
+        if (idx>-1) allPapers[idx] = d.paper;
+        renderPapers(allPapers);
+        toast(`Updated: ${action.field} ✓`, 'success');
+      }
+    }
+  } catch(e) {}
+}
+
+function scrollChat() {
+  const el = document.getElementById('chatMessages');
+  el.scrollTop = el.scrollHeight;
+}
+
+// ── PIPELINE ───────────────────────────────────────────────────────────
+function openPipelineModal() { document.getElementById('pipelineModal').classList.add('open'); }
+function closePipelineModal() { document.getElementById('pipelineModal').classList.remove('open'); }
+
+function addLog(msg, type='') {
+  const box = document.getElementById('pipelineLog');
+  const line = document.createElement('div');
+  line.className = `log-line ${type}`;
+  line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  box.appendChild(line);
+  box.scrollTop = box.scrollHeight;
+}
+
+function startPipeline() {
+  document.getElementById('pipelineLog').innerHTML = '';
+  document.getElementById('pipelineStartBtn').disabled = true;
+  addLog('Connecting to pipeline WebSocket…');
+
+  try {
+    wsPipe = new WebSocket(WS_PIPE);
+    wsPipe.onopen = () => {
+      addLog('Connected. Starting pipeline…');
+      wsPipe.send('start');
+    };
+    wsPipe.onmessage = (e) => {
+      const data = JSON.parse(e.data);
+      if (data.type === 'progress') {
+        setProgress(data.progress, data.message);
+        addLog(data.message, 'ok');
+      } else if (data.type === 'complete') {
+        setProgress(100, 'Complete!');
+        addLog('✅ Pipeline complete!', 'ok');
+        document.getElementById('pipelineStartBtn').disabled = false;
+        loadPapers(); loadStats();
+      } else if (data.type === 'error') {
+        addLog(`❌ ${data.message}`, 'err');
+        document.getElementById('pipelineStartBtn').disabled = false;
+      }
+    };
+    wsPipe.onerror = () => { addLog('WebSocket error', 'err'); usePollFallback(); };
+    wsPipe.onclose = () => { document.getElementById('pipelineStartBtn').disabled = false; };
+  } catch(e) { usePollFallback(); }
+}
+
+function usePollFallback() {
+  addLog('Falling back to HTTP polling…');
+  fetch(`${API}/api/pipeline/status`).then(r=>r.json()).then(d=>{
+    setProgress(d.progress||0, d.message||'Running…');
+    addLog(d.message||'Running…','ok');
+  });
+}
+
+function setProgress(pct, msg) {
+  document.getElementById('modalProgressFill').style.width = pct+'%';
+  document.getElementById('modalProgressMsg').textContent = msg;
+  document.getElementById('pipeProgressFill').style.width = pct+'%';
+  document.getElementById('pipeProgressMsg').textContent = msg;
+}
+
+async function stopPipeline() {
+  await fetch(`${API}/api/pipeline/stop`, {method:'POST'});
+  if (wsPipe) wsPipe.close();
+  setProgress(0, 'Stopped by user');
+  addLog('Pipeline stopped', 'err');
+  document.getElementById('pipelineStartBtn').disabled = false;
+  toast('Pipeline stopped');
+}
+
+// ── STATS ──────────────────────────────────────────────────────────────
+async function loadStats() {
+  try {
+    const [stats, hitl] = await Promise.all([
+      fetch(`${API}/api/stats/`).then(r=>r.json()),
+      fetch(`${API}/api/hitl/pending`).then(r=>r.json()),
+    ]);
+    document.getElementById('statTotal').textContent = stats.total ?? '—';
+    document.getElementById('statAvg').textContent   = stats.avg_score ?? '—';
+    document.getElementById('statTop').textContent   = stats.top_score ?? '—';
+    document.getElementById('statPending').textContent = hitl.count ?? '—';
+    document.getElementById('hitlPending').textContent = hitl.count ?? '—';
+    document.getElementById('pipeTotal').textContent = stats.total ?? '—';
+  } catch(e) {}
+}
+
+// ── HITL ───────────────────────────────────────────────────────────────
+async function loadHITL() {
+  try {
+    const r = await fetch(`${API}/api/hitl/pending`);
+    const d = await r.json();
+    document.getElementById('hitlCount').textContent =
+      `${d.count} papers awaiting review`;
+    const list = document.getElementById('hitlList');
+    if (!d.reviews?.length) {
+      list.innerHTML = `<div class="empty">
+        <div class="empty-icon">✅</div>
+        <div class="empty-title">Queue is clear</div>
+        <div class="empty-sub">All papers have been reviewed.</div>
+      </div>`;
+      return;
+    }
+    list.innerHTML = d.reviews.map(r => hitlCard(r)).join('');
+  } catch(e) {
+    document.getElementById('hitlList').innerHTML = '<div class="empty"><div class="empty-icon">⚠</div><div class="empty-title">API unavailable</div></div>';
+  }
+}
+
+function hitlCard(r) {
+  const a = r.analysis || {};
+  return `<div class="hitl-card" id="hitl-${r.review_id}">
+    <div class="hitl-title">${escHtml(r.paper?.title || 'Untitled')}</div>
+    <div class="hitl-meta">
+      <span class="tag">Score: ${a.relevance_score??'—'}</span>
+      <span class="tag">Confidence: ${r.confidence?Math.round(r.confidence*100)+'%':'—'}</span>
+      <span class="tag platform">${a.platform||'Unknown'}</span>
+      <span class="tag ${a.dram_impact==='High'?'impact-high':a.dram_impact==='Medium'?'impact-med':''}">${a.dram_impact||'Unknown'} DRAM</span>
+    </div>
+    <div class="card-insight">${escHtml((a.memory_insight||'—').slice(0,160))}</div>
+    ${r.review_questions?.length ? `<div style="font-size:11px;color:var(--amber);margin-top:4px">
+      ⚠ ${r.review_questions[0]}</div>` : ''}
+    <div class="hitl-actions">
+      <button class="btn approve" onclick="hitlAction('${r.review_id}','approve')">✓ Approve</button>
+      <button class="btn reject"  onclick="hitlAction('${r.review_id}','reject')">✕ Reject</button>
+    </div>
+  </div>`;
+}
+
+async function hitlAction(id, action) {
+  const notes = action==='reject' ? prompt('Reason for rejection:') : '';
+  try {
+    const r = await fetch(`${API}/api/hitl/${action}`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({review_id: id, notes: notes||''})
+    });
+    if (r.ok) {
+      document.getElementById(`hitl-${id}`)?.remove();
+      toast(`Paper ${action}d ✓`, 'success');
+      loadStats();
+    }
+  } catch(e) { toast(`Failed to ${action}`, 'error'); }
+}
+
+// ── VIEW SWITCHING ─────────────────────────────────────────────────────
+function switchView(name, el) {
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById(`view-${name}`).classList.add('active');
+  el.classList.add('active');
+  if (name==='hitl') loadHITL();
+}
+
+// ── MOBILE CHAT TOGGLE ─────────────────────────────────────────────────
+function toggleChat() {
+  document.getElementById('chatPanel').classList.toggle('mobile-open');
+}
+
+// ── TOAST ──────────────────────────────────────────────────────────────
+let toastTimer;
+function toast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `show ${type}`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.className='', 2800);
+}
+
+// ── UTILS ──────────────────────────────────────────────────────────────
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── RESPONSIVE CHAT TOGGLE ─────────────────────────────────────────────
+function checkMobile() {
+  const isMobile = window.innerWidth < 900;
+  document.getElementById('chatToggle').style.display = isMobile ? 'flex' : 'none';
+}
+window.addEventListener('resize', checkMobile);
+checkMobile();
+
+// ── INIT ───────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  connectWS();
+  loadPapers();
+  loadStats();
+  // Poll stats every 30s
+  setInterval(loadStats, 30000);
+  // Poll pipeline status every 5s if running
+  setInterval(async () => {
+    try {
+      const r = await fetch(`${API}/api/pipeline/status`);
+      const d = await r.json();
+      if (d.running) setProgress(d.progress||0, d.message||'');
+    } catch(e) {}
+  }, 5000);
+});
+</script>
+</body>
+</html>

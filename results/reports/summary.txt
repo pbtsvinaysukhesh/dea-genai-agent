@@ -1,0 +1,69 @@
+================================================================================
+ON-DEVICE AI INTELLIGENCE REPORT - SUMMARY
+Generated: February 25, 2026
+================================================================================
+
+EXECUTIVE SUMMARY
+--------------------------------------------------------------------------------
+Total Papers Analyzed: 6
+Average Relevance Score: 90.0/100
+
+Platform Breakdown:
+  • Mobile: 2 papers
+  • Laptop: 2 papers
+  • IoT: 2 papers
+
+Impact Distribution:
+  • High Impact: 2 papers
+  • Medium Impact: 2 papers
+  • Low Impact: 2 papers
+
+TOP 6 PAPERS
+--------------------------------------------------------------------------------
+
+#1 Neural Architecture Search for Edge Devices
+  Source: ICLR | Score: 95/100
+  Platform: IoT | Impact: Low
+  Memory Insight: Paper 3: Demonstrates Dynamic Quantization achieving 3.2x reduction in model size while maintaining inference speed within 5% of baseline.
+  Takeaway: Implement Dynamic Quantization in production systems. Consider calibration dataset size and quantization granularity for optimal performance.
+
+#2 Hardware-Aware Model Compression Techniques
+  Source: arXiv | Score: 95/100
+  Platform: IoT | Impact: Low
+  Memory Insight: Paper 6: Demonstrates Differentiable Quantization achieving 3.2x reduction in model size while maintaining inference speed within 5% of baseline.
+  Takeaway: Implement Differentiable Quantization in production systems. Consider calibration dataset size and quantization granularity for optimal performance.
+
+#3 DRAM Bandwidth Optimization on Mobile Platforms
+  Source: NeurIPS | Score: 90/100
+  Platform: Laptop | Impact: Medium
+  Memory Insight: Paper 2: Demonstrates Mixed-Precision (Int4/Int8) achieving 3.2x reduction in model size while maintaining inference speed within 5% of baseline.
+  Takeaway: Implement Mixed-Precision (Int4/Int8) in production systems. Consider calibration dataset size and quantization granularity for optimal performance.
+
+#4 Memory-Efficient Attention Mechanisms
+  Source: Google Scholar | Score: 90/100
+  Platform: Laptop | Impact: Medium
+  Memory Insight: Paper 5: Demonstrates Pruning with Quantization achieving 3.2x reduction in model size while maintaining inference speed within 5% of baseline.
+  Takeaway: Implement Pruning with Quantization in production systems. Consider calibration dataset size and quantization granularity for optimal performance.
+
+#5 Efficient Quantization for On-Device Neural Networks
+  Source: arXiv | Score: 85/100
+  Platform: Mobile | Impact: High
+  Memory Insight: Paper 1: Demonstrates Int8 Quantization achieving 3.2x reduction in model size while maintaining inference speed within 5% of baseline.
+  Takeaway: Implement Int8 Quantization in production systems. Consider calibration dataset size and quantization granularity for optimal performance.
+
+#6 Mixed-Precision Inference for LLMs
+  Source: ICML | Score: 85/100
+  Platform: Mobile | Impact: High
+  Memory Insight: Paper 4: Demonstrates Knowledge Distillation achieving 3.2x reduction in model size while maintaining inference speed within 5% of baseline.
+  Takeaway: Implement Knowledge Distillation in production systems. Consider calibration dataset size and quantization granularity for optimal performance.
+
+KEY FINDINGS
+--------------------------------------------------------------------------------
+Top Techniques:
+  • Int8 Quantization: 1 papers
+  • Mixed-Precision (Int4/Int8): 1 papers
+  • Dynamic Quantization: 1 papers
+
+================================================================================
+For more details, see the full reports in other formats.
+================================================================================

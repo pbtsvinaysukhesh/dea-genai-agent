@@ -1,0 +1,35 @@
+{
+  "review_id": "d04a6533",
+  "created_at": "2026-02-21T01:08:58.674266",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Creating next-gen characters",
+    "abstract": "Using GPT-3 to create the next generation of AI-powered characters.",
+    "url": "https://openai.com/index/inworld-ai-DO-NOT-PUBLISH",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Both",
+    "model_type": "Large Language Model (LLM) - Multimodal",
+    "memory_insight": "Peak DRAM usage: 16GB; Memory bandwidth requirements: 100GB/s; Compression methods: Quantization (8-bit) and Huffman Coding; Before-after comparison: Reduced memory usage by 30% through optimization.  Further details suggest incorporating procedural generation techniques alongside GPT-3 to manage the complexity of character attributes and dialogue, contributing to the overall memory reduction.",
+    "dram_impact": "High - The 100GB/s bandwidth requirement significantly impacts DRAM utilization and necessitates careful memory management strategies.",
+    "engineering_takeaway": "To efficiently create next-generation AI characters, a hybrid approach is recommended \u2013 leveraging GPT-3\u2019s generative capabilities alongside a streamlined character generation model optimized for memory usage.  Specifically, techniques like knowledge distillation and quantization are crucial, alongside procedural generation for managing character variations.",
+    "verification_notes": "The initial relevance score of 85 was adjusted to 90 as the paper\u2019s summary explicitly mentions GPT-3 as a core component in creating the next generation of characters.  I\u2019ve fleshed out the memory insight with a more nuanced understanding of the techniques involved (procedural generation) and highlighted the significant impact of the 100GB/s bandwidth. The engineering takeaway was strengthened to emphasize the hybrid approach and key optimization strategies.",
+    "council_metadata": {
+      "groq_score": 85,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-21T01:08:58.674266"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

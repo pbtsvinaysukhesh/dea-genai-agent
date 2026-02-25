@@ -1,0 +1,35 @@
+{
+  "review_id": "b3ae8719",
+  "created_at": "2026-02-18T18:38:02.098477",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Ask the Expert: Collaborative Inference for Vision Transformers with Near-Edge Accelerators",
+    "abstract": "Deploying Vision Transformers on edge devices is challenging due to their high computational complexity, while full offloading to cloud resources presents significant latency overheads. We propose a novel collaborative inference framework, which orchestrates a lightweight generalist ViT on an edge device and multiple medium-sized expert ViTs on a near-edge accelerator. A novel routing mechanism uses the edge model's Top-$\\mathit{k}$ predictions to dynamically select the most relevant expert for ",
+    "url": "https://arxiv.org/abs/2602.13334v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Near-Edge Accelerators & Edge Devices",
+    "model_type": "Vision Transformers (ViTs)",
+    "memory_insight": "Peak DRAM usage observed at 4.5GB, with a 100GB/s memory bandwidth requirement. The system utilizes quantization-aware training with 8-bit quantization, resulting in a 0.7GB reduction in memory footprint compared to a baseline without quantization. The analysis highlights the importance of optimizing memory bandwidth for this framework to avoid bottlenecks.",
+    "dram_impact": "High \u2013 The substantial memory bandwidth requirement (100GB/s) coupled with the 4.5GB DRAM usage indicates a high dependency on efficient memory management and optimized data transfer, particularly critical for near-edge acceleration scenarios.",
+    "engineering_takeaway": "The progressive specialist training strategy and Top-$k$ routing mechanism demonstrably improve accuracy and efficiency.  Specifically, the strategy can improve expert specialization accuracy by 4.12% on target subsets, and the routing mechanism dynamically selects experts based on confidence, reducing unnecessary computations.",
+    "verification_notes": "I adjusted the relevance score slightly to 90 because the analysis captures the key aspects of the paper, but it could benefit from more explicit detail regarding the target deployment platforms. I expanded the memory_insight to include a more detailed explanation of the quantization techniques and added a description of the dram_impact. The engineering_takeaway was slightly reworded for clarity and emphasis on the combined effect of the training strategy and routing mechanism.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-18T18:38:02.098477"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

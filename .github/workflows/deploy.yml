@@ -1,0 +1,141 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_run:
+    workflows: ["Docker Build & Push"]
+    types:
+      - completed
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+
+    environment:
+      name: ${{ github.event.inputs.environment || 'production' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
+
+      - name: Login to Amazon ECR (Optional)
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        continue-on-error: true
+
+      - name: Deploy using Docker Compose
+        env:
+          DOCKER_IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          DEPLOYER_HOST: ${{ secrets.DEPLOYER_HOST }}
+          DEPLOYER_USER: ${{ secrets.DEPLOYER_USER }}
+          DEPLOYER_KEY: ${{ secrets.DEPLOYER_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$DEPLOYER_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H $DEPLOYER_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
+
+          ssh -i ~/.ssh/deploy_key $DEPLOYER_USER@$DEPLOYER_HOST << 'EOF'
+          cd /app
+          docker pull $DOCKER_IMAGE
+          docker-compose up -d
+          docker-compose logs -f ai-agent &
+          sleep 30
+          docker-compose ps
+          EOF
+
+      - name: Notify Slack (Success)
+        if: success()
+        uses: slackapi/slack-github-action@v1
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "text": "✅ Deployment Successful",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Deployment Successful* 🎉\n*Service:* AI Agent\n*Branch:* ${{ github.ref }}\n*Commit:* ${{ github.sha }}"
+                  }
+                }
+              ]
+            }
+
+      - name: Notify Slack (Failure)
+        if: failure()
+        uses: slackapi/slack-github-action@v1
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "text": "❌ Deployment Failed",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Deployment Failed* ⚠️\n*Service:* AI Agent\n*Branch:* ${{ github.ref }}\n*Check logs:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+                }
+              ]
+            }
+
+  smoke-test:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: always()
+
+    steps:
+      - name: Health check
+        run: |
+          max_attempts=30
+          attempt=1
+          while [ $attempt -le $max_attempts ]; do
+            if curl -f http://${{ secrets.DEPLOYER_HOST }}:8000/health 2>/dev/null; then
+              echo "✅ Service is healthy"
+              exit 0
+            fi
+            echo "Attempt $attempt failed, retrying..."
+            attempt=$((attempt + 1))
+            sleep 2
+          done
+          echo "❌ Service health check failed after $max_attempts attempts"
+          exit 1
+        continue-on-error: true
+
+      - name: API endpoint test
+        run: |
+          curl -X GET http://${{ secrets.DEPLOYER_HOST }}:8000/api/papers?limit=1 || true
+        continue-on-error: true

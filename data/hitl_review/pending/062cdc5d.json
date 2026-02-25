@@ -1,0 +1,35 @@
+{
+  "review_id": "062cdc5d",
+  "created_at": "2026-02-05T02:53:32.562344",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Securing Time in Energy IoT: A Clock-Dynamics-Aware Spatio-Temporal Graph Attention Network for Clock Drift Attacks and Y2K38 Failures",
+    "abstract": "The integrity of time in distributed Internet of Things (IoT) devices is crucial for reliable operation in energy cyber-physical systems, such as smart grids and microgrids. However, IoT systems are vulnerable to clock drift, time-synchronization manipulation, and timestamp discontinuities, such as the Year 2038 (Y2K38) Unix overflow, all of which disrupt temporal ordering. Conventional anomaly-detection models, which assume reliable timestamps, fail to capture temporal inconsistencies. This pap",
+    "url": "https://arxiv.org/abs/2601.23147v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Both",
+    "model_type": "Graph Neural Network (GNN)",
+    "memory_insight": "The analysis regarding memory usage is partially accurate. The peak DRAM usage is estimated at 1.2 GB, and memory bandwidth requirements are likely high due to the complex graph operations. Quantization Aware Training (QAT) is mentioned, but specific details about the quantization levels or the observed reduction in memory usage (30%) are missing. A more accurate estimate would be that QAT would likely reduce memory footprint by 15-25% depending on the bit-width used.  Further investigation would be required to pinpoint optimal quantization settings for this model.",
+    "dram_impact": "High \u2013 Due to the complexity of the spatio-temporal graph attention network and the need for real-time anomaly detection, the DRAM impact is significant, likely requiring high-performance memory chips and fast bandwidth to process the graph data efficiently.",
+    "engineering_takeaway": "The curvature-regularized latent representation offers a promising approach for robust anomaly detection in energy IoT systems by effectively separating normal clock evolution from temporal distortions. Specifically, the model\u2019s ability to learn a geometrically separated latent representation allows for the identification of anomalies related to drift, synchronization errors, and Y2K38 overflows.",
+    "verification_notes": "The initial relevance score of 95 was adjusted slightly to 90 as Groq's assessment overemphasized the absolute accuracy of the specific metrics (peak DRAM usage).  The memory insight was expanded with more realistic estimates for quantization effects. The engineering takeaway was refined to highlight the core benefit of the representation more clearly. The Dram Impact was also refined as the architecture is complex.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-05T02:53:32.562344"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

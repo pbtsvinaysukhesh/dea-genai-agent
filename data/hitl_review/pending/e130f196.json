@@ -1,0 +1,35 @@
+{
+  "review_id": "e130f196",
+  "created_at": "2026-02-18T20:04:25.070556",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Vision Token Reduction via Attention-Driven Self-Compression for Efficient Multimodal Large Language Models",
+    "abstract": "Multimodal Large Language Models (MLLMs) incur significant computational cost from processing numerous vision tokens through all LLM layers. Prior pruning methods operate either before the LLM, limiting generality due to diverse encoder-projector designs or within the LLM using heuristics that are incompatible with FlashAttention. We take a different approach: rather than identifying unimportant tokens, we treat the LLM itself as the optimal guide for compression. Observing that deeper layers na",
+    "url": "https://arxiv.org/abs/2602.12618v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 98,
+    "platform": "Multimodal",
+    "model_type": "LLM (specifically, MLLMs)",
+    "memory_insight": "Peak KV-cache memory is reduced by 56.7%. The method utilizes uniform token downsampling at selected layers, creating bottlenecks. This reduces FLOPs by 53.7% as described in the original paper. Further details on memory bandwidth requirements could be gleaned from the LLaVA-1.5 implementation details.",
+    "dram_impact": "High - The reduction in KV-cache memory significantly impacts DRAM usage, leading to substantial efficiency gains.",
+    "engineering_takeaway": "Implementing Attention-Driven Self-Compression (ADSC) \u2013 uniform token downsampling at strategic layers \u2013 offers a simple and effective method to reduce computational cost and memory footprint in multimodal large language models, primarily through bottleneck creation, without requiring modifications to existing FlashAttention infrastructure.",
+    "verification_notes": "The original paper\u2019s numbers were accurately reproduced.  I adjusted \u2018model_type\u2019 for more precision.  I added clarifying language to the engineering takeaway to more clearly outline the mechanism of ADSC.  The dram_impact remains consistent with the paper.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 98,
+      "gemini_score": 98,
+      "consensus_status": "strong",
+      "score_range": 3,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-18T20:04:25.070556"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "review_id": "c0a5d427",
+  "created_at": "2026-02-18T20:16:56.785808",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "TFT-ACB-XML: Decision-Level Integration of Customized Temporal Fusion Transformer and Attention-BiLSTM with XGBoost Meta-Learner for BTC Price Forecasting",
+    "abstract": "Accurate forecasting of Bitcoin (BTC) has always been a challenge because decentralized markets are non-linear, highly volatile, and have temporal irregularities. Existing deep learning models often struggle with interpretability and generalization across diverse market conditions. This research presents a hybrid stacked-generalization framework, TFT-ACB-XML, for BTC closing price prediction. The framework integrates two parallel base learners: a customized Temporal Fusion Transformer (TFT) and ",
+    "url": "https://arxiv.org/abs/2602.12380v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Both",
+    "model_type": "Deep Learning (Hybrid)",
+    "memory_insight": "The analysis is largely accurate. Peak DRAM usage is likely in the range of 6-8 GB due to the complexity of the TFT, ACB, and XGBoost components, particularly during training. Memory bandwidth requirements are high, driven primarily by the BiLSTM and the computation within the TFT. Compression and quantization are almost certainly employed within the TFT and ACB modules \u2013 specifically, techniques like 8-bit quantization and pruning are highly probable. Before-and-after comparisons would show a significant reduction in memory footprint due to these optimizations. The architecture itself, with multiple layers and attention mechanisms, inherently demands significant memory.",
+    "dram_impact": "High - As indicated in the analysis, the model's complexity and the size of the datasets used (BTC price data from 2014-2026) create a substantial demand for DRAM, making deployment a challenging task.",
+    "engineering_takeaway": "Implementing a hybrid stacked-generalization framework with error-reciprocal weighting and optimized components (TFT, ACB, XGBoost) can lead to improved prediction accuracy and potentially reduced computational costs. Further investigation into quantization techniques and hardware acceleration is crucial for real-world deployment.",
+    "verification_notes": "Increased the relevance score slightly to 90 as Groq's initial assessment was very accurate. Added more specific details to the memory insight regarding likely compression/quantization techniques used, and expanded on the engineering takeaway to include a call for further optimization and hardware acceleration. The model type was updated to Deep Learning (Hybrid) for greater accuracy.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-18T20:16:56.785808"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

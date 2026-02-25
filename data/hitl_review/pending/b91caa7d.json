@@ -1,0 +1,35 @@
+{
+  "review_id": "b91caa7d",
+  "created_at": "2026-02-05T05:07:43.267074",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Relational Graph Modeling for Credit Default Prediction: Heterogeneous GNNs and Hybrid Ensemble Learning",
+    "abstract": "Credit default risk arises from complex interactions among borrowers, financial institutions, and transaction-level behaviors. While strong tabular models remain highly competitive in credit scoring, they may fail to explicitly capture cross-entity dependencies embedded in multi-table financial histories. In this work, we construct a massive-scale heterogeneous graph containing over 31 million nodes and more than 50 million edges, integrating borrower attributes with granular transaction-level e",
+    "url": "https://arxiv.org/abs/2601.14633v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Graph Neural Networks (GNNs)",
+    "model_type": "Heterogeneous GNN",
+    "memory_insight": "The paper describes a massive graph with 31 million nodes and 50 million edges. Estimating DRAM usage, we can approximate the node size as 4 bytes and the edge size as 8 bytes. Therefore, DRAM usage would be 31,000,000 nodes * 4 bytes/node = 124 MB. Memory bandwidth would be 50,000,000 edges * 8 bytes/edge = 400 MB. Further assumptions about data types and potential compression would be needed for a precise calculation, but this provides a reasonable estimation.  The paper doesn't explicitly detail compression or before-and-after comparisons, so these remain \u2018Not mentioned\u2019.",
+    "dram_impact": "High \u2013 The scale of the graph (31M nodes and 50M edges) indicates a significant DRAM demand, particularly when performing computations with the GNNs.",
+    "engineering_takeaway": "The optimal approach is a hybrid ensemble learning method that combines tabular features with GNN-derived customer embeddings to maximize ROC-AUC and PR-AUC performance.",
+    "verification_notes": "The relevance score was slightly adjusted from 95 to 90 as the paper's focus is broader than just 'Other' models. Memory insight numbers were calculated based on the provided node and edge counts. The engineering takeaway was slightly refined for clarity and actionability.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-05T05:07:43.267074"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

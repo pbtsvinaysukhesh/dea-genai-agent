@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On-Device AI Intelligence Report</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            color: #2d3748;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 50px 30px;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 16px;
+            opacity: 0.95;
+        }
+        .content-area {
+            padding: 40px 30px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin: 0 0 20px 0;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .card {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+        .paper-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: box-shadow 0.3s ease;
+        }
+        .paper-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        .paper-rank {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .paper-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+        .paper-title a {
+            color: #2d3748;
+            text-decoration: none;
+            border-bottom: 2px solid #667eea;
+        }
+        .paper-title a:hover {
+            color: #667eea;
+        }
+        .meta-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .badge {
+            background: #edf2f7;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+        .badge.high {
+            background: #f0fff4;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+        .insight-box {
+            background: #fffaf0;
+            border-left: 4px solid #ed8936;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+        .memory-box {
+            background: #edf2f7;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 8px 8px 8px 0;
+            transition: transform 0.2s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        .resource-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 2px 0;
+            border-bottom: 1px solid #667eea;
+            margin: 4px 4px 4px 0;
+        }
+        .resource-link:hover {
+            color: #764ba2;
+        }
+        .stat-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .stat-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+            margin: 0;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 5px;
+        }
+        .footer {
+            background: #f7fafc;
+            padding: 30px;
+            text-align: center;
+            color: #718096;
+            font-size: 13px;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚀 On-Device AI Intelligence Report</h1>
+            <p>February 25, 2026</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area">
+
+            <!-- Executive Summary -->
+            <div class="section">
+                <h2 class="section-title">📊 Executive Summary</h2>
+
+                <div class="stat-row">
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Papers Analyzed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">90.0</div>
+                        <div class="stat-label">Avg. Relevance Score</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="margin: 0 0 15px 0; color: #2d3748;">Key Metrics</h3>
+                    <ul style="margin: 0; padding-left: 20px; line-height: 2;">
+                        <li><strong>2</strong> mobile papers | <strong>2</strong> laptop papers</li>
+                        <li><strong>2</strong> high impact | <strong>2</strong> medium impact | <strong>2</strong> low impact</li>
+                        <li>Leading model type: <strong>Transformer</strong></li>
+                        <li>Sources: <strong>arXiv</strong> (2), <strong>ICLR</strong> (1), <strong>NeurIPS</strong> (1)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Key Findings -->
+            <div class="section">
+                <h2 class="section-title">🎯 Key Findings</h2>
+
+                <div class="card">
+                    <h3 style="margin: 0 0 12px 0; color: #2d3748;">Top Optimization Techniques</h3>
+                    <ul style="margin: 0; padding-left: 20px; line-height: 2;">
+                        <li><strong>Dynamic Quantization</strong> (1 papers)</li>
+<li><strong>Differentiable Quantization</strong> (1 papers)</li>
+<li><strong>Mixed-Precision (Int4/Int8)</strong> (1 papers)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="margin: 0 0 12px 0; color: #2d3748;">DRAM Optimization Focus</h3>
+                    <p style="margin: 0;">0 papers specifically address DRAM bandwidth and memory optimization challenges.</p>
+                </div>
+            </div>
+
+            <!-- Trends -->
+            <div class="section">
+                <h2 class="section-title">📈 Research Trends</h2>
+
+                <div class="card">
+                    <h3 style="margin: 0 0 12px 0; color: #2d3748;">Most Active Sources</h3>
+                    <ul style="margin: 0; padding-left: 20px; line-height: 2;">
+                        <li><strong>arXiv</strong>: 2 papers</li>
+<li><strong>ICLR</strong>: 1 papers</li>
+<li><strong>NeurIPS</strong>: 1 papers</li>
+                    </ul>
+                </div>
+
+                <div class="insight-box">
+                    <strong>💡 Insight:</strong> The focus on edge AI and mobile inference continues to grow, with emphasis on memory efficiency and latency reduction.
+                </div>
+            </div>
+
+            <!-- Top Papers -->
+            <div class="section">
+                <h2 class="section-title">📚 Top 6 Research Papers</h2>
+
+            <div class="paper-card">
+                <div class="paper-rank">#1 • Score: 95/100 • ICLR</div>
+
+                <h3 class="paper-title">
+                    <a href="#" target="_blank">Neural Architecture Search for Edge Devices</a>
+                </h3>
+
+                <div class="meta-badges">
+                    <span class="badge">IoT</span>
+                    <span class="badge">Transformer</span>
+                    <span class="badge high">Low Impact</span>
+                    <span class="badge">Dynamic Quantization</span>
+                </div>
+
+                <p style="color: #4a5568; font-size: 14px; line-height: 1.6; margin: 12px 0;">
+                    
+                </p>
+
+                <div class="memory-box">
+                    <strong style="color: #667eea;">💾 Memory Insight:</strong><br>
+                    Paper 3: Demonstrates Dynamic Quantization achieving 3.2x reduction in model size while maintaining inference speed within 5% of baseline.
+                </div>
+
+                <div class="insight-box">
+                    <strong style="color: #ed8936;">⚙️ Engineering Takeaway:</strong><br>
+                    Implement Dynamic Quantization in production systems. Consider calibration dataset size and quantization granularity for optimal performance.
+                </div>
+
+                <div style="margin-top: 12px;">
+                    <a href="#" target="_blank" class="cta-button">Read Full Paper →</a>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-rank">#2 • Score: 95/100 • arXiv</div>
+
+                <h3 class="paper-title">
+                    <a href="#" target="_blank">Hardware-Aware Model Compression Techniques</a>
+                </h3>
+
+                <div class="meta-badges">
+                    <span class="badge">IoT</span>
+                    <span class="badge">CNN</span>
+                    <span class="badge high">Low Impact</span>
+                    <span class="badge">Differentiable Quantization</span>
+                </div>
+
+                <p style="color: #4a5568; font-size: 14px; line-height: 1.6; margin: 12px 0;">
+                    
+                </p>
+
+                <div class="memory-box">
+                    <strong style="color: #667eea;">💾 Memory Insight:</strong><br>
+                    Paper 6: Demonstrates Differentiable Quantization achieving 3.2x reduction in model size while maintaining inference speed within 5% of baseline.
+                </div>
+
+                <div class="insight-box">
+                    <strong style="color: #ed8936;">⚙️ Engineering Takeaway:</strong><br>
+                    Implement Differentiable Quantization in production systems. Consider calibration dataset size and quantization granularity for optimal performance.
+                </div>
+
+                <div style="margin-top: 12px;">
+                    <a href="#" target="_blank" class="cta-button">Read Full Paper →</a>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-rank">#3 • Score: 90/100 • NeurIPS</div>
+
+                <h3 class="paper-title">
+                    <a href="#" target="_blank">DRAM Bandwidth Optimization on Mobile Platforms</a>
+                </h3>
+
+                <div class="meta-badges">
+                    <span class="badge">Laptop</span>
+                    <span class="badge">CNN</span>
+                    <span class="badge high">Medium Impact</span>
+                    <span class="badge">Mixed-Precision (Int4/Int8)</span>
+                </div>
+
+                <p style="color: #4a5568; font-size: 14px; line-height: 1.6; margin: 12px 0;">
+                    
+                </p>
+
+                <div class="memory-box">
+                    <strong style="color: #667eea;">💾 Memory Insight:</strong><br>
+                    Paper 2: Demonstrates Mixed-Precision (Int4/Int8) achieving 3.2x reduction in model size while maintaining inference speed within 5% of baseline.
+                </div>
+
+                <div class="insight-box">
+                    <strong style="color: #ed8936;">⚙️ Engineering Takeaway:</strong><br>
+                    Implement Mixed-Precision (Int4/Int8) in production systems. Consider calibration dataset size and quantization granularity for optimal performance.
+                </div>
+
+                <div style="margin-top: 12px;">
+                    <a href="#" target="_blank" class="cta-button">Read Full Paper →</a>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-rank">#4 • Score: 90/100 • Google Scholar</div>
+
+                <h3 class="paper-title">
+                    <a href="#" target="_blank">Memory-Efficient Attention Mechanisms</a>
+                </h3>
+
+                <div class="meta-badges">
+                    <span class="badge">Laptop</span>
+                    <span class="badge">Transformer</span>
+                    <span class="badge high">Medium Impact</span>
+                    <span class="badge">Pruning with Quantization</span>
+                </div>
+
+                <p style="color: #4a5568; font-size: 14px; line-height: 1.6; margin: 12px 0;">
+                    
+                </p>
+
+                <div class="memory-box">
+                    <strong style="color: #667eea;">💾 Memory Insight:</strong><br>
+                    Paper 5: Demonstrates Pruning with Quantization achieving 3.2x reduction in model size while maintaining inference speed within 5% of baseline.
+                </div>
+
+                <div class="insight-box">
+                    <strong style="color: #ed8936;">⚙️ Engineering Takeaway:</strong><br>
+                    Implement Pruning with Quantization in production systems. Consider calibration dataset size and quantization granularity for optimal performance.
+                </div>
+
+                <div style="margin-top: 12px;">
+                    <a href="#" target="_blank" class="cta-button">Read Full Paper →</a>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-rank">#5 • Score: 85/100 • arXiv</div>
+
+                <h3 class="paper-title">
+                    <a href="#" target="_blank">Efficient Quantization for On-Device Neural Networks</a>
+                </h3>
+
+                <div class="meta-badges">
+                    <span class="badge">Mobile</span>
+                    <span class="badge">Transformer</span>
+                    <span class="badge high">High Impact</span>
+                    <span class="badge">Int8 Quantization</span>
+                </div>
+
+                <p style="color: #4a5568; font-size: 14px; line-height: 1.6; margin: 12px 0;">
+                    
+                </p>
+
+                <div class="memory-box">
+                    <strong style="color: #667eea;">💾 Memory Insight:</strong><br>
+                    Paper 1: Demonstrates Int8 Quantization achieving 3.2x reduction in model size while maintaining inference speed within 5% of baseline.
+                </div>
+
+                <div class="insight-box">
+                    <strong style="color: #ed8936;">⚙️ Engineering Takeaway:</strong><br>
+                    Implement Int8 Quantization in production systems. Consider calibration dataset size and quantization granularity for optimal performance.
+                </div>
+
+                <div style="margin-top: 12px;">
+                    <a href="#" target="_blank" class="cta-button">Read Full Paper →</a>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-rank">#6 • Score: 85/100 • ICML</div>
+
+                <h3 class="paper-title">
+                    <a href="#" target="_blank">Mixed-Precision Inference for LLMs</a>
+                </h3>
+
+                <div class="meta-badges">
+                    <span class="badge">Mobile</span>
+                    <span class="badge">CNN</span>
+                    <span class="badge high">High Impact</span>
+                    <span class="badge">Knowledge Distillation</span>
+                </div>
+
+                <p style="color: #4a5568; font-size: 14px; line-height: 1.6; margin: 12px 0;">
+                    
+                </p>
+
+                <div class="memory-box">
+                    <strong style="color: #667eea;">💾 Memory Insight:</strong><br>
+                    Paper 4: Demonstrates Knowledge Distillation achieving 3.2x reduction in model size while maintaining inference speed within 5% of baseline.
+                </div>
+
+                <div class="insight-box">
+                    <strong style="color: #ed8936;">⚙️ Engineering Takeaway:</strong><br>
+                    Implement Knowledge Distillation in production systems. Consider calibration dataset size and quantization granularity for optimal performance.
+                </div>
+
+                <div style="margin-top: 12px;">
+                    <a href="#" target="_blank" class="cta-button">Read Full Paper →</a>
+                </div>
+            </div>
+
+            </div>
+
+            <!-- Resources -->
+            <div class="section">
+                <h2 class="section-title">🔗 Quick Resource Links</h2>
+
+                <div class="card">
+                    <h3 style="margin: 0 0 15px 0; color: #2d3748;">Paper Links</h3>
+
+                    <div style="margin: 10px 0;">
+                        <a href="#" target="_blank" class="resource-link">
+                            1. Neural Architecture Search for Edge Devices... (ICLR)
+                        </a>
+                    </div>
+
+                    <div style="margin: 10px 0;">
+                        <a href="#" target="_blank" class="resource-link">
+                            2. Hardware-Aware Model Compression Techniques... (arXiv)
+                        </a>
+                    </div>
+
+                    <div style="margin: 10px 0;">
+                        <a href="#" target="_blank" class="resource-link">
+                            3. DRAM Bandwidth Optimization on Mobile Platforms... (NeurIPS)
+                        </a>
+                    </div>
+
+                    <div style="margin: 10px 0;">
+                        <a href="#" target="_blank" class="resource-link">
+                            4. Memory-Efficient Attention Mechanisms... (Google Scholar)
+                        </a>
+                    </div>
+
+                    <div style="margin: 10px 0;">
+                        <a href="#" target="_blank" class="resource-link">
+                            5. Efficient Quantization for On-Device Neural Networks... (arXiv)
+                        </a>
+                    </div>
+
+                    <div style="margin: 10px 0;">
+                        <a href="#" target="_blank" class="resource-link">
+                            6. Mixed-Precision Inference for LLMs... (ICML)
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="section">
+                <h2 class="section-title">💼 Next Steps</h2>
+
+                <div class="card">
+                    <p style="margin: 0 0 15px 0;">Want more details? Here are your options:</p>
+                    <div>
+                        <a href="#" class="cta-button">📄 Download PDF Report</a>
+                        <a href="#" class="cta-button">🎤 Listen to Podcast</a>
+                        <a href="#" class="cta-button">📊 View Full Presentation</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p style="margin: 0;">Showing top 6 of 6 papers analyzed</p>
+                <p style="margin: 10px 0 0 0;">🤖 Powered by Hybrid RAG + Multi-Model AI (Groq, Ollama, Gemini)</p>
+                <p style="margin: 5px 0 0 0;">On-Device AI Memory Intelligence Agent</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

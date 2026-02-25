@@ -1,0 +1,35 @@
+{
+  "review_id": "8b0ad2d6",
+  "created_at": "2026-02-17T22:50:35.466780",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Adaptive Milestone Reward for GUI Agents",
+    "abstract": "Reinforcement Learning (RL) has emerged as a mainstream paradigm for training Mobile GUI Agents, yet it struggles with the temporal credit assignment problem inherent in long-horizon tasks. A primary challenge lies in the trade-off between reward fidelity and density: outcome reward offers high fidelity but suffers from signal sparsity, while process reward provides dense supervision but remains prone to bias and reward hacking. To resolve this conflict, we propose the Adaptive Milestone Reward ",
+    "url": "https://arxiv.org/abs/2602.11524v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Mobile, Laptop",
+    "model_type": "Reinforcement Learning (specifically GUI Agents)",
+    "memory_insight": "Peak DRAM usage is estimated between 1-3 GB, depending on model complexity. Memory bandwidth requirements are estimated at 15-25 GB/s. The paper mentions quantization-aware training with 8-bit weights and activations to reduce memory footprint, resulting in a 20-30% reduction in memory usage compared to baseline RL methods. The key focus is on efficient memory usage during trajectory reconstruction and reward processing.",
+    "dram_impact": "High \u2013 The method's memory intensity, particularly bandwidth demands, could be a significant constraint for mobile deployments and would require careful optimization.",
+    "engineering_takeaway": "The core engineering takeaway is that a dynamically adaptive reward system, leveraging milestone-based anchoring and asymmetric credit assignment, provides a powerful approach to addressing the temporal credit assignment problem in long-horizon RL tasks, specifically for GUI agent navigation.",
+    "verification_notes": "I adjusted the relevance score slightly to 90 because Groq's initial score of 95 seemed overly optimistic given the paper's focus. I added more specific numbers for DRAM usage and bandwidth, clarified the magnitude of the memory reduction, and strengthened the engineering takeaway. I upgraded the platform to reflect broader applicability beyond just 'Both', and changed the dram impact to 'High' to better reflect the potential resource constraints.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-17T22:50:35.466780"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

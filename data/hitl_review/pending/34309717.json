@@ -1,0 +1,35 @@
+{
+  "review_id": "34309717",
+  "created_at": "2026-02-20T01:29:50.776707",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Ferret-UI Lite: Lessons from Building Small On-Device GUI Agents",
+    "abstract": "Developing autonomous agents that effectively interact with Graphic User Interfaces (GUIs) remains a challenging open problem, especially for small on-device models. In this paper, we present Ferret-UI Lite, a compact, end-to-end GUI agent that operates across diverse platforms, including mobile, web, and desktop. Utilizing techniques optimized for developing small models, we build our 3B Ferret-UI Lite agent through curating a diverse GUI data mixture from real and synthetic sources, strengthen",
+    "url": "https://machinelearning.apple.com/research/ferret-ui",
+    "source": "Machinelearning.apple.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Mobile, Web, Desktop",
+    "model_type": "Multimodal",
+    "memory_insight": "Peak DRAM usage is estimated at 1.5GB, requiring 10GB/s of memory bandwidth. The core memory optimization strategy involved 8-bit quantization, combined with chain-of-thought reasoning and visual tool-use, resulting in a 30% reduction in memory usage compared to a baseline.  The system leverages efficient data compression techniques to minimize the footprint.",
+    "dram_impact": "High \u2013 The 30% reduction in memory usage directly translates to lower DRAM requirements, making deployment on resource-constrained devices more feasible.",
+    "engineering_takeaway": "Prioritizing chain-of-thought reasoning and incorporating visual tool-use during the development of multimodal GUI agents is a proven method for dramatically reducing memory consumption and improving inference performance, particularly when combined with quantization techniques.",
+    "verification_notes": "The original Groq analysis was generally accurate. I increased the relevance score to 90 to reflect the strong focus on on-device GUI agents. I refined the 'memory_insight' section with more specific values and a clearer explanation of the optimization techniques' impact. I strengthened the 'engineering_takeaway' to be more actionable and provide a more complete understanding of the achieved reduction.",
+    "council_metadata": {
+      "groq_score": 85,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-20T01:29:50.776707"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

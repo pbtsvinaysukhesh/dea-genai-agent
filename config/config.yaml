@@ -1,0 +1,377 @@
+# ============================================================================
+# On-Device AI Memory Intelligence Agent Configuration
+# ============================================================================
+
+system:
+  # --------------------------------------------------------------------------
+  # Core system controls
+  # --------------------------------------------------------------------------
+
+  # Relevance score threshold (0–100)
+  relevance_threshold: 60
+
+  # Number of days of historical context to load
+  context_days: 14
+
+  # Gemini model to use (basic / fallback mode)
+  # Options:
+  # - gemini-2.0-flash
+  # - gemini-1.5-pro
+  # - gemini-robotics-er-1.5-preview
+  model_name: "gemini-2.0-flash"
+
+  # --------------------------------------------------------------------------
+  # Multi-Model Failover Configuration
+  # (Ollama → Groq → Gemini)
+  # --------------------------------------------------------------------------
+  use_vectors: true 
+  multi_model:
+    enabled: true
+
+    # Ollama (local, private, free)
+    ollama_url: "http://localhost:11434"
+    ollama_model: "gemma3:4b"
+
+    # Groq (fast cloud inference)
+    groq_model: "llama-3.1-8b-instant"
+
+    # Provider priority
+    priority:
+      - "ollama"
+      - "groq"
+      - "gemini"
+
+  # --------------------------------------------------------------------------
+  # Graph-RAG Configuration
+  # --------------------------------------------------------------------------
+
+  graph_rag:
+    enabled: true
+    use_embeddings: true
+    data_dir: "data/knowledge"
+
+  # --------------------------------------------------------------------------
+  # Hybrid Search Configuration (BM25 + Semantic)
+  # --------------------------------------------------------------------------
+
+  hybrid_search:
+    enabled: true
+    # Alpha: weight for semantic search (0-1)
+    # 0.6 = 60% semantic similarity, 40% keyword (BM25)
+    # Higher = more semantic, lower = more keyword-focused
+    alpha: 0.6
+
+    # BM25 parameters
+    bm25:
+      k1: 1.5      # Term frequency saturation
+      b: 0.75      # Length normalization
+
+    # Vector search threshold
+    similarity_threshold: 0.3
+
+    # Number of results to retrieve
+    top_k: 10
+
+  # --------------------------------------------------------------------------
+  # MMR (Maximum Marginal Relevance) Configuration
+  # --------------------------------------------------------------------------
+
+  mmr:
+    enabled: true
+    # Lambda: trade-off between relevance and diversity (0-1)
+    # 1.0 = pure relevance (no diversity)
+    # 0.5 = balanced (recommended)
+    # 0.0 = pure diversity
+    lambda: 0.5
+
+    # Whether to use MMR for reranking results
+    use_for_reranking: true
+
+  # --------------------------------------------------------------------------
+  # RAG Chat Configuration
+  # --------------------------------------------------------------------------
+
+  rag_chat:
+    enabled: true
+    # Maximum context length in characters
+    max_context_length: 2000
+    # Include citations in responses
+    include_citations: true
+    # System prompt for chat
+    system_prompt: |
+      You are an expert AI research analyst specializing in on-device AI and mobile optimization.
+      Answer questions based on the provided research context.
+      Always cite the source papers when relevant.
+      Be specific about findings and technical details.
+
+# ============================================================================
+# Source Configuration
+# ============================================================================
+
+sources:
+  # --------------------------------------------------------------------------
+  # arXiv Queries (Research Signal)
+  # --------------------------------------------------------------------------
+
+  arxiv_queries:
+    - "cat:cs.LG AND (all:edge OR all:mobile OR all:on-device)"
+    - "cat:cs.AI AND (all:memory OR all:DRAM OR all:quantization)"
+    - "all:\"on-device AI\" AND all:inference"
+    - "all:\"mobile LLM\""
+    - "all:\"edge computing\" AND all:\"neural network\""
+    - "abs:\"on-device inference\""
+    - "abs:\"mobile llm quantization\""
+    - "abs:\"edge ai memory optimization\""
+    - "abs:\"dram bandwidth neural networks\""
+    - "abs:\"qualcomm hexagon npu\""
+    - "abs:\"mediatek dimensity ai\""
+    - "abs:\"npu memory hierarchy\""
+    - "abs:\"ai accelerator dram\""
+
+  # --------------------------------------------------------------------------
+  # RSS Feeds (Vendor & Platform Updates) - VERIFIED WORKING
+  # --------------------------------------------------------------------------
+
+  rss_feeds:
+    # Apple Machine Learning
+    - "https://machinelearning.apple.com/rss.xml"
+
+    # Qualcomm AI
+    - "https://developer.qualcomm.com/rss/blog"
+
+    # Meta AI (Research)
+    - "https://ai.meta.com/blog/feed"
+
+    # OpenAI Blog
+    - "https://openai.com/blog/rss.xml"
+
+    # DeepMind
+    - "https://deepmind.com/blog/feed.xml"
+
+  # --------------------------------------------------------------------------
+  # GitHub Search (NEW – High-Signal Engineering Content)
+  # --------------------------------------------------------------------------
+
+  github:
+    enabled: true
+
+    # Types of GitHub content to scan
+    search_types:
+      - "repositories"
+      - "releases"
+      - "discussions"
+
+    # Keyword-based search (aligned with arXiv topics)
+    keywords:
+      - "on-device ai"
+      - "edge ai"
+      - "mobile llm"
+      - "llm quantization"
+      - "memory optimization"
+      - "dram bandwidth"
+      - "npu"
+      - "hexagon npu"
+      - "snapdragon ai"
+      - "mediatek ai"
+      - "ai inference optimization"
+      - "onnx mobile"
+      - "tflite micro"
+      - "coreml"
+      - "gguf"
+      - "llama.cpp"
+
+    # GitHub topics (higher signal than keywords)
+    topics:
+      - "on-device-ai"
+      - "edge-ai"
+      - "mobile-ai"
+      - "llm"
+      - "quantization"
+      - "ai-accelerator"
+      - "npu"
+      - "inference"
+      - "llama-cpp"
+
+    # Noise-reduction filters
+    filters:
+      min_stars: 50
+      updated_within_days: 30
+      exclude_forks: true
+      exclude_archived: true
+
+    # Safety limit per run (rate-limit friendly)
+    max_results_per_run: 10
+
+  # --------------------------------------------------------------------------
+  # Google Scholar Search (Academic Papers)
+  # --------------------------------------------------------------------------
+
+  google_scholar:
+    enabled: true
+
+    # Main Google Scholar URL
+    base_url: "https://scholar.google.com/scholar"
+
+    # Search queries for Google Scholar
+    # Covers on-device AI, mobile inference, and optimization papers
+    queries:
+      - "on-device AI inference"
+      - "mobile LLM quantization"
+      - "edge computing neural networks"
+      - "DRAM bandwidth optimization"
+      - "model compression mobile"
+      - "efficient neural networks"
+      - "hardware-aware neural architecture search"
+      - "low-rank approximation mobile"
+      - "knowledge distillation mobile inference"
+      - "tensor decomposition edge devices"
+      - "mixed-precision quantization"
+      - "neural network pruning mobile"
+      - "federated learning edge"
+      - "binary neural networks"
+      - "network architecture optimization"
+
+    # Author searches (high-profile researchers in the field)
+    # These queries find papers by key researchers
+    author_queries:
+      - "author:Han Song"         # Quantization expert
+      - "author:Song Han"         # Mobile neural networks
+      - "author:Yihui He"         # Efficient networks
+      - "author:Andrew Ng"        # AI efficiency
+      - "author:Yuanqing Lin"     # Model compression
+      - "author:Bengio"           # Deep learning pioneer
+      - "author:Geoffrey Hinton"  # Neural networks
+      - "author:LeCun"            # CNN pioneer
+
+    # Alternative Academic Sources
+    academic_sources:
+      - url: "https://arxiv.org"
+        type: "preprints"
+        priority: 1
+
+      - url: "https://ieeexplore.ieee.org"
+        type: "journal"
+        priority: 2
+        description: "IEEE papers (requires scraping or API)"
+
+      - url: "https://dl.acm.org"
+        type: "journal"
+        priority: 2
+        description: "ACM Digital Library"
+
+      - url: "https://papers.nips.cc"
+        type: "conference"
+        priority: 1
+        description: "NeurIPS papers"
+
+      - url: "https://openreview.net"
+        type: "conference"
+        priority: 1
+        description: "ICLR, NeurIPS, ICML papers"
+
+      - url: "https://cvpr2024.thecvf.com"
+        type: "conference"
+        priority: 1
+        description: "CVPR papers"
+
+      - url: "https://www.aclweb.org/portal/acl-open-access"
+        type: "journal"
+        priority: 2
+        description: "ACL NLP papers"
+
+      - url: "https://kdd.org"
+        type: "conference"
+        priority: 2
+        description: "KDD conference papers"
+
+    # Sorting and filtering
+    sort_by: "date"               # recent, citation_count, date
+    date_filter:
+      from_year: 2020             # Papers from 2020 onwards
+      to_year: 2026               # Current year
+
+    # Result limits
+    max_results_per_query: 5
+    max_results_per_run: 50
+
+    # Language filters
+    languages:
+      - "en"                      # English papers only
+
+    # Paper type filters
+    paper_types:
+      - "conference"              # CVPR, ICCV, NeurIPS, ICML, etc.
+      - "journal"                 # Peer-reviewed journals
+      - "preprint"                # arXiv preprints
+
+    # Keyword filters (include at least one)
+    # Papers must contain these keywords to be included
+    keyword_filters:
+      include_any:
+        - "mobile"
+        - "edge"
+        - "efficient"
+        - "on-device"
+        - "lightweight"
+        - "quantization"
+        - "pruning"
+        - "compression"
+        - "acceleration"
+        - "inference"
+
+    # Exclusion filters (exclude papers containing)
+    exclude_keywords:
+      - "medical imaging"
+      - "bioinformatics"
+      - "seismic"
+      - "astronomical"
+      - "satellite"
+      - "genomics"
+
+    # Rate limiting
+    rate_limit:
+      requests_per_second: 0.5    # Google Scholar rate limit (be respectful)
+      retry_attempts: 3
+      retry_delay_seconds: 5
+
+    # User-Agent rotation (respect robots.txt)
+    respect_robots_txt: true
+
+    # Processing options
+    extract_pdf_link: true        # Try to extract PDF links
+    extract_citations: true       # Track citation counts
+    extract_authors: true         # Extract author information
+
+# ============================================================================
+# Email Configuration
+# ============================================================================
+
+email:
+  recipients:
+    - "pbtvinaysukhesh@gmail.com"
+
+  cc: []
+  bcc: []
+
+# ============================================================================
+# Advanced Runtime Controls
+# ============================================================================
+
+advanced:
+  # Maximum articles per run (0 = unlimited)
+  max_articles: 10
+
+  # Batch processing size
+  batch_size: 32
+
+  # Enable verbose logging
+  verbose: true
+
+# ============================================================================
+# Feature Toggles
+# ============================================================================
+
+features:
+  use_playwright: true
+  use_crewai: true
+  use_graph_rag: true 
