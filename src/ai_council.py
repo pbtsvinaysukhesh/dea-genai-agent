@@ -31,7 +31,7 @@ class AICouncil:
         self.groq_key = groq_api_key or os.getenv("GROQ_API_KEY")
         self.gemini_key = gemini_api_key or os.getenv("GOOGLE_API_KEY")
         self.ollama_url = ollama_url
-        
+
         # Groq
         if self.groq_key:
             self.groq = Groq(api_key=self.groq_key)
@@ -44,10 +44,12 @@ class AICouncil:
             logger.info("[Council] Groq initialized")
         else:
             self.groq = None
-        
-        # Ollama
+
+        # Ollama (optional - disabled in GitHub Actions)
+        self.enable_ollama = os.getenv("ENABLE_OLLAMA", "true").lower() == "true"
         self.ollama_model = "gemma3:4b"
-        if self._check_ollama():
+        self.ollama_available = self._check_ollama() if self.enable_ollama else False
+        if self.ollama_available:
             logger.info("[Council] Ollama initialized")
         
         # Gemini

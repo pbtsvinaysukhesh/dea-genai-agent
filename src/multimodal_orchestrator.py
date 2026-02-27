@@ -161,10 +161,14 @@ class GeminiClient:
 
 
 class MultiModelOrchestrator:
-    def __init__(self, groq_api_key: Optional[str] = None, gemini_api_key: Optional[str] = None, 
+    def __init__(self, groq_api_key: Optional[str] = None, gemini_api_key: Optional[str] = None,
                  ollama_url: str = "http://localhost:11434", enable_groq: bool = True,
-                 enable_ollama: bool = True, enable_gemini: bool = True):
-        
+                 enable_ollama: Optional[bool] = None, enable_gemini: bool = True):
+
+        # If enable_ollama not explicitly set, read from environment variable
+        if enable_ollama is None:
+            enable_ollama = os.getenv("ENABLE_OLLAMA", "true").lower() == "true"
+
         self.providers: Dict[ModelProvider, any] = {}
         
         if enable_groq:

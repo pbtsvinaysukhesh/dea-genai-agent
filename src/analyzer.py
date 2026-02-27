@@ -39,11 +39,12 @@ class SimpleAIProcessor:
             logger.info("[OK] Groq initialized")
         else:
             self.groq_client = None
-        
-        # Ollama setup
+
+        # Ollama setup (optional - disabled in GitHub Actions)
+        self.enable_ollama = os.getenv("ENABLE_OLLAMA", "true").lower() == "true"
         self.ollama_url = ollama_url
         self.ollama_model = "gemma3:4b"
-        self.ollama_available = self._check_ollama()
+        self.ollama_available = self._check_ollama() if self.enable_ollama else False
         
         # Gemini setup
         self.gemini_key = gemini_api_key or os.getenv("GOOGLE_API_KEY")
