@@ -74,3 +74,422 @@ Configuration:
 2026-02-28 20:38:49,808 - INFO -   [OK] Extracted 1393 chars
 2026-02-28 20:38:49,808 - INFO - [17/20] Deep scraping: Prior Know...
 2026-02-28 20:38:50,632 - INFO - [Playwright] Scraping: Prior Knowledge-enhanced Spatio-temporal Epidemic ...
+2026-02-28 20:39:22,101 - INFO -   [OK] Extracted 1124 chars
+2026-02-28 20:39:22,101 - INFO - [18/20] Deep scraping: Generative...
+2026-02-28 20:39:22,899 - INFO - [Playwright] Scraping: Generative Bayesian Computation as a Scalable Alte...
+2026-02-28 20:39:54,535 - INFO -   [OK] Extracted 1252 chars
+2026-02-28 20:39:54,535 - INFO - [19/20] Deep scraping: Archetypal...
+2026-02-28 20:39:55,370 - INFO - [Playwright] Scraping: Archetypal Graph Generative Models: Explainable an...
+2026-02-28 20:40:27,056 - INFO -   [OK] Extracted 1549 chars
+2026-02-28 20:40:27,056 - INFO - [20/20] Deep scraping: Dynamic Sy...
+2026-02-28 20:40:27,891 - INFO - [Playwright] Scraping: Dynamic Symmetric Point Tracking: Tackling Non-ide...
+2026-02-28 20:40:59,405 - INFO -   [OK] Extracted 1272 chars
+2026-02-28 20:40:59,405 - INFO - Deep scraping complete. Enhanced 20 articles.
+2026-02-28 20:40:59,405 - INFO - Stats: {'papers_scraped': 20, 'pdfs_extracted': 20, 'html_extracted': 0, 'failed': 0}
+2026-02-28 20:40:59,405 - INFO - [OK] Playwright scraping complete
+2026-02-28 20:40:59,405 - INFO - Collected: 1105 articles
+2026-02-28 20:40:59,410 - INFO - 
+================================================================================
+2026-02-28 20:40:59,410 - INFO - STAGE 2: VECTOR STORE INITIALIZATION
+2026-02-28 20:40:59,410 - INFO - ================================================================================
+2026-02-28 20:41:34,633 - INFO - [Qdrant] In-memory mode
+2026-02-28 20:41:34,633 - INFO - [Embeddings] Loading gemma-300m(offline)...
+2026-02-28 20:41:34,633 - INFO - [History] Loaded 0 papers from last 7 days
+2026-02-28 20:41:34,633 - INFO - 
+================================================================================
+2026-02-28 20:41:34,633 - INFO - STAGE 3: AGI ANALYSIS
+2026-02-28 20:41:34,633 - INFO - Using: CrewAI (high-value) + AI Council (others)
+2026-02-28 20:41:34,633 - INFO - ================================================================================
+
+2026-02-28 20:41:37,561 - INFO - Using config path: C:\Users\PBTSVS\.config\crewai\settings.json
+2026-02-28 20:41:42,557 - WARNING - CrewAI not installed. Run: pip install crewai crewai-tools
+2026-02-28 20:41:43,159 - INFO - [Council] Groq initialized
+2026-02-28 20:41:45,398 - INFO - [Council] Ollama initialized
+2026-02-28 20:41:48,951 - INFO - [Council] Gemini initialized
+2026-02-28 20:41:48,951 - INFO - [Hybrid] AI Council enabled
+2026-02-28 20:41:48,951 - INFO - 
+[1/1105] Evaluating Zero-Shot and One-Shot Adaptation of Small Langua...
+2026-02-28 20:41:48,953 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 20:41:49,566 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 20:41:49,584 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 20:43:51,664 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 20:43:51,664 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 20:43:52,325 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 20:43:52,326 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 20:43:52,333 - INFO - [HITL] Saved for review: data/hitl_review/pending/948b9b4a.json
+2026-02-28 20:43:52,334 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: 948b9b4a)
+2026-02-28 20:43:52,335 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 20:43:52,336 - INFO - 
+[2/1105] DyGnROLE: Modeling Asymmetry in Dynamic Graphs with Node-Rol...
+2026-02-28 20:43:52,337 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 20:43:53,088 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 20:43:53,090 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 20:45:22,102 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 20:45:22,388 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 20:45:22,388 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 20:45:22,396 - INFO - [HITL] Saved for review: data/hitl_review/pending/44ea5ee3.json
+2026-02-28 20:45:22,396 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 44ea5ee3)
+2026-02-28 20:45:22,396 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 20:45:22,396 - INFO - 
+[3/1105] Learning Disease-Sensitive Latent Interaction Graphs From No...
+2026-02-28 20:45:22,396 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 20:45:22,928 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 20:45:22,928 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 20:47:13,582 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 20:47:13,679 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 20:47:13,679 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 20:47:13,695 - INFO - [HITL] Saved for review: data/hitl_review/pending/6f4c375a.json
+2026-02-28 20:47:13,695 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 6f4c375a)
+2026-02-28 20:47:13,695 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 20:47:13,695 - INFO - 
+[4/1105] Accelerating Local LLMs on Resource-Constrained Edge Devices...
+2026-02-28 20:47:13,695 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 20:47:14,161 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 20:47:14,163 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 20:48:41,278 - INFO - [Council] Ollama verified: Score 98
+2026-02-28 20:48:41,401 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 20:48:41,401 - INFO - [Council] FINAL: Score 98 (strong consensus)
+2026-02-28 20:48:41,410 - INFO - [HITL] Saved for review: data/hitl_review/pending/97630976.json
+2026-02-28 20:48:41,410 - INFO - [HITL] NEEDS REVIEW: High score (98) requires verification (ID: 97630976)
+2026-02-28 20:48:41,410 - INFO -   [HITL] High score (98) requires verification
+2026-02-28 20:48:41,410 - INFO - 
+[5/1105] Doubly Adaptive Channel and Spatial Attention for Semantic I...
+2026-02-28 20:48:41,415 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 20:48:41,974 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 20:48:41,974 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 20:50:15,597 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 20:50:15,704 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 20:50:15,704 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 20:50:15,720 - INFO - [HITL] Saved for review: data/hitl_review/pending/68ea4eb4.json
+2026-02-28 20:50:15,720 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 68ea4eb4)
+2026-02-28 20:50:15,720 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 20:50:15,720 - INFO - 
+[6/1105] pQuant: Towards Effective Low-Bit Language Models via Decoup...
+2026-02-28 20:50:15,720 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 20:50:16,289 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 20:50:16,289 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 20:52:02,077 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 20:52:02,182 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 20:52:02,182 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 20:52:02,182 - INFO - [HITL] Saved for review: data/hitl_review/pending/6a0d06ee.json
+2026-02-28 20:52:02,182 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 6a0d06ee)
+2026-02-28 20:52:02,182 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 20:52:02,182 - INFO - 
+[7/1105] IBCircuit: Towards Holistic Circuit Discovery with Informati...
+2026-02-28 20:52:02,182 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 20:52:02,714 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 20:52:02,714 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 20:53:39,254 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 20:53:39,381 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 20:53:39,381 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 20:53:39,381 - INFO - [HITL] Saved for review: data/hitl_review/pending/97b3d1ab.json
+2026-02-28 20:53:39,389 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 97b3d1ab)
+2026-02-28 20:53:39,389 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 20:53:39,391 - INFO - 
+[8/1105] HARU-Net: Hybrid Attention Residual U-Net for Edge-Preservin...
+2026-02-28 20:53:39,393 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 20:53:39,978 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 20:53:39,978 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 20:55:17,555 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 20:55:17,660 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 20:55:17,660 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 20:55:17,663 - INFO - [HITL] Saved for review: data/hitl_review/pending/1d479326.json
+2026-02-28 20:55:17,664 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 1d479326)
+2026-02-28 20:55:17,664 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 20:55:17,664 - INFO - 
+[9/1105] ECHO: Encoding Communities via High-order Operators
+2026-02-28 20:55:17,665 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 20:55:18,124 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 20:55:18,125 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 20:57:16,327 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 20:57:16,428 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 20:57:16,428 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 20:57:16,430 - INFO - [HITL] Saved for review: data/hitl_review/pending/d7270b03.json
+2026-02-28 20:57:16,431 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: d7270b03)
+2026-02-28 20:57:16,431 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 20:57:16,431 - INFO - 
+[10/1105] veScale-FSDP: Flexible and High-Performance FSDP at Scale
+2026-02-28 20:57:16,432 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 20:57:16,866 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 20:57:16,866 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 20:59:01,674 - INFO - [Council] Ollama verified: Score 92
+2026-02-28 20:59:01,783 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 20:59:01,783 - INFO - [Council] FINAL: Score 92 (strong consensus)
+2026-02-28 20:59:01,785 - INFO - [HITL] Saved for review: data/hitl_review/pending/3698ed3c.json
+2026-02-28 20:59:01,785 - INFO - [HITL] NEEDS REVIEW: High score (92) requires verification (ID: 3698ed3c)
+2026-02-28 20:59:01,785 - INFO -   [HITL] High score (92) requires verification
+2026-02-28 20:59:01,787 - INFO - 
+[11/1105] GUI-Libra: Training Native GUI Agents to Reason and Act with...
+2026-02-28 20:59:01,787 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 20:59:02,516 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 20:59:02,516 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:00:56,967 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 21:00:57,076 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:00:57,076 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 21:00:57,092 - INFO - [HITL] Saved for review: data/hitl_review/pending/21505e2b.json
+2026-02-28 21:00:57,092 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 21505e2b)
+2026-02-28 21:00:57,092 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 21:00:57,092 - INFO - 
+[12/1105] SigmaQuant: Hardware-Aware Heterogeneous Quantization Method...
+2026-02-28 21:00:57,092 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:00:57,608 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:00:57,608 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:02:28,795 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 21:02:28,914 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:02:28,914 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 21:02:28,914 - INFO - [HITL] Saved for review: data/hitl_review/pending/4eff11c0.json
+2026-02-28 21:02:28,914 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 4eff11c0)
+2026-02-28 21:02:28,923 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 21:02:28,923 - INFO - 
+[13/1105] Compact Circulant Layers with Spectral Priors
+2026-02-28 21:02:28,923 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:02:29,394 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:02:29,394 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:04:14,736 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 21:04:14,853 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:04:14,853 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 21:04:14,853 - INFO - [HITL] Saved for review: data/hitl_review/pending/56f726c3.json
+2026-02-28 21:04:14,853 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 56f726c3)
+2026-02-28 21:04:14,853 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 21:04:14,853 - INFO - 
+[14/1105] OmniZip: Learning a Unified and Lightweight Lossless Compres...
+2026-02-28 21:04:14,853 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:04:15,303 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:04:15,303 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:06:03,601 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 21:06:03,697 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:06:03,697 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 21:06:03,697 - INFO - [HITL] Saved for review: data/hitl_review/pending/27cfbe7e.json
+2026-02-28 21:06:03,697 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 27cfbe7e)
+2026-02-28 21:06:03,697 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 21:06:03,709 - INFO - 
+[15/1105] Therapist-Robot-Patient Physical Interaction is Worth a Thou...
+2026-02-28 21:06:03,709 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:06:04,158 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:06:04,174 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:08:06,264 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:08:06,268 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:08:06,407 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:08:06,409 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:08:06,412 - INFO - [HITL] Saved for review: data/hitl_review/pending/2374763f.json
+2026-02-28 21:08:06,414 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: 2374763f)
+2026-02-28 21:08:06,415 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:08:06,416 - INFO - 
+[16/1105] RABot: Reinforcement-Guided Graph Augmentation for Imbalance...
+2026-02-28 21:08:06,418 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:08:06,924 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:08:06,927 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:10:08,976 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:10:09,032 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:10:09,225 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:10:09,259 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:10:09,264 - INFO - [HITL] Saved for review: data/hitl_review/pending/846d3de3.json
+2026-02-28 21:10:09,273 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: 846d3de3)
+2026-02-28 21:10:09,273 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:10:09,274 - INFO - 
+[17/1105] Prior Knowledge-enhanced Spatio-temporal Epidemic Forecastin...
+2026-02-28 21:10:09,275 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:10:09,783 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:10:09,785 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:12:02,405 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 21:12:02,683 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:12:02,683 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 21:12:02,683 - INFO - [HITL] Saved for review: data/hitl_review/pending/fba2fa3c.json
+2026-02-28 21:12:02,683 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: fba2fa3c)
+2026-02-28 21:12:02,683 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 21:12:02,683 - INFO - 
+[18/1105] Generative Bayesian Computation as a Scalable Alternative to...
+2026-02-28 21:12:02,683 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:12:03,326 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:12:03,329 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:14:05,406 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:14:05,432 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:14:05,614 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:14:05,618 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:14:05,625 - INFO - [HITL] Saved for review: data/hitl_review/pending/c4788101.json
+2026-02-28 21:14:05,625 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: c4788101)
+2026-02-28 21:14:05,627 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:14:05,627 - INFO - 
+[19/1105] Archetypal Graph Generative Models: Explainable and Identifi...
+2026-02-28 21:14:05,628 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:14:06,271 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:14:06,276 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:16:08,314 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:16:08,330 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:16:08,481 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:16:08,481 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:16:08,486 - INFO - [HITL] Saved for review: data/hitl_review/pending/9e7b1fc2.json
+2026-02-28 21:16:08,488 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: 9e7b1fc2)
+2026-02-28 21:16:08,494 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:16:08,501 - INFO - 
+[20/1105] Dynamic Symmetric Point Tracking: Tackling Non-ideal Referen...
+2026-02-28 21:16:08,507 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:16:08,995 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:16:08,998 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:18:11,055 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:18:11,058 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:18:11,646 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:18:11,646 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:18:11,650 - INFO - [HITL] Saved for review: data/hitl_review/pending/f9aba71b.json
+2026-02-28 21:18:11,651 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: f9aba71b)
+2026-02-28 21:18:11,651 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:18:11,653 - INFO - 
+[21/1105] Multi-Dimensional Spectral Geometry of Biological Knowledge ...
+2026-02-28 21:18:11,653 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:18:12,261 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:18:12,266 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:20:14,354 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:20:14,416 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:20:14,783 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:20:14,784 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:20:14,792 - INFO - [HITL] Saved for review: data/hitl_review/pending/f101d11b.json
+2026-02-28 21:20:14,794 - INFO - [HITL] NEEDS REVIEW: Low confidence (76%) + High score (95) requires verification (ID: f101d11b)
+2026-02-28 21:20:14,795 - INFO -   [HITL] Low confidence (76%) + High score (95) requires verification
+2026-02-28 21:20:14,797 - INFO - 
+[22/1105] Probing Graph Neural Network Activation Patterns Through Gra...
+2026-02-28 21:20:14,801 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:20:15,554 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:20:15,557 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:22:18,044 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:22:18,045 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:22:18,169 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:22:18,171 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:22:18,174 - INFO - [HITL] Saved for review: data/hitl_review/pending/7e8316ff.json
+2026-02-28 21:22:18,175 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: 7e8316ff)
+2026-02-28 21:22:18,175 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:22:18,236 - INFO - 
+[23/1105] DRESS: A Continuous Framework for Structural Graph Refinemen...
+2026-02-28 21:22:18,238 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:22:18,727 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:22:18,745 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:24:05,599 - INFO - [Council] Ollama verified: Score 90
+2026-02-28 21:24:05,724 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:24:05,724 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-28 21:24:05,830 - INFO - [HITL] Saved for review: data/hitl_review/pending/b622710b.json
+2026-02-28 21:24:05,830 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: b622710b)
+2026-02-28 21:24:05,830 - INFO -   [HITL] High score (90) requires verification
+2026-02-28 21:24:05,830 - INFO - 
+[24/1105] On Electric Vehicle Energy Demand Forecasting and the Effect...
+2026-02-28 21:24:05,830 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:24:06,323 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:24:06,324 - INFO - [Council] Groq proposed: Score 85
+2026-02-28 21:26:08,441 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:26:08,450 - INFO - [Council] Ollama verified: Score 85
+2026-02-28 21:26:08,654 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:26:08,654 - INFO - [Council] FINAL: Score 85 (strong consensus)
+2026-02-28 21:26:08,656 - INFO - [HITL] AUTO-APPROVED (confidence: 86%, score: 85)
+2026-02-28 21:26:08,660 - INFO -   [Council] strong consensus
+2026-02-28 21:26:08,664 - INFO -   [ACCEPTED] Score: 85
+2026-02-28 21:26:08,680 - INFO - 
+[25/1105] Stochastic Neural Networks for Quantum Devices
+2026-02-28 21:26:08,682 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:26:09,249 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:26:09,255 - INFO - [Council] Groq proposed: Score 92
+2026-02-28 21:28:11,552 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:28:11,580 - INFO - [Council] Ollama verified: Score 92
+2026-02-28 21:28:11,926 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:28:11,955 - INFO - [Council] FINAL: Score 92 (strong consensus)
+2026-02-28 21:28:11,958 - INFO - [HITL] Saved for review: data/hitl_review/pending/721e9fb0.json
+2026-02-28 21:28:11,961 - INFO - [HITL] NEEDS REVIEW: High score (92) requires verification (ID: 721e9fb0)
+2026-02-28 21:28:11,966 - INFO -   [HITL] High score (92) requires verification
+2026-02-28 21:28:11,967 - INFO - 
+[26/1105] UrbanFM: Scaling Urban Spatio-Temporal Foundation Models
+2026-02-28 21:28:11,967 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:28:12,536 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:28:12,539 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:30:14,582 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:30:14,586 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:30:14,757 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:30:14,764 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:30:14,770 - INFO - [HITL] Saved for review: data/hitl_review/pending/4e8ae3e1.json
+2026-02-28 21:30:14,787 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: 4e8ae3e1)
+2026-02-28 21:30:14,791 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:30:14,815 - INFO - 
+[27/1105] Bikelution: Federated Gradient-Boosting for Scalable Shared ...
+2026-02-28 21:30:14,821 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:30:15,382 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:30:15,400 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:32:17,464 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:32:17,468 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:32:17,994 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:32:17,994 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:32:18,002 - INFO - [HITL] Saved for review: data/hitl_review/pending/6d06026a.json
+2026-02-28 21:32:18,004 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: 6d06026a)
+2026-02-28 21:32:18,004 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:32:18,006 - INFO - 
+[28/1105] TrajGPT-R: Generating Urban Mobility Trajectory with Reinfor...
+2026-02-28 21:32:18,007 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:32:18,551 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:32:18,576 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:34:20,632 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:34:20,635 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:34:20,939 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:34:20,939 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:34:20,942 - INFO - [HITL] Saved for review: data/hitl_review/pending/fffb9e70.json
+2026-02-28 21:34:20,949 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: fffb9e70)
+2026-02-28 21:34:20,949 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:34:21,172 - INFO - 
+[29/1105] Amortized Bayesian inference for actigraph time sheet data f...
+2026-02-28 21:34:21,173 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:34:21,623 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:34:21,653 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:36:23,720 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:36:23,723 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:36:23,975 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:36:23,977 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:36:23,983 - INFO - [HITL] Saved for review: data/hitl_review/pending/2a37cac5.json
+2026-02-28 21:36:23,991 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: 2a37cac5)
+2026-02-28 21:36:23,993 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:36:23,997 - INFO - 
+[30/1105] Benchmarking GNN Models on Molecular Regression Tasks with C...
+2026-02-28 21:36:23,998 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:36:24,510 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:36:24,550 - INFO - [Council] Groq proposed: Score 92
+2026-02-28 21:38:26,592 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:38:26,595 - INFO - [Council] Ollama verified: Score 92
+2026-02-28 21:38:26,765 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:38:26,766 - INFO - [Council] FINAL: Score 92 (strong consensus)
+2026-02-28 21:38:26,769 - INFO - [HITL] Saved for review: data/hitl_review/pending/0ec8338e.json
+2026-02-28 21:38:26,772 - INFO - [HITL] NEEDS REVIEW: High score (92) requires verification (ID: 0ec8338e)
+2026-02-28 21:38:26,773 - INFO -   [HITL] High score (92) requires verification
+2026-02-28 21:38:26,774 - INFO - 
+[31/1105] Wireless Federated Multi-Task LLM Fine-Tuning via Sparse-and...
+2026-02-28 21:38:26,776 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:38:27,284 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:38:27,287 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:40:29,384 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:40:29,399 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:40:29,513 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:40:29,516 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:40:29,523 - INFO - [HITL] Saved for review: data/hitl_review/pending/67f550d8.json
+2026-02-28 21:40:29,524 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: 67f550d8)
+2026-02-28 21:40:29,526 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:40:29,528 - INFO - 
+[32/1105] GauS: Differentiable Scheduling Optimization via Gaussian Re...
+2026-02-28 21:40:29,529 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:40:30,037 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:40:30,039 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:42:32,093 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:42:32,101 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:42:32,251 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:42:32,308 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:42:32,326 - INFO - [HITL] Saved for review: data/hitl_review/pending/2aea54c4.json
+2026-02-28 21:42:32,327 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: 2aea54c4)
+2026-02-28 21:42:32,379 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:42:32,393 - INFO - 
+[33/1105] Hierarchical Molecular Representation Learning via Fragment-...
+2026-02-28 21:42:32,449 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:42:33,191 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:42:33,223 - INFO - [Council] Groq proposed: Score 95
+2026-02-28 21:44:35,272 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-28 21:44:35,273 - INFO - [Council] Ollama verified: Score 95
+2026-02-28 21:44:35,676 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-28 21:44:35,677 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-28 21:44:35,678 - INFO - [HITL] Saved for review: data/hitl_review/pending/ac80b7a7.json
+2026-02-28 21:44:35,679 - INFO - [HITL] NEEDS REVIEW: High score (95) requires verification (ID: ac80b7a7)
+2026-02-28 21:44:35,680 - INFO -   [HITL] High score (95) requires verification
+2026-02-28 21:44:35,702 - INFO - 
+[34/1105] A Secure and Private Distributed Bayesian Federated Learning...
+2026-02-28 21:44:35,702 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-28 21:44:36,150 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-28 21:44:36,151 - INFO - [Council] Groq proposed: Score 95
