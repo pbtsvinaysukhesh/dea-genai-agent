@@ -98,7 +98,7 @@ class ChatService:
     def _init_llm(self):
         """Initialize LLM client (Groq/Ollama/Gemini)"""
         try:
-            from src.multimodal_orchestrator import MultiModelOrchestrator
+            from src.multimodel_orchestrator import MultiModelOrchestrator
 
             self.llm_client = MultiModelOrchestrator()
             logger.info("[ChatService] LLM client initialized")

@@ -4,7 +4,7 @@ Filters out irrelevant noise before expensive analysis.
 """
 import json
 import logging
-from src.multimodal_orchestrator import MultiModelOrchestrator
+from src.multimodel_orchestrator import MultiModelOrchestrator
 
 logger = logging.getLogger(__name__)
 
