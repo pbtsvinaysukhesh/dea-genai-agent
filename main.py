@@ -89,7 +89,7 @@ def run_ultimate_agi():
         
         # Import components
         from src.history import HistoryManager
-        from src.formatter import ReportFormatter
+        from src.enhanced_formatter import ReportFormatter
         from src.mailer import Mailer
         from src.hitl_validator import HITLValidator
         from src.email_and_archive import EmailTracker, ResultsArchiver

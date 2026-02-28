@@ -38,7 +38,7 @@ def test_src_modules_exist():
     try:
         from src import analyzer
         from src import collector
-        from src import formatter
+        from src import enhanced_formatter
         from src import judge
         from src import history
         assert True

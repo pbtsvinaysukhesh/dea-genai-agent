@@ -528,3 +528,6 @@ class EnhancedReportFormatter:
 </body>
 </html>
 """
+
+# Backward compatibility alias
+ReportFormatter = EnhancedReportFormatter
