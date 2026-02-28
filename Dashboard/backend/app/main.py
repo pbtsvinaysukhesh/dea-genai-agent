@@ -12,7 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 
-from app.routers import papers, chat, pipeline, stats, hitl
+from app.routers import papers_improved as papers, chat, pipeline, stats, hitl
 from app.services.connection_manager import ConnectionManager
 from app.services.chat_service import ChatService
 

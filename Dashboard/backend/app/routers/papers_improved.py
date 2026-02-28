@@ -292,7 +292,7 @@ async def get_similar_papers(
         raise HTTPException(500, str(e))
 
 
-@router.get("/papers/health")
+@router.get("/health")
 async def health_check():
     """Health check for papers API"""
     return {
