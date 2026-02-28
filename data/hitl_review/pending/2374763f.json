@@ -1,0 +1,46 @@
+{
+  "review_id": "2374763f",
+  "created_at": "2026-02-28T21:08:06.409381",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Therapist-Robot-Patient Physical Interaction is Worth a Thousand Words: Enabling Intuitive Therapist Guidance via Remote Haptic Control",
+    "abstract": "Abstract:Robotic systems can enhance the amount and repeatability of physically guided motor training. Yet their real-world adoption is limited, partly due to non-intuitive trainer/therapist-trainee/patient interactions. To address this gap, we present a haptic teleoperation system for trainers to remotely guide and monitor the movements of a trainee wearing an arm exoskeleton. The trainer can physically interact with the exoskeleton through a commercial handheld haptic device via virtual contac",
+    "url": "https://arxiv.org/abs/2602.21783v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_DRAM_usage": "Not explicitly mentioned",
+      "memory_bandwidth_requirements": "Not explicitly mentioned",
+      "compression_quantization_methods": "Not explicitly mentioned",
+      "before_after_comparisons": "The system reduced movement completion time by 15.6% and improved smoothness by 12.5% compared to conventional visual demonstration."
+    },
+    "dram_impact": "Low",
+    "engineering_takeaway": "The haptic demonstration system can be effectively used for remote human-robot physical interaction, reducing movement completion time and improving smoothness.",
+    "technical_details": [
+      "Commercial handheld haptic device",
+      "Virtual contact points at the exoskeleton's elbow and wrist",
+      "Large language models for automated transcription and categorization of verbal commands",
+      "Haptic teleoperation system"
+    ],
+    "deployment_feasibility": "Yes, the system can be deployed on both mobile and laptop devices, as it does not require high-end hardware acceleration or large memory capacity.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:08:06.409381"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

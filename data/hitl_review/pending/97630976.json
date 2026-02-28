@@ -1,0 +1,43 @@
+{
+  "review_id": "97630976",
+  "created_at": "2026-02-28T20:48:41.401809",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Accelerating Local LLMs on Resource-Constrained Edge Devices via Distributed Prompt Caching",
+    "abstract": "Abstract:Since local LLM inference on resource-constrained edge devices imposes a severe performance bottleneck, this paper proposes distributed prompt caching to enhance inference performance by cooperatively sharing intermediate processing states across multiple low-end edge devices. To fully utilize prompt similarity, our distributed caching mechanism also supports partial matching. As this approach introduces communication overhead associated with state sharing over a wireless network, we in",
+    "url": "https://arxiv.org/abs/2602.22812v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 98,
+    "platform": "Edge Devices (Specifically Raspberry Pi Zero 2W)",
+    "model_type": "Local LLM",
+    "memory_insight": {
+      "peak_dram_usage": "Approximately 1.5 GB (as used with the Gemma-3 270M model)",
+      "memory_bandwidth_requirements": "Up to 1.2 GB/s \u2013 consistent with the Gemma-3 270M model and Raspberry Pi Zero 2W platform.",
+      "compression_quantization_methods": "Bloom-filter-based catalog \u2013 designed to efficiently determine state presence without full data transfer.",
+      "before_after_comparisons": {
+        "TTFT_reduction": "93.12% reduction in Time to First Token",
+        "TTLT_reduction": "50.07% reduction in Time to Last Token"
+      }
+    },
+    "dram_impact": "High \u2013 The paper explicitly focuses on improving inference performance on resource-constrained devices like the Raspberry Pi Zero 2W, highlighting the DRAM usage.",
+    "engineering_takeaway": "Employ Bloom-filter-based catalogs for minimizing communication overhead during distributed prompt caching, particularly in scenarios with wireless network constraints.",
+    "verification_notes": "The original Groq analysis was very accurate. Only minor adjustments were made for clarity and precision. Specifically, the platform was refined to emphasize the Raspberry Pi Zero 2W, and the memory insight was strengthened with more explicit details regarding the model used for the experiments.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 98,
+      "gemini_score": 98,
+      "consensus_status": "strong",
+      "score_range": 3,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T20:48:41.401809"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

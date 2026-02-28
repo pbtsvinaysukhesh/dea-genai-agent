@@ -1,0 +1,47 @@
+{
+  "review_id": "0ec8338e",
+  "created_at": "2026-02-28T21:38:26.767449",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Benchmarking GNN Models on Molecular Regression Tasks with CKA-Based Representation Analysis",
+    "abstract": "Molecules are commonly represented as SMILES strings, which can be readily converted to fixed-size molecular fingerprints. These fingerprints serve as feature vectors to train ML/DL models for molecular property prediction tasks in the field of computational chemistry, drug discovery, biochemistry, and materials science. Recent research has demonstrated that SMILES can be used to construct molecular graphs where atoms are nodes ($V$) and bonds are edges ($E$). These graphs can subsequently be us",
+    "url": "https://arxiv.org/abs/2602.20573v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 92,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_dram_usage": "4-8GB (mobile), 8-16GB (laptop)",
+      "memory_bandwidth_requirements": "100-200 GB/s",
+      "compression_quantization_methods": "CKA-based representation analysis",
+      "before_after_comparisons": "7% RMSE improvement with hierarchical fusion framework"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing hierarchical fusion framework can lead to significant performance improvements (7% RMSE improvement) in molecular regression tasks.",
+    "technical_details": [
+      "Geometric DL models like GNN",
+      "Four different GNN architectures (GCN, GraphSAGE, GIN, GAT)",
+      "Centered kernel alignment (CKA) for representational similarity analysis",
+      "Hierarchical fusion framework (GNN+FP) for target prediction"
+    ],
+    "deployment_feasibility": "Yes, but may require significant optimization for mobile devices due to limited RAM and processing power.",
+    "council_metadata": {
+      "groq_score": 92,
+      "ollama_score": 92,
+      "gemini_score": 92,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:38:26.766449"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

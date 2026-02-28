@@ -1,0 +1,65 @@
+{
+  "review_id": "f101d11b",
+  "created_at": "2026-02-28T21:20:14.785212",
+  "confidence": 0.7625000000000001,
+  "paper": {
+    "title": "Multi-Dimensional Spectral Geometry of Biological Knowledge in Single-Cell Transformer Representations",
+    "abstract": "Single-cell foundation models such as scGPT learn high-dimensional gene representations, but what biological knowledge these representations encode remains unclear. We systematically decode the geometric structure of scGPT internal representations through 63 iterations of automated hypothesis screening (183 hypotheses tested), revealing that the model organizes genes into a structured biological coordinate system rather than an opaque feature space.   The dominant spectral axis separates genes b",
+    "url": "https://arxiv.org/abs/2602.22247v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_DRAM_usage": "Not specified",
+      "memory_bandwidth_requirements": "Not specified",
+      "compression_quantization_methods": "Not specified",
+      "before_after_comparisons": "Not specified"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "The model distinguishes transcription factors from their target genes with an AUROC of 0.744, indicating a concrete actionable insight for regulatory network inference.",
+    "technical_details": [
+      "63 iterations of automated hypothesis screening",
+      "183 hypotheses tested",
+      "Transformer layers transiently encode mitochondrial and ER compartments",
+      "Orthogonal axes encode protein-protein interaction networks with graded fidelity",
+      "Residual-stream geometry encodes biological structure complementary to attention patterns"
+    ],
+    "deployment_feasibility": "Unknown",
+    "novelty_check": "Breakthrough",
+    "engineering_value": "Actionable insights",
+    "optimization_techniques": [
+      "Automated hypothesis screening",
+      "Transformer layers",
+      "Residual-stream geometry"
+    ],
+    "hardware_acceleration": "GPU",
+    "specific_numbers": {
+      "iterations": 63,
+      "hypotheses": 183,
+      "Spearman rho": 1.0,
+      "p-value": 0.017,
+      "AUROC": 0.744,
+      "AUROC cell-type marker genes": 0.851
+    },
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:20:14.784226"
+    },
+    "hitl_confidence": 0.7625000000000001,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Can you find specific memory numbers in the paper?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

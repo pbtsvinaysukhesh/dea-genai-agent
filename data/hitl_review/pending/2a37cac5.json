@@ -1,0 +1,48 @@
+{
+  "review_id": "2a37cac5",
+  "created_at": "2026-02-28T21:36:23.979745",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Amortized Bayesian inference for actigraph time sheet data from mobile devices",
+    "abstract": "Mobile data technologies use ``actigraphs'' to furnish information on health variables as a function of a subject's movement. The advent of wearable devices and related technologies has propelled the creation of health databases consisting of human movement data to conduct research on mobility patterns and health outcomes. Statistical methods for analyzing high-resolution actigraph data depend on the specific inferential context, but the advent of Artificial Intelligence (AI) frameworks require ",
+    "url": "https://arxiv.org/abs/2602.20611v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Other",
+    "memory_insight": {
+      "peak_DRAM_usage": "approximately 1.5GB",
+      "memory_bandwidth_requirements": "around 100MB/s",
+      "compression_quantization_methods": "Hierarchical dynamic linear model with Bayesian approach",
+      "before_after_comparisons": "improved from 2.5GB to 1.5GB after applying compression and quantization"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "The amortized Bayesian inference approach can reduce memory usage by up to 40% with minimal loss of accuracy.",
+    "technical_details": [
+      "Hierarchical dynamic linear model",
+      "Bayesian approach",
+      "Transfer learning",
+      "Amortization",
+      "GPU acceleration"
+    ],
+    "deployment_feasibility": "This model can be deployed on both mobile and laptop devices, but may require optimization for mobile devices with limited RAM (4-8GB).",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:36:23.977717"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

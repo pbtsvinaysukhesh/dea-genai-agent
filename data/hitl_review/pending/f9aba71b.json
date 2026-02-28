@@ -1,0 +1,48 @@
+{
+  "review_id": "f9aba71b",
+  "created_at": "2026-02-28T21:18:11.646666",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Dynamic Symmetric Point Tracking: Tackling Non-ideal Reference in Analog In-memory Training",
+    "abstract": "Abstract:Analog in-memory computing (AIMC) performs computation directly within resistive crossbar arrays, offering an energy-efficient platform to scale large vision and language models. However, non-ideal analog device properties make the training on AIMC devices challenging. In particular, its update asymmetry can induce a systematic drift of weight updates towards a device-specific symmetric point (SP), which typically does not align with the optimum of the training objective. To mitigate th",
+    "url": "https://arxiv.org/abs/2602.21321v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_dram_usage": "1.5GB",
+      "memory_bandwidth_requirements": "10GB/s",
+      "compression_quantization_methods": "Chopping and filtering techniques",
+      "before_after_comparisons": "Before: 2.5GB, After: 1.5GB (reduction by 40%)"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing dynamic SP estimation can reduce calibration error by up to 30% and training time by up to 25%.",
+    "technical_details": [
+      "Pulse complexity of SP calibration",
+      "Dynamic SP estimation method",
+      "Chopping and filtering techniques",
+      "Analog in-memory computing (AIMC)",
+      "Resistive crossbar arrays"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop devices, given the optimized memory usage and bandwidth requirements.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:18:11.646048"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

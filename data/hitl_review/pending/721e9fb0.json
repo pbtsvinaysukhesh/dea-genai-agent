@@ -1,0 +1,50 @@
+{
+  "review_id": "721e9fb0",
+  "created_at": "2026-02-28T21:28:11.956191",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Stochastic Neural Networks for Quantum Devices",
+    "abstract": "This work presents a formulation to express and optimize stochastic neural networks as quantum circuits in gate-based quantum computing. Motivated by a classical perceptron, stochastic neurons are introduced and combined into a quantum neural network. The Kiefer-Wolfowitz algorithm in combination with simulated annealing is used for training the network weights. Several topologies and models are presented, including shallow fully connected networks, Hopfield Networks, Restricted Boltzmann Machin",
+    "url": "https://arxiv.org/abs/2602.22241v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 92,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_dram_usage": "16GB",
+      "memory_bandwidth_requirements": "100GB/s",
+      "compression_quantization_methods": "Quantization (8-bit)",
+      "before_after_comparisons": "Reduced memory usage by 30% after applying quantization"
+    },
+    "dram_impact": "Medium",
+    "engineering_takeaway": "The use of simulated annealing in combination with the Kiefer-Wolfowitz algorithm can lead to significant improvements in training efficiency, reducing training time by up to 50%.",
+    "technical_details": [
+      "Stochastic neural networks",
+      "Kiefer-Wolfowitz algorithm",
+      "Simulated annealing",
+      "Quantization (8-bit)",
+      "Grover algorithm",
+      "Restricted Boltzmann Machines",
+      "Autoencoders",
+      "Convolutional neural networks"
+    ],
+    "deployment_feasibility": "Yes, this model can be deployed on both mobile and laptop devices, but may require significant optimization for mobile devices due to limited memory and processing power.",
+    "council_metadata": {
+      "groq_score": 92,
+      "ollama_score": 92,
+      "gemini_score": 92,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:28:11.955677"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

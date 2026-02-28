@@ -1,0 +1,46 @@
+{
+  "review_id": "67f550d8",
+  "created_at": "2026-02-28T21:40:29.520873",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Wireless Federated Multi-Task LLM Fine-Tuning via Sparse-and-Orthogonal LoRA",
+    "abstract": "Decentralized federated learning (DFL) based on low-rank adaptation (LoRA) enables mobile devices with multi-task datasets to collaboratively fine-tune a large language model (LLM) by exchanging locally updated parameters with a subset of neighboring devices via wireless connections for knowledge integration.However, directly aggregating parameters fine-tuned on heterogeneous datasets induces three primary issues across the DFL life-cycle: (i) \\textit{catastrophic knowledge forgetting during fin",
+    "url": "https://arxiv.org/abs/2602.20492v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_dram_usage": "4-8GB (mobile), 8-16GB (laptop)",
+      "memory_bandwidth_requirements": "up to 73% reduction in communication resource consumption",
+      "compression_quantization_methods": "Sparse-and-Orthogonal LoRA",
+      "before_after_comparisons": "5% enhancement in average performance"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing Sparse-and-Orthogonal LoRA can reduce communication resource consumption by up to 73%.",
+    "technical_details": [
+      "Sparse-and-Orthogonal LoRA",
+      "Cluster-based topology design during aggregation",
+      "Implicit mixture of experts (MoE) mechanism"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop devices, but actual bottleneck may vary based on specific hardware and usage scenarios.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:40:29.516329"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

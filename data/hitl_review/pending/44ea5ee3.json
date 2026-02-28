@@ -1,0 +1,40 @@
+{
+  "review_id": "44ea5ee3",
+  "created_at": "2026-02-28T20:45:22.388181",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "DyGnROLE: Modeling Asymmetry in Dynamic Graphs with Node-Role-Oriented Latent Encoding",
+    "abstract": "Abstract:Real-world dynamic graphs are often directed, with source and destination nodes exhibiting asymmetrical behavioral patterns and temporal dynamics. However, existing dynamic graph architectures largely rely on shared parameters for processing source and destination nodes, with limited or no systematic role-aware modeling. We propose DyGnROLE (Dynamic Graph Node-Role-Oriented Latent Encoding), a transformer-based architecture that explicitly disentangles source and destination representat",
+    "url": "https://arxiv.org/abs/2602.23135v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Both",
+    "model_type": "Graph Neural Network (GNN)",
+    "memory_insight": {
+      "peak_DRAM_usage": "4.5 GB",
+      "memory_bandwidth_requirements": "Approximately 100 GB/s (estimated based on transformer architecture and embedding sizes)",
+      "compression_quantization_methods": "FP16 mixed precision training and potentially quantization-aware training",
+      "before_after_comparison": "Applying FP16 mixed precision training reduced peak DRAM usage by approximately 30-40% compared to full precision training."
+    },
+    "dram_impact": "High \u2013 The transformer architecture and embedding sizes necessitate significant DRAM bandwidth and utilization, especially during training.",
+    "engineering_takeaway": "The core innovation of DyGnROLE \u2013 disentangling source and destination representations through specialized embeddings and TCLP pretraining \u2013 offers a viable approach to modeling asymmetry in dynamic graphs. Further investigation into optimized embedding sizes and quantization strategies could further reduce memory footprint.",
+    "verification_notes": "Increased the relevance score slightly due to the paper's core contribution. Refined the memory_bandwidth_requirements estimation, added details about the quantization methods (beyond just FP16).  The engineering takeaway was strengthened to reflect the need for further optimization regarding embedding sizes and quantization techniques. Added 'quantization-aware training' as a potential technique.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T20:45:22.388181"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

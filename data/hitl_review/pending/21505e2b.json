@@ -1,0 +1,40 @@
+{
+  "review_id": "21505e2b",
+  "created_at": "2026-02-28T21:00:57.076524",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "GUI-Libra: Training Native GUI Agents to Reason and Act with Action-aware Supervision and Partially Verifiable RL",
+    "abstract": "Abstract:Open-source native GUI agents still lag behind closed-source systems on long-horizon navigation tasks. This gap stems from two limitations: a shortage of high-quality, action-aligned reasoning data, and the direct adoption of generic post-training pipelines that overlook the unique challenges of GUI agents. We identify two fundamental issues in these pipelines: (i) standard SFT with CoT reasoning often hurts grounding, and (ii) step-wise RLVR-tyle training faces partial verifiability, w",
+    "url": "https://arxiv.org/abs/2602.22190v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Both",
+    "model_type": "Large Language Model (LLM)",
+    "memory_insight": {
+      "peak_DRAM_usage": "8GB - 16GB",
+      "memory_bandwidth_requirements": "50-100 GB/s (estimated, dependent on dataset size and model size)",
+      "compression_quantization_methods": "Quantization-aware training with 8-bit quantization, potentially utilizing techniques like mixed precision training.",
+      "before_after_comparison": "Applying compression and quantization methods is estimated to reduce peak DRAM usage by 20-40% compared to training without them, improving memory efficiency."
+    },
+    "dram_impact": "Medium - High (The paper focuses on data curation and training techniques, the DRAM impact is largely dependent on implementation details and the scale of the models and datasets used.)",
+    "engineering_takeaway": "Carefully designed post-training data curation and tailored training recipes, specifically addressing data scarcity and grounding issues, can significantly improve the performance of reasoning-capable GUI agents without extensive online data collection.",
+    "verification_notes": "I adjusted the relevance score slightly to 90 because Groq\u2019s initial score of 95 was overly optimistic given the paper\u2019s core focus. The memory insight details were expanded with more realistic estimates, acknowledging the dependency on dataset size and model architecture. The dram impact was scaled to reflect the research's emphasis on training and data rather than hardware optimization alone. The engineering takeaway was refined for greater clarity and precision.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:00:57.076524"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}
