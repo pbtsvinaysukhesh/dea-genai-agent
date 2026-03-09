@@ -406,29 +406,29 @@ class EnterpriseKnowledgeManager:
         self.vector_store = VectorStore(os.path.join(data_dir, "vector_store.pkl"))
         self.reasoner = ChainOfThoughtReasoner()
         self.use_embeddings = use_embeddings and EMBEDDINGS_AVAILABLE
-        # Initialize Embedding Model if available
+
+        # Initialize Embedding Model - Using free, open-source models only
         self.embedder = None
         if self.use_embeddings:
             try:
-                local_model_path = r"C:\\Users\\PBTSVS\\Desktop\\GenerativeAI-agent\\models\\embeddinggemma-300m"
-                logger.info("Loading embedding model (google/embeddinggemma-300m)...")
-                #self.embedder = SentenceTransformer('google/embeddinggemma-300m')
-                if os.path.exists(local_model_path):
-                    logger.info(f"Loading local embedding model from: {local_model_path}")
-                    self.embedder = SentenceTransformer(local_model_path)
-                else:
-                    logger.warning(f"Local model not found at {local_model_path}. Trying public fallback...")
-                    # Fallback to a non-gated model that doesn't require login
-                    self.embedder = SentenceTransformer('all-MiniLM-L6-v2')
-                
-                logger.info(f"✓ Knowledge Manager initialized (Embeddings: {self.use_embeddings})")
+                # Use free embedding models that don't require API keys
+                # all-MiniLM-L6-v2 is lightweight (80MB) and fast
+                # all-mpnet-base-v2 is more accurate but larger (420MB)
+                DEFAULT_EMBEDDING_MODEL = 'all-MiniLM-L6-v2'  # Free, no login required
+
+                logger.info(f"Loading free embedding model: {DEFAULT_EMBEDDING_MODEL}...")
+                self.embedder = SentenceTransformer(DEFAULT_EMBEDDING_MODEL)
+
+                logger.info(f"✓ Knowledge Manager initialized with free embeddings: {DEFAULT_EMBEDDING_MODEL}")
             except Exception as e:
                 logger.error(f"Failed to load embedding model: {e}")
+                logger.warning("Continuing without embeddings - semantic search will be disabled")
                 self.use_embeddings = False
+
         # JSON backup for compatibility
         self.json_path = os.path.join(data_dir, "history.json")
-        
-        logger.info(f"Enterprise Knowledge Manager initialized  (Embeddings: {self.use_embeddings})")
+
+        logger.info(f"Enterprise Knowledge Manager initialized (Embeddings: {self.use_embeddings})")
     def _generate_embedding(self, text: str) -> Optional[np.ndarray]:
         """Generate embedding using real model or fallback"""
         if self.embedder:
