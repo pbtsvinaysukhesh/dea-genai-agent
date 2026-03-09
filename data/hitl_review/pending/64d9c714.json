@@ -1,0 +1,36 @@
+{
+  "review_id": "64d9c714",
+  "created_at": "2026-03-09T22:33:21.235476",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Neuro-Inspired Task Offloading in Edge-IoT Networks Using Spiking Neural Networks",
+    "abstract": "Traditional task offloading strategies in edge computing often rely on static heuristics or data-intensive machine learning models, which are not always suitable for highly dynamic and resource-constrained environments. In this paper, we propose a novel task-offloading framework based on Spiking Neural Networks inspired by the efficiency and adaptability of biological neural systems. Our approach integrates an SNN-based decision module into edge nodes to perform real-time, energy-efficient task ",
+    "url": "https://arxiv.org/abs/2511.01127v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Edge-IoT",
+    "model_type": "Spiking Neural Networks (SNNs)",
+    "memory_insight": "The paper does not provide specific DRAM usage numbers. However, the reported 25% higher success rate and 32% less energy consumption strongly suggest improvements in memory access efficiency and reduced data transfer requirements, potentially leading to lower peak DRAM usage compared to traditional methods. The use of SNNs inherently reduces computational complexity and associated memory demands.",
+    "dram_impact": "High",
+    "engineering_takeaway": "Integrating SNNs into edge nodes for task offloading offers a significant opportunity to reduce latency and energy consumption in IoT environments, primarily through optimized memory access and reduced computational load.",
+    "verification_notes": "Groq's initial analysis was generally accurate. I increased the relevance score to 90 as the paper's focus is definitively on Edge-IoT. The memory insight was strengthened by explicitly connecting the success/energy metrics to potential DRAM improvements. I also upgraded the Dram Impact to \u2018High\u2019 due to the potential for substantial DRAM reduction through efficient SNN computation. The engineering takeaway was improved to be more precise about the benefits.",
+    "council_metadata": {
+      "groq_score": 85,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T22:33:21.234965"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

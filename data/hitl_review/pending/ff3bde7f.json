@@ -1,0 +1,31 @@
+{
+  "review_id": "ff3bde7f",
+  "created_at": "2026-03-09T22:46:27.506584",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Infrastructure for deep learning",
+    "abstract": "Deep learning is an empirical science, and the quality of a group\u2019s infrastructure is a multiplier on progress. Fortunately, today\u2019s open-source ecosystem makes it possible for anyone to build great deep learning infrastructure.",
+    "url": "https://openai.com/index/infrastructure-for-deep-learning",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:27.506584"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

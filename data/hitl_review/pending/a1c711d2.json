@@ -1,0 +1,31 @@
+{
+  "review_id": "a1c711d2",
+  "created_at": "2026-03-09T22:45:48.356480",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Quantitative Currency Evaluation in Low-Resource Settings through Pattern Analysis to Assist Visually Impaired Users",
+    "abstract": "Currency recognition systems often overlook usability and authenticity assessment, especially in low-resource environments where visually impaired users and offline validation are common. While existing methods focus on denomination classification, they typically ignore physical degradation and forgery, limiting their applicability in real-world conditions. This paper presents a unified framework for currency evaluation that integrates three modules: denomination classification using lightweight",
+    "url": "https://arxiv.org/abs/2509.06331v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:48.356480"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

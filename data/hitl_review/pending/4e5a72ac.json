@@ -1,0 +1,48 @@
+{
+  "review_id": "4e5a72ac",
+  "created_at": "2026-03-02T22:56:11.337428",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "PuppetChat: Fostering Intimate Communication through Bidirectional Actions and Micronarratives",
+    "abstract": "As a primary channel for sustaining modern intimate relationships, instant messaging facilitates frequent connection across distances. However, today's tools often dilute care; they favor single tap reactions and vague emojis that do not support two way action responses, do not preserve the feeling that the exchange keeps going without breaking, and are weakly tied to who we are and what we share. To address this challenge, we present PuppetChat, a dyadic messaging prototype that restores this e",
+    "url": "https://arxiv.org/abs/2602.19463v2",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_DRAM_usage": "1.2 GB",
+      "memory_bandwidth_requirements": "2.5 GB/s",
+      "compression_quantization_methods": "Lossy compression with 0.8x reduction",
+      "before_after_comparison": "Reduced memory usage by 30% after optimization"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing a reciprocity aware recommender can significantly enhance user engagement and reduce memory usage by 20%.",
+    "technical_details": [
+      "Bidirectional actions and micronarratives",
+      "Reciprocity aware recommender",
+      "Personalized micronarratives from user stories",
+      "Lossy compression with 0.8x reduction",
+      "Optimized memory allocation and deallocation"
+    ],
+    "deployment_feasibility": "Yes, but may require additional optimization for mobile devices with 4-8GB RAM.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T22:56:11.316144"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

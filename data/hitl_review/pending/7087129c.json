@@ -1,0 +1,46 @@
+{
+  "review_id": "7087129c",
+  "created_at": "2026-03-02T21:36:21.181974",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Bitwise Systolic Array Architecture for Runtime-Reconfigurable Multi-precision Quantized Multiplication on Hardware Accelerators",
+    "abstract": "Neural network accelerators have been widely applied to edge devices for complex tasks like object tracking, image recognition, etc. Previous works have explored the quantization technologies in related lightweight accelerator designs to reduce hardware resource consumption. However, low precision leads to high accuracy loss in inference. Therefore, mixed-precision quantization becomes an alternative solution by applying different precision in different layers to trade off resource consumption a",
+    "url": "https://arxiv.org/abs/2602.23334v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Vision",
+    "memory_insight": {
+      "peak_dram_usage": "less than 1GB",
+      "memory_bandwidth_requirements": "250MHz",
+      "compression_quantization_methods": "mixed-precision quantization",
+      "before_after_comparisons": "1.3185 to 3.5671 times speedup"
+    },
+    "dram_impact": "Low",
+    "engineering_takeaway": "Implementing mixed-precision quantization can achieve significant speedup in inferring mixed-precision models.",
+    "technical_details": [
+      "Runtime-reconfigurable multi-precision multi-channel bitwise systolic array design",
+      "Ultra96 FPGA platform",
+      "250MHz clock frequency",
+      "1.3185 to 3.5671 times speedup in inferring mixed-precision models"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop devices due to its low memory requirements and high clock frequency.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T21:36:21.181974"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

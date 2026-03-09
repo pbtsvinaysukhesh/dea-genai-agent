@@ -1,0 +1,31 @@
+{
+  "review_id": "e66d998d",
+  "created_at": "2026-03-09T22:45:47.545262",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Geo6DPose: Fast Zero-Shot 6D Object Pose Estimation via Geometry-Filtered Feature Matching",
+    "abstract": "Recent progress in zero-shot 6D object pose estimation has been driven largely by large-scale models and cloud-based inference. However, these approaches often introduce high latency, elevated energy consumption, and deployment risks related to connectivity, cost, and data governance; factors that conflict with the practical constraints of real-world robotics, where compute is limited and on-device inference is frequently required. We introduce Geo6DPose, a lightweight, fully local, and training",
+    "url": "https://arxiv.org/abs/2512.10674v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:47.545262"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

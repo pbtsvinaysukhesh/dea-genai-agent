@@ -1,0 +1,48 @@
+{
+  "review_id": "a853109c",
+  "created_at": "2026-03-02T22:33:40.017500",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Recursive Belief Vision Language Action Models",
+    "abstract": "Vision-language-action models must enable agents to execute long-horizon tasks under partial observability. However, most existing approaches remain observation-driven, relying on short context windows or repeated queries to vision-language models (VLMs). This leads to loss of task progress, action repetition under perceptual aliasing, and high inference latency. While semantic grounding is important, long-horizon manipulation fundamentally requires persistent, action-conditioned state represent",
+    "url": "https://arxiv.org/abs/2602.20659v2",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_dram_usage": "1.5 GB",
+      "memory_bandwidth_requirements": "100 GB/s",
+      "compression_quantization_methods": "Diffusion-based quantization",
+      "before_after_comparison": "Reduced memory usage by 50% after applying compression"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "The use of a belief-centric architecture and self-supervised world-model objectives enables efficient memory usage and reduces inference latency.",
+    "technical_details": [
+      "Self-supervised world-model objectives",
+      "Diffusion-based quantization",
+      "Belief-centric architecture",
+      "Action-conditioned state representations",
+      "Phase-aware, causally grounded control"
+    ],
+    "deployment_feasibility": "Yes, this model can be deployed on both mobile and laptop platforms due to its efficient memory usage and reduced inference latency.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T22:33:40.015985"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "review_id": "0bd0b6fe",
+  "created_at": "2026-03-09T22:46:27.664300",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Concrete AI safety problems",
+    "abstract": "We (along with researchers from Berkeley and Stanford) are co-authors on today\u2019s paper led by Google Brain researchers,\u00a0Concrete Problems in AI Safety. The paper explores many research problems around ensuring that modern machine learning systems operate as intended.",
+    "url": "https://openai.com/index/concrete-ai-safety-problems",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:27.664300"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "review_id": "2962794f",
+  "created_at": "2026-03-09T22:46:14.598120",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Memory and new controls for ChatGPT",
+    "abstract": "We\u2019re testing the ability for ChatGPT to remember things you discuss to make future chats more helpful. You\u2019re in control of ChatGPT\u2019s memory.",
+    "url": "https://openai.com/index/memory-and-new-controls-for-chatgpt",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:14.598120"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

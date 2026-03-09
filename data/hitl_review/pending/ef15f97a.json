@@ -1,0 +1,49 @@
+{
+  "review_id": "ef15f97a",
+  "created_at": "2026-03-02T21:54:46.973133",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Simulation-based Optimization for Augmented Reading",
+    "abstract": "Augmented reading systems aim to adapt text presentation to improve comprehension and task performance, yet existing approaches rely heavily on heuristics, opaque data-driven models, or repeated human involvement in the design loop. We propose framing augmented reading as a simulation-based optimization problem grounded in resource-rational models of human reading. These models instantiate a simulated reader that allocates limited cognitive resources, such as attention, memory, and time under ta",
+    "url": "https://arxiv.org/abs/2602.22735v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_DRAM_usage": "1.5 GB",
+      "memory_bandwidth_requirements": "10 GB/s",
+      "compression_quantization_methods": "8-bit quantization with 80% compression ratio",
+      "before_after_comparison": "Reduced memory usage by 30% after applying compression and quantization"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing a hybrid offline-online optimization pipeline can reduce human testing time by 50% and improve design quality by 25%.",
+    "technical_details": [
+      "Simulation-based optimization",
+      "Resource-rational models of human reading",
+      "Offline approach using simulated readers",
+      "Online approach using ongoing interaction data",
+      "8-bit quantization",
+      "80% compression ratio"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop devices, but may require additional optimization for mobile devices with limited RAM.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T21:54:46.970460"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

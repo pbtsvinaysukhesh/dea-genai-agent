@@ -1,0 +1,73 @@
+{
+  "session_id": "20260309_224628",
+  "timestamp": "2026-03-09T22:46:46.720352",
+  "total_papers": 9,
+  "top_papers": [
+    {
+      "title": "On Electric Vehicle Energy Demand Forecasting and the Effect of Federated Learni",
+      "score": 85,
+      "platform": "Both"
+    },
+    {
+      "title": "Rethinking Beam Management: Generalization Limits Under Hardware Heterogeneity",
+      "score": 85,
+      "platform": "Both"
+    },
+    {
+      "title": "Video Object Recognition in Mobile Edge Networks: Local Tracking or Edge Detecti",
+      "score": 85,
+      "platform": "Both"
+    },
+    {
+      "title": "Joint Optimization of DNN Model Caching and Request Routing in Mobile Edge Compu",
+      "score": 85,
+      "platform": "Both"
+    },
+    {
+      "title": "3D Point Cloud Object Detection on Edge Devices for Split Computing",
+      "score": 85,
+      "platform": "Both"
+    },
+    {
+      "title": "Bayes-Split-Edge: Bayesian Optimization for Constrained Collaborative Inference ",
+      "score": 85,
+      "platform": "Mobile"
+    },
+    {
+      "title": "Spatial Computing Communications for Multi-User Virtual Reality in Distributed M",
+      "score": 85,
+      "platform": "Both"
+    },
+    {
+      "title": "Machine learning-based cloud resource allocation algorithms: a comprehensive com",
+      "score": 80,
+      "platform": "Laptop"
+    },
+    {
+      "title": "Spiking Neural Network Architecture Search: A Survey",
+      "score": 80,
+      "platform": "Both"
+    }
+  ],
+  "statistics": {
+    "total_analyzed": 1105,
+    "new_findings": 9,
+    "rejected": {
+      "duplicate": 0,
+      "low_score": 0,
+      "failed": 0
+    },
+    "vector_stats": {
+      "enabled": false
+    },
+    "hitl_stats": {
+      "total_checked": 1105,
+      "auto_approved": 9,
+      "pending_review": 1096,
+      "human_approved": 0,
+      "human_rejected": 0,
+      "currently_pending": 1182,
+      "auto_approve_rate": 0.8144796380090499
+    }
+  }
+}

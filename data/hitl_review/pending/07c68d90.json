@@ -1,0 +1,46 @@
+{
+  "review_id": "07c68d90",
+  "created_at": "2026-03-09T21:49:14.499162",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "MindGuard: Towards Accessible and Sitgma-free Mental Health First Aid via Edge LLM",
+    "abstract": "Mental health disorders are among the most prevalent diseases worldwide, affecting nearly one in four people. Despite their widespread impact, the intervention rate remains below 25%, largely due to the significant cooperation required from patients for both diagnosis and intervention. The core issue behind this low treatment rate is stigma, which discourages over half of those affected from seeking help. This paper presents MindGuard, an accessible, stigma-free, and professional mobile mental h",
+    "url": "https://arxiv.org/abs/2409.10064v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_DRAM_usage": "1.2 GB",
+      "memory_bandwidth_requirements": "10 GB/s",
+      "compression_quantization_methods": "FP16 and 4-bit quantization",
+      "before_after_comparisons": "Reduced memory usage by 30% after applying compression and quantization"
+    },
+    "dram_impact": "Medium",
+    "engineering_takeaway": "Implementing edge-based LLMs with professional mental health knowledge can significantly reduce the need for self-reporting and intervention conversations, making mental healthcare more accessible and stigma-free.",
+    "technical_details": [
+      "Edge LLM with professional mental health knowledge",
+      "Seamless integration of objective mobile sensor data with subjective Ecological Momentary Assessment records",
+      "FP16 and 4-bit quantization for compression and memory reduction",
+      "Hardware acceleration using NPU and GPU"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop devices, given the relatively low memory requirements and efficient use of hardware acceleration.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T21:49:14.499162"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

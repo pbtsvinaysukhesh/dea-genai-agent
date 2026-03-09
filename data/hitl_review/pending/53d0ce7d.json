@@ -1,0 +1,51 @@
+{
+  "review_id": "53d0ce7d",
+  "created_at": "2026-03-02T22:25:28.608957",
+  "confidence": 0.8125,
+  "paper": {
+    "title": "Structurally Aligned Subtask-Level Memory for Software Engineering Agents",
+    "abstract": "Large Language Models (LLMs) have demonstrated significant potential as autonomous software engineering (SWE) agents. Recent work has further explored augmenting these agents with memory mechanisms to support long-horizon reasoning. However, these approaches typically operate at a coarse instance granularity, treating the entire problem-solving episode as the atomic unit of storage and retrieval. We empirically demonstrate that instance-level memory suffers from a fundamental granularity mismatc",
+    "url": "https://arxiv.org/abs/2602.21611v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_DRAM_usage": "Not specified",
+      "memory_bandwidth_requirements": "Not specified",
+      "compression_quantization_methods": "Not specified",
+      "before_after_comparisons": "The authors report a +4.7 pp improvement in mean Pass@1 over the vanilla agent, and a +6.8 pp improvement on Gemini 2.5 Pro."
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "The authors' approach of structurally aligned subtask-level memory can significantly improve the performance of software engineering agents, especially in long-horizon reasoning tasks.",
+    "technical_details": [
+      "Structurally Aligned Subtask-Level Memory",
+      "Functional decomposition",
+      "Instance-level memory",
+      "Vanilla agents",
+      "Strong instance-level memory baselines",
+      "Gemini 2.5 Pro",
+      "Long-horizon reasoning",
+      "Complex software engineering tasks"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop devices, given the authors' report of improved performance on diverse backbones. However, the actual bottleneck may be the memory requirements, which are not specified.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T22:25:28.606937"
+    },
+    "hitl_confidence": 0.8125,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

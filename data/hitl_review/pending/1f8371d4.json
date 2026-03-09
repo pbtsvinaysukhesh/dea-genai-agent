@@ -1,0 +1,31 @@
+{
+  "review_id": "1f8371d4",
+  "created_at": "2026-03-09T22:46:20.844106",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Learning to summarize with human feedback",
+    "abstract": "We\u2019ve applied reinforcement learning from human feedback to train language models that are better at summarization.",
+    "url": "https://openai.com/index/learning-to-summarize-with-human-feedback",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:20.844106"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

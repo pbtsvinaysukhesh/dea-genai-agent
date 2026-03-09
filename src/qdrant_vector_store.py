@@ -1,6 +1,7 @@
 """
 Qdrant Vector Store - Semantic Search & Deduplication
 Stores embeddings for intelligent paper management
+Uses Google API embeddings with GROQ fallback
 """
 
 import os
@@ -18,75 +19,54 @@ try:
     QDRANT_AVAILABLE = True
 except ImportError:
     QDRANT_AVAILABLE = False
-import torch
-# Embeddings
-try:
-    from transformers import AutoTokenizer, AutoModel
-    from sentence_transformers import SentenceTransformer
-    EMBEDDINGS_AVAILABLE = True
-except ImportError:
-    EMBEDDINGS_AVAILABLE = False
 
 
 class VectorStore:
     """Qdrant vector store for semantic paper management"""
-    
+
     def __init__(self, collection_name: str = "research_papers"):
-        if not QDRANT_AVAILABLE or not EMBEDDINGS_AVAILABLE:
-            raise ImportError("Install: pip install qdrant-client sentence-transformers")
-        
+        if not QDRANT_AVAILABLE:
+            raise ImportError("Install: pip install qdrant-client")
+
         self.collection_name = collection_name
-        
+
         # In-memory Qdrant for simplicity
         self.client = QdrantClient(":memory:")
         logger.info("[Qdrant] In-memory mode")
-        
-        # Embedding model (fast & good)
-        logger.info("[Embeddings] Loading gemma-300m(offline)...")
 
-        model_path = os.path.join("../models", "embedding-gemma-300m")
+        # Initialize Dual Embedding Provider (Google API + GROQ fallback)
+        logger.info("[Embeddings] Initializing dual provider (Google API + GROQ)...")
 
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            model_path,
-            local_files_only=True
-        )
+        try:
+            from src.embedding_provider import get_embedding_provider
+            self.embedder = get_embedding_provider()
+            self.embedding_dim = self.embedder.get_dimension()
+            status = self.embedder.get_status()
 
-        self.model = AutoModel.from_pretrained(
-            model_path,
-            local_files_only=True
-        )
-        self.model.eval()
+            logger.info(f"✓ Dual embedding provider initialized")
+            logger.info(f"  Google API: {'✓' if status['google_available'] else '✗'}")
+            logger.info(f"  GROQ Fallback: {'✓' if status['groq_available'] else '✗'}")
+            logger.info(f"  Dimension: {self.embedding_dim}")
 
-        self.embedding_dim = 768
-        
+        except Exception as e:
+            logger.error(f"Failed to initialize embedding provider: {e}")
+            raise
+
         # Create collection
         self.client.create_collection(
             collection_name=self.collection_name,
             vectors_config=VectorParams(size=self.embedding_dim, distance=Distance.COSINE)
         )
-        
+
         self.stats = {'added': 0, 'duplicates': 0, 'searches': 0}
 
-    def _mean_pooling(self, model_output, attention_mask):
-        token_embeddings = model_output.last_hidden_state
-        mask = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
-        return (token_embeddings * mask).sum(1) / mask.sum(1)
-
-    
     def generate_embedding(self, text: str) -> List[float]:
-        inputs = self.tokenizer(
-            text,
-            padding=True,
-            truncation=True,
-            max_length=512,
-            return_tensors="pt"
-        )
-
-        with torch.no_grad():
-            output = self.model(**inputs)
-
-        embedding = self._mean_pooling(output, inputs["attention_mask"])
-        return embedding[0].cpu().tolist()
+        """Generate embedding using Google API with GROQ fallback"""
+        embedding = self.embedder.encode(text)
+        if embedding is None:
+            logger.error("Failed to generate embedding for text")
+            return None
+        return embedding
 
     
     def add_paper(self, paper: Dict) -> bool:

@@ -1,0 +1,46 @@
+{
+  "review_id": "b8cb2e72",
+  "created_at": "2026-03-09T22:13:06.979708",
+  "confidence": 0.7625000000000001,
+  "paper": {
+    "title": "A Bidirectional Gated Recurrent Unit Model for PUE Prediction in Data Centers",
+    "abstract": "Data centers account for significant global energy consumption and a carbon footprint. The recent increasing demand for edge computing and AI advancements drives the growth of data center storage capacity. Energy efficiency is a cost-effective way to combat climate change, cut energy costs, improve business competitiveness, and promote IT and environmental sustainability. Thus, optimizing data center energy management is the most important factor in the sustainability of the world. Power Usage E",
+    "url": "https://arxiv.org/abs/2512.20161v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 80,
+    "platform": "Laptop",
+    "model_type": "Other",
+    "memory_insight": {
+      "peak_dram_usage": "Unknown",
+      "memory_bandwidth_requirements": "Unknown",
+      "compression_quantization_methods": "None mentioned",
+      "before_after_comparisons": "None mentioned"
+    },
+    "dram_impact": "Medium",
+    "engineering_takeaway": "Using Recursive Feature Elimination with Cross-Validation (RFECV) can help select the most relevant features for PUE prediction, leading to improved model performance",
+    "technical_details": [
+      "Bidirectional Gated Recurrent Unit (BiGRU) model",
+      "Recursive Feature Elimination with Cross-Validation (RFECV) algorithm",
+      "Comparison with GRU model",
+      "Mean squared error (MSE), mean absolute error (MAE), and R-squared metrics for evaluation"
+    ],
+    "deployment_feasibility": "The model can potentially be deployed on laptops or servers with sufficient computational resources, but its feasibility on mobile devices is uncertain due to the large dataset size (52,560 samples with 117 features) and computational requirements",
+    "council_metadata": {
+      "groq_score": 80,
+      "ollama_score": 80,
+      "gemini_score": 80,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T22:13:06.978706"
+    },
+    "hitl_confidence": 0.7625000000000001,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

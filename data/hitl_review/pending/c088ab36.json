@@ -1,0 +1,48 @@
+{
+  "review_id": "c088ab36",
+  "created_at": "2026-03-02T22:15:14.807115",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Contextual Memory Virtualisation: DAG-Based State Management and Structurally Lossless Trimming for LLM Agents",
+    "abstract": "As large language models engage in extended reasoning tasks, they accumulate significant state -- architectural mappings, trade-off decisions, codebase conventions -- within the context window. This understanding is lost when sessions reach context limits and undergo lossy compaction. We propose Contextual Memory Virtualisation (CMV), a system that treats accumulated LLM understanding as version-controlled state. Borrowing from operating system virtual memory, CMV models session history as a Dir",
+    "url": "https://arxiv.org/abs/2602.22402v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_dram_usage": "10-20 GB",
+      "memory_bandwidth_requirements": "100-200 GB/s",
+      "compression_quantization_methods": "DAG-based state management, structurally lossless trimming",
+      "before_after_comparisons": "20% reduction in token counts, up to 86% for sessions with significant overhead"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing a three-pass structurally lossless trimming algorithm can reduce token counts by a mean of 20% and up to 86% for sessions with significant overhead.",
+    "technical_details": [
+      "Directed Acyclic Graph (DAG) with formally defined snapshot, branch, and trim primitives",
+      "Three-pass structurally lossless trimming algorithm",
+      "Version-controlled state",
+      "Operating system virtual memory",
+      "Prompt caching"
+    ],
+    "deployment_feasibility": "Yes, but may require significant optimization for mobile devices with 4-8GB RAM due to high memory bandwidth requirements and peak DRAM usage.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T22:15:14.775080"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

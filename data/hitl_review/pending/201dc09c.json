@@ -1,0 +1,31 @@
+{
+  "review_id": "201dc09c",
+  "created_at": "2026-03-09T22:45:48.182749",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Fulcrum: Optimizing Concurrent DNN Training and Inferencing on Edge Accelerators",
+    "abstract": "The proliferation of GPU accelerated edge devices like Nvidia Jetsons and the rise in privacy concerns are placing an emphasis on concurrent DNN training and inferencing on edge devices. Inference and training have different computing and QoS goals. But edge accelerators like Jetson do not support native GPU sharing and expose 1000s of power modes. This requires careful time-sharing of concurrent workloads to meet power--performance goals, while limiting costly profiling. In this paper, we desig",
+    "url": "https://arxiv.org/abs/2509.20205v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:48.182749"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

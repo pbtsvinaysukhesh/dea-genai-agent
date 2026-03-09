@@ -1,0 +1,31 @@
+{
+  "review_id": "afbd44e7",
+  "created_at": "2026-03-09T22:46:12.121922",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Expanding on how Voice Engine works and our safety research",
+    "abstract": "Exploring the technology behind our text-to-speech model.",
+    "url": "https://openai.com/index/expanding-on-how-voice-engine-works-and-our-safety-research",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:12.121922"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

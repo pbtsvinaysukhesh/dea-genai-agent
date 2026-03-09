@@ -1,0 +1,48 @@
+{
+  "review_id": "7af71a99",
+  "created_at": "2026-03-09T21:28:41.578220",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "PerCache: Predictive Hierarchical Cache for RAG Applications on Mobile Devices",
+    "abstract": "Retrieval-augmented generation (RAG) has been extensively used as a de facto paradigm in various large language model (LLM)-driven applications on mobile devices, such as mobile assistants leveraging personal emails or meeting records. However, due to the lengthy prompts and the resource constraints, mobile RAG systems exhibit significantly high response latency. On this issue, one promising approach is to reuse intermediate computational results across different queries to eliminate redundant c",
+    "url": "https://arxiv.org/abs/2601.11553v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Mobile",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_dram_usage": "4-8GB",
+      "memory_bandwidth_requirements": "10-20GB/s",
+      "compression_quantization_methods": "Quantization (8-bit) and Huffman coding",
+      "before_after_comparisons": "Peak DRAM usage reduced by 30% and memory bandwidth requirements decreased by 25%"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing a predictive cache mechanism can reduce end-to-end latency by up to 34.4% in RAG applications on mobile devices.",
+    "technical_details": [
+      "Hierarchical cache architecture",
+      "Progressive matching of similar queries",
+      "QKV cache for intermediate result reuse",
+      "Predictive method for populating cache with likely future queries",
+      "Adaptive configuration for dynamic system loads"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on mobile devices with commodity hardware, but may require optimization for specific use cases.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T21:28:41.576174"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

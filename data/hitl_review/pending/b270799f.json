@@ -1,0 +1,46 @@
+{
+  "review_id": "b270799f",
+  "created_at": "2026-03-09T22:15:10.451885",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "M\u00fcntz-Sz\u00e1sz Networks: Neural Architectures with Learnable Power-Law Bases",
+    "abstract": "Standard neural network architectures employ fixed activation functions (ReLU, tanh, sigmoid) that are poorly suited for approximating functions with singular or fractional power behavior, a structure that arises ubiquitously in physics, including boundary layers, fracture mechanics, and corner singularities. We introduce M\u00fcntz-Sz\u00e1sz Networks (MSN), a novel architecture that replaces fixed smooth activations with learnable fractional power bases grounded in classical approximation theory. Each M",
+    "url": "https://arxiv.org/abs/2512.22222v3",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 92,
+    "platform": "Laptop",
+    "model_type": "Other",
+    "memory_insight": {
+      "peak_dram_usage": "Not specified",
+      "memory_bandwidth_requirements": "Not specified",
+      "compression_quantization_methods": "None mentioned",
+      "before_after_comparisons": "MSN achieves 10x fewer parameters than MLPs"
+    },
+    "dram_impact": "Medium",
+    "engineering_takeaway": "Using learnable fractional power bases can significantly improve the accuracy of neural networks in approximating singular or fractional power functions",
+    "technical_details": [
+      "M\u00fcntz-Sz\u00e1sz Networks (MSN)",
+      "Learnable fractional power bases",
+      "Universal approximation from the M\u00fcntz-Sz\u00e1sz theorem",
+      "Novel approximation rates: error O(|\u03bc- \u03b1|^2) with a single learned exponent"
+    ],
+    "deployment_feasibility": "MSN can be deployed on laptops due to its reduced parameter count (10x fewer parameters than MLPs), but its actual deployment feasibility on mobile devices is uncertain due to the lack of specific memory usage and bandwidth requirements",
+    "council_metadata": {
+      "groq_score": 92,
+      "ollama_score": 92,
+      "gemini_score": 92,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T22:15:10.451885"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

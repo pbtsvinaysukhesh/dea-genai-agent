@@ -1,0 +1,31 @@
+{
+  "review_id": "10fe337e",
+  "created_at": "2026-03-09T22:46:04.216258",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Introducing our latest image generation model in the API",
+    "abstract": "Our latest image generation model is now available in the API via \u2018gpt-image-1\u2019\u2014enabling developers and businesses to build professional-grade, customizable visuals directly into their own tools and platforms.",
+    "url": "https://openai.com/index/image-generation-api",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:04.216258"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

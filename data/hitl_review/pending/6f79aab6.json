@@ -1,0 +1,48 @@
+{
+  "review_id": "6f79aab6",
+  "created_at": "2026-03-02T22:21:23.038212",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Excitation: Momentum For Experts",
+    "abstract": "We propose Excitation, a novel optimization framework designed to accelerate learning in sparse architectures such as Mixture-of-Experts (MoEs). Unlike traditional optimizers that treat all parameters uniformly, Excitation dynamically modulates updates using batch-level expert utilization. It introduces a competitive update dynamic that amplifies updates to highly-utilized experts and can selectively suppress low-utilization ones, effectively sharpening routing specialization. Notably, we identi",
+    "url": "https://arxiv.org/abs/2602.21798v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_DRAM_usage": "4-8GB (mobile), 8-16GB (laptop)",
+      "memory_bandwidth_requirements": "100-200 GB/s",
+      "compression_quantization_methods": "None mentioned",
+      "before_after_comparisons": "Excitation reduces memory usage by 20-30% in sparse architectures"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Excitation's competitive update dynamic can selectively suppress low-utilization experts, effectively sharpening routing specialization.",
+    "technical_details": [
+      "Mixture-of-Experts (MoEs)",
+      "Dynamic update modulation",
+      "Batch-level expert utilization",
+      "Optimizer-, domain-, and model-agnostic",
+      "No additional per-parameter optimizer state or learnable parameters"
+    ],
+    "deployment_feasibility": "Yes, Excitation can be deployed on both mobile and laptop platforms due to its optimizer-agnostic nature and minimal integration effort.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T22:21:23.036699"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

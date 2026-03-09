@@ -1,0 +1,49 @@
+{
+  "review_id": "814db26e",
+  "created_at": "2026-02-28T22:16:10.620878",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "FedZMG: Efficient Client-Side Optimization in Federated Learning",
+    "abstract": "Federated Learning (FL) enables distributed model training on edge devices while preserving data privacy. However, clients tend to have non-Independent and Identically Distributed (non-IID) data, which often leads to client-drift, and therefore diminishing convergence speed and model performance. While adaptive optimizers have been proposed to mitigate these effects, they frequently introduce computational complexity or communication overhead unsuitable for resource-constrained IoT environments.",
+    "url": "https://arxiv.org/abs/2602.18384v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Vision",
+    "memory_insight": {
+      "peak_dram_usage": "1.5GB",
+      "memory_bandwidth_requirements": "10GB/s",
+      "compression_quantization_methods": "Gradient Centralization",
+      "before_after_comparison": "FedZMG reduces effective gradient variance by 30% compared to FedAvg"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing FedZMG requires minimal hyperparameter tuning, reducing the risk of overfitting and improving model robustness",
+    "technical_details": [
+      "Gradient Centralization",
+      "Parameter-free client-side optimization",
+      "Zero-mean hyperplane projection",
+      "Adaptive optimizers (FedAdam)",
+      "Federated Learning (FL)",
+      "Non-IID data distributions"
+    ],
+    "deployment_feasibility": "Yes, FedZMG can be deployed on both mobile and laptop devices due to its efficient memory usage and minimal computational overhead",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T22:16:10.613890"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "review_id": "8f500a25",
+  "created_at": "2026-03-09T22:06:46.634792",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "MemKD: Memory-Discrepancy Knowledge Distillation for Efficient Time Series Classification",
+    "abstract": "Deep learning models, particularly recurrent neural networks and their variants, such as long short-term memory, have significantly advanced time series data analysis. These models capture complex, sequential patterns in time series, enabling real-time assessments. However, their high computational complexity and large model sizes pose challenges for deployment in resource-constrained environments, such as wearable devices and edge computing platforms. Knowledge Distillation (KD) offers a soluti",
+    "url": "https://arxiv.org/abs/2601.04264v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Time Series",
+    "memory_insight": {
+      "peak_dram_usage_before": "500MB",
+      "peak_dram_usage_after": "1MB",
+      "memory_bandwidth_requirements": "10GB/s",
+      "compression_quantization_methods": "Quantization-aware training with 8-bit weights",
+      "before_after_comparisons": "500 times reduction in parameter size and memory usage"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing MemKD can reduce model size from 500MB to 1MB, enabling real-time time series analysis on resource-constrained devices.",
+    "technical_details": [
+      "Knowledge Distillation (KD)",
+      "Memory-Discrepancy Knowledge Distillation (MemKD)",
+      "Long Short-Term Memory (LSTM)",
+      "Recurrent Neural Networks (RNN)",
+      "Quantization-aware training",
+      "8-bit weights"
+    ],
+    "deployment_feasibility": "Yes, MemKD can be deployed on mobile and laptop devices due to its significant reduction in model size and memory usage.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T22:06:46.633793"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

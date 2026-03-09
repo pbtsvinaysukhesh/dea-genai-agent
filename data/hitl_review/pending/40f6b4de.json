@@ -1,0 +1,31 @@
+{
+  "review_id": "40f6b4de",
+  "created_at": "2026-03-09T22:46:24.414207",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Report from the OpenAI hackathon",
+    "abstract": "On March 3rd, we hosted our first\u00a0hackathon\u00a0with 100 members of the artificial intelligence community.",
+    "url": "https://openai.com/index/hackathon-follow-up",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:24.414207"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

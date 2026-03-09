@@ -1,0 +1,48 @@
+{
+  "review_id": "76eb126e",
+  "created_at": "2026-03-09T22:08:49.437895",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "AgentVNE: LLM-Augmented Graph Reinforcement Learning for Affinity-Aware Multi-Agent Placement in Edge Agentic AI",
+    "abstract": "The Internet of Agents is propelling edge computing toward agentic AI and edge general intelligence (EGI). However, deploying multi-agent service (MAS) on resource-constrained edge infrastructure presents severe challenges. MAS service workflows are driven by complex cross-node interactions, dynamic memory accumulation, and collaborative tool usage. Exhibiting chain-like topological dependencies and strict affinity constraints, these workflows demand real-time responsiveness that exceeds the cap",
+    "url": "https://arxiv.org/abs/2601.02021v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_DRAM_usage": "4-8GB (mobile), 8-16GB (laptop)",
+      "memory_bandwidth_requirements": "10-20 GB/s",
+      "compression_quantization_methods": "None mentioned",
+      "before_after_comparisons": "No specific numbers mentioned"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Employing a dual-layer architecture with LLM and neural network can effectively bridge the gap between dynamic service requirements and physical infrastructure.",
+    "technical_details": [
+      "Large Language Model (LLM) for implicit semantic constraints",
+      "Dual-layer architecture",
+      "Resource similarity-aware neural network",
+      "Pre-training and PPO fine-tuning strategy",
+      "Cloud-edge collaborative framework"
+    ],
+    "deployment_feasibility": "Yes, but may require significant optimization for mobile devices due to limited resources.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T22:08:49.435305"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

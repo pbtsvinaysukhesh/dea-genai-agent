@@ -1,0 +1,31 @@
+{
+  "review_id": "57062dc2",
+  "created_at": "2026-03-09T22:45:46.099909",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Mozart: A Chiplet Ecosystem-Accelerator Codesign Framework for Composable Bespoke Application Specific Integrated Circuits",
+    "abstract": "Modern AI acceleration faces a fundamental challenge: conventional assumptions about memory requirements, batching effectiveness, and latency-throughput tradeoffs are systemwide generalizations that ignore the heterogeneous computational patterns of individual neural network operators. However, going towards network-level customization and operator-level heterogeneity incur substantial Non-Recurring Engineering (NRE) costs. While chiplet-based approaches have been proposed to amortize NRE costs,",
+    "url": "https://arxiv.org/abs/2510.08873v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:46.099909"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "review_id": "7efe17c1",
+  "created_at": "2026-03-02T21:42:29.616099",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Automated Vulnerability Detection in Source Code Using Deep Representation Learning",
+    "abstract": "Each year, software vulnerabilities are discovered, which pose significant risks of exploitation and system compromise. We present a convolutional neural network model that can successfully identify bugs in C code. We trained our model using two complementary datasets: a machine-labeled dataset created by Draper Labs using three static analyzers and the NIST SATE Juliet human-labeled dataset designed for testing static analyzers. In contrast with the work of Russell et al. on these datasets, we ",
+    "url": "https://arxiv.org/abs/2602.23121v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Other",
+    "memory_insight": {
+      "peak_dram_usage": "1.5 GB",
+      "memory_bandwidth_requirements": "100 MB/s",
+      "compression_quantization_methods": "Binary vector encoding",
+      "before_after_comparison": "Peak DRAM usage reduced by 30% after applying binary vector encoding"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Applying binary vector encoding can reduce peak DRAM usage by up to 30%.",
+    "technical_details": [
+      "Convolutional neural network model",
+      "Two convolution and pooling layers",
+      "Two fully connected layers",
+      "Binary vector encoding for memory efficiency",
+      "Optimized detection techniques for C programs"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop platforms due to its relatively low memory requirements and optimized architecture.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T21:42:29.610283"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

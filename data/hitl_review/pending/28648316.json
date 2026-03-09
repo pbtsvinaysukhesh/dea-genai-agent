@@ -1,0 +1,49 @@
+{
+  "review_id": "28648316",
+  "created_at": "2026-03-02T22:11:09.136415",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "veScale-FSDP: Flexible and High-Performance FSDP at Scale",
+    "abstract": "Fully Sharded Data Parallel (FSDP), also known as ZeRO, is widely used for training large-scale models, featuring its flexibility and minimal intrusion on model code. However, current FSDP systems struggle with structure-aware training methods (e.g., block-wise quantized training) and with non-element-wise optimizers (e.g., Shampoo and Muon) used in cutting-edge models (e.g., Gemini, Kimi K2). FSDP's fixed element- or row-wise sharding formats conflict with the block-structured computations. In ",
+    "url": "https://arxiv.org/abs/2602.22437v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_dram_usage_before": "not specified",
+      "peak_dram_usage_after": "not specified",
+      "memory_bandwidth_requirements": "not specified",
+      "compression_quantization_methods": "RaggedShard",
+      "before_after_comparison": "5~66% higher throughput and 16~30% lower memory usage"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing RaggedShard and structure-aware planning algorithm can significantly improve FSDP's performance and efficiency.",
+    "technical_details": [
+      "Flexible sharding format (RaggedShard)",
+      "Structure-aware planning algorithm",
+      "Native support for efficient data placement",
+      "Block-wise quantization",
+      "Non-element-wise optimizers (e.g., Shampoo and Muon)"
+    ],
+    "deployment_feasibility": "Yes, veScale-FSDP can be deployed on both mobile and laptop platforms due to its flexible sharding format and efficient data placement. However, actual deployment feasibility may depend on specific hardware and software configurations.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T22:11:09.135867"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

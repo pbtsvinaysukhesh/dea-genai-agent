@@ -407,21 +407,24 @@ class EnterpriseKnowledgeManager:
         self.reasoner = ChainOfThoughtReasoner()
         self.use_embeddings = use_embeddings and EMBEDDINGS_AVAILABLE
 
-        # Initialize Embedding Model - Using free, open-source models only
+        # Initialize Dual Embedding Provider (Google API + GROQ fallback)
         self.embedder = None
         if self.use_embeddings:
             try:
-                # Use free embedding models that don't require API keys
-                # all-MiniLM-L6-v2 is lightweight (80MB) and fast
-                # all-mpnet-base-v2 is more accurate but larger (420MB)
-                DEFAULT_EMBEDDING_MODEL = 'all-MiniLM-L6-v2'  # Free, no login required
+                from src.embedding_provider import get_embedding_provider
+                self.embedder = get_embedding_provider()
+                status = self.embedder.get_status()
 
-                logger.info(f"Loading free embedding model: {DEFAULT_EMBEDDING_MODEL}...")
-                self.embedder = SentenceTransformer(DEFAULT_EMBEDDING_MODEL)
+                if status['google_available'] or status['groq_available']:
+                    logger.info("✓ Knowledge Manager initialized with dual embedding provider")
+                    logger.info(f"  Google API: {'✓' if status['google_available'] else '✗'}")
+                    logger.info(f"  GROQ Fallback: {'✓' if status['groq_available'] else '✗'}")
+                else:
+                    logger.warning("⚠️  No embedding providers available")
+                    self.use_embeddings = False
 
-                logger.info(f"✓ Knowledge Manager initialized with free embeddings: {DEFAULT_EMBEDDING_MODEL}")
             except Exception as e:
-                logger.error(f"Failed to load embedding model: {e}")
+                logger.error(f"Failed to initialize embedding provider: {e}")
                 logger.warning("Continuing without embeddings - semantic search will be disabled")
                 self.use_embeddings = False
 
@@ -430,9 +433,11 @@ class EnterpriseKnowledgeManager:
 
         logger.info(f"Enterprise Knowledge Manager initialized (Embeddings: {self.use_embeddings})")
     def _generate_embedding(self, text: str) -> Optional[np.ndarray]:
-        """Generate embedding using real model or fallback"""
+        """Generate embedding using dual provider (Google API + GROQ fallback)"""
         if self.embedder:
-            return self.embedder.encode(text)
+            embedding_list = self.embedder.encode(text)
+            if embedding_list:
+                return np.array(embedding_list)
         return None
 
     def add_paper(self, paper: Dict, embedding: Optional[np.ndarray] = None):

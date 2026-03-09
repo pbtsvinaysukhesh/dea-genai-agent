@@ -1,0 +1,31 @@
+{
+  "review_id": "03d1bdfc",
+  "created_at": "2026-03-09T22:46:27.019209",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Universe",
+    "abstract": "We\u2019re releasing Universe, a software platform for measuring and training an AI\u2019s general intelligence across the world\u2019s supply of games, websites and other applications.",
+    "url": "https://openai.com/index/universe",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:27.019209"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

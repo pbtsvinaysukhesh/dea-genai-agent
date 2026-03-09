@@ -1,0 +1,31 @@
+{
+  "review_id": "5ba9a65b",
+  "created_at": "2026-03-09T22:45:49.281728",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "The Way We Notice, That's What Really Matters: Instantiating UI Components with Distinguishing Variations",
+    "abstract": "Front-end developers author UI components to be broadly reusable by parameterizing visual and behavioral properties. While flexible, this makes instantiation harder, as developers must reason about numerous property values and interactions. In practice, they must explore the component\u2019s large design space and provide realistic and natural values to properties. To address this, we introduce distinguishing variations: variations that are both mimetic and distinct. We frame distinguishing variation",
+    "url": "https://machinelearning.apple.com/research/we-notice",
+    "source": "Machinelearning.apple.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:49.281728"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

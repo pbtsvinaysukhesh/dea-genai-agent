@@ -1,0 +1,31 @@
+{
+  "review_id": "2af31d04",
+  "created_at": "2026-03-09T22:45:47.495224",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Link-Aware Energy-Frugal Continual Learning for Fault Detection in IoT Networks",
+    "abstract": "The use of lightweight machine learning (ML) models in internet of things (IoT) networks enables resource constrained IoT devices to perform on-device inference for several critical applications. However, the inference accuracy deteriorates due to the non-stationarity in the IoT environment and limited initial training data. To counteract this, the deployed models can be updated occasionally with new observed data samples. However, this approach consumes additional energy, which is undesirable f",
+    "url": "https://arxiv.org/abs/2512.13340v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:47.495224"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}
