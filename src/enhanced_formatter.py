@@ -529,5 +529,39 @@ class EnhancedReportFormatter:
 </html>
 """
 
+    def build_text_summary(self, insights: List[Dict]) -> str:
+        """Build text summary of papers for logging"""
+        if not insights:
+            return "\n[No papers to summarize]\n"
+
+        # Sort by relevance score
+        sorted_insights = sorted(
+            insights,
+            key=lambda x: x.get('relevance_score', 0),
+            reverse=True
+        )
+
+        # Get top 6 papers
+        top_papers = sorted_insights[:6]
+
+        summary = "\n" + "=" * 80 + "\n"
+        summary += "PAPERS SUMMARY\n"
+        summary += "=" * 80 + "\n\n"
+
+        for idx, paper in enumerate(top_papers, 1):
+            title = paper.get('title', 'Unknown')
+            score = paper.get('relevance_score', 0)
+            platform = paper.get('platform', 'Unknown')
+            category = paper.get('category', 'AI')
+
+            summary += f"[{idx}] {title}\n"
+            summary += f"    Score: {score} | Platform: {platform} | Category: {category}\n\n"
+
+        summary += "=" * 80 + f"\n"
+        summary += f"Total Papers: {len(sorted_insights)} | Featured: {len(top_papers)}\n"
+        summary += "=" * 80 + "\n"
+
+        return summary
+
 # Backward compatibility alias
 ReportFormatter = EnhancedReportFormatter
