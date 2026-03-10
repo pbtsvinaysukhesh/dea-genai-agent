@@ -18,6 +18,7 @@ import json
 import yaml
 import logging
 from datetime import datetime, timedelta
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -33,6 +34,11 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+# Initialize path configuration (MUST be first after logging)
+from src.path_config import PathConfig
+path_config = PathConfig.get_instance()
+logger.info("Path configuration initialized")
 
 
 def load_config(path="config/config.yaml"):

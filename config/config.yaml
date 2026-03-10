@@ -368,10 +368,50 @@ advanced:
   verbose: true
 
 # ============================================================================
+# Podcast Configuration
+# ============================================================================
+
+podcast:
+  # Greeting phrase - spoken at the start of every podcast
+  greeting: "Hello Every One Good Evening & Good morning Welcome to Vinay DEA podcast"
+
+  # Voice and speech settings
+  language: "en"
+  speech_speed: "normal"  # normal or slow
+
+  # Optional audio assets (comment out or leave empty to disable)
+  # intro_music_path: "/path/to/intro.mp3"
+  # outro_music_path: "/path/to/outro.mp3"
+
+  # Audio output settings
+  output_formats:
+    - "mp3"      # Always generate MP3
+    - "wav"      # Also generate WAV
+
+# ============================================================================
+# Report Output Configuration
+# ============================================================================
+
+report:
+  # Output directories (can be overridden by environment variables)
+  output_dir: "results/reports"
+  backup_dir: "results/backup"
+  podcast_dir: "results/podcasts"
+
+  # Summary configuration
+  summary:
+    include_json: true      # Generate JSON summary.json
+    include_text: true      # Generate text summary.txt
+    takeaways_count: 5      # Number of takeaways (3-5)
+
+# ============================================================================
 # Feature Toggles
 # ============================================================================
 
 features:
   use_playwright: true
   use_crewai: true
-  use_graph_rag: true 
+  use_graph_rag: true
+  use_backup_versioning: true  # Enable automatic backup and versioning
+  use_clickable_source_links: true  # Enable clickable links in PDF/PPTX
+  use_json_summaries: true  # Enable JSON summary output

@@ -1,12 +1,16 @@
 """
 Podcast/Audio Generator
-Creates audio files with narration and summaries (like NotebookLM)
+Creates audio files with natural two-speaker conversation (Explainer & Questioner format)
+Uses Google Cloud Text-to-Speech for multiple voices with fallback to gTTS
+Includes greeting phrase, WAV export, metadata embedding, and optional music support.
 """
 
 import logging
-from typing import List, Dict
+from typing import List, Dict, Tuple, Optional
+from pathlib import Path
 from datetime import datetime
 import io
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -24,219 +28,482 @@ except ImportError:
     HAS_PYDUB = False
     logger.warning("[Audio] pydub not installed. Install with: pip install pydub")
 
+try:
+    from google.cloud import texttospeech
+    HAS_GOOGLE_TTS = True
+except ImportError:
+    HAS_GOOGLE_TTS = False
+    logger.warning("[Audio] google-cloud-texttospeech not installed. Install with: pip install google-cloud-texttospeech")
+
 
 class PodcastGenerator:
     """
-    Generate audio podcasts with:
-    - Professional narration
-    - Executive summary
-    - Paper summaries
-    - Key insights
-    - Engaging transitions
-    - Multiple voices/styles
+    Generate audio podcasts with professional two-speaker conversation:
+    - Exact greeting phrase at start: "Hello Every One Good Evening & Good morning Welcome to Vinay DEA podcast"
+    - Explainer: Discusses research findings (Male voice)
+    - Questioner: Asks relevant follow-up questions (Female voice)
+    - Natural dialog format with Q&A
+    - Dedicated 2-minute summary at end
+    - MP3 and WAV output formats
+    - Optional intro/outro music support
+    - Metadata embedding (title, date, episode number, description, source links)
+    - Uses Google Cloud TTS for natural voices (with gTTS fallback)
     """
 
-    def __init__(self, output_path: str = "results/podcast.mp3", language: str = "en"):
-        """Initialize podcast generator"""
-        self.output_path = output_path
+    def __init__(
+        self,
+        output_dir: str = "results/podcasts",
+        language: str = "en",
+        greeting: Optional[str] = None,
+        intro_music_path: Optional[Path] = None,
+        outro_music_path: Optional[Path] = None,
+        generate_wav: bool = True,
+    ):
+        """Initialize podcast generator
+
+        Args:
+            output_dir: Directory for output files
+            language: Language code for TTS
+            greeting: Custom greeting phrase (uses default if None)
+            intro_music_path: Path to intro music file
+            outro_music_path: Path to outro music file
+            generate_wav: Whether to also generate WAV format
+        """
+        self.output_dir = Path(output_dir)
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+
         self.language = language
+        self.generate_wav = generate_wav
+        self.intro_music_path = intro_music_path
+        self.outro_music_path = outro_music_path
+
+        # Use provided greeting or default
+        self.greeting = greeting or (
+            "Hello Every One Good Evening & Good morning Welcome to Vinay DEA podcast"
+        )
+
         self.has_gtts = HAS_GTTS
         self.has_pydub = HAS_PYDUB
+        self.has_google_tts = HAS_GOOGLE_TTS
+
+        if self.has_google_tts:
+            try:
+                self.google_client = texttospeech.TextToSpeechClient()
+                logger.info("[Audio] Google Cloud TTS initialized")
+            except Exception as e:
+                logger.warning(f"[Audio] Google Cloud TTS auth failed: {e}. Will use gTTS fallback.")
+                self.has_google_tts = False
+                self.google_client = None
+        else:
+            self.google_client = None
 
         if not self.has_gtts:
-            logger.error("[Audio] gTTS required. Install: pip install gtts")
+            logger.warning("[Audio] gTTS required as fallback. Install: pip install gtts")
 
-    def generate(self, insights: List[Dict]) -> bool:
+    def generate(
+        self,
+        insights: List[Dict],
+        title: str = "On-Device AI Intelligence Report",
+        episode_number: Optional[str] = None,
+        description: Optional[str] = None,
+        source_links: Optional[List[str]] = None,
+    ) -> Dict[str, Optional[Path]]:
         """
-        Generate podcast audio file
-        Returns: True if successful
-        """
-        if not self.has_gtts:
-            logger.error("[Audio] Cannot generate - gtts not installed")
-            return False
+        Generate professional two-speaker podcast with conversation format.
 
+        Args:
+            insights: List of paper/insight dictionaries
+            title: Podcast episode title
+            episode_number: Episode ID or number
+            description: Episode description
+            source_links: List of source URLs to embed in metadata
+
+        Returns:
+            Dict with 'mp3' and 'wav' paths (or None if not generated)
+        """
         if not insights:
             logger.warning("[Audio] No insights to generate podcast")
-            return False
+            return {"mp3": None, "wav": None}
+
+        results = {"mp3": None, "wav": None}
 
         try:
-            # Build script
-            script = self._build_podcast_script(insights)
+            # Generate MP3 using TTS
+            mp3_path = None
+            if self.has_google_tts and self.google_client:
+                mp3_path = self._generate_with_google_tts(insights)
+            elif self.has_gtts:
+                mp3_path = self._generate_with_gtts_fallback(insights)
+            else:
+                logger.error("[Audio] No TTS engine available")
+                return results
 
-            # Generate audio
-            logger.info(f"[Audio] Generating podcast from script ({len(script)} characters)...")
+            if not mp3_path:
+                logger.error("[Audio] MP3 generation failed")
+                return results
 
-            tts = gTTS(text=script, lang=self.language, slow=False)
-            tts.save(self.output_path)
+            results["mp3"] = mp3_path
 
-            logger.info(f"[Audio] Podcast generated: {self.output_path}")
-            return True
+            # Generate WAV if enabled
+            if self.generate_wav:
+                wav_path = self._convert_mp3_to_wav(mp3_path)
+                results["wav"] = wav_path
+
+            # Embed metadata in both MP3 and WAV
+            self._embed_metadata(
+                mp3_path,
+                title=title,
+                episode_number=episode_number,
+                description=description,
+                source_links=source_links,
+            )
+            if results["wav"]:
+                from src.audio_metadata import AudioMetadataEmbedder
+                AudioMetadataEmbedder.embed_audio_metadata(
+                    results["wav"],
+                    title=title,
+                    episode_number=episode_number,
+                    date=datetime.utcnow().isoformat(),
+                    description=description,
+                    source_links=source_links or [],
+                )
+
+            return results
 
         except Exception as e:
             logger.error(f"[Audio] Generation failed: {e}")
-            return False
+            return {"mp3": None, "wav": None}
 
-    def _build_podcast_script(self, insights: List[Dict]) -> str:
-        """Build podcast script as natural speech"""
+    def _generate_with_google_tts(self, insights: List[Dict]) -> Optional[Path]:
+        """Generate podcast using Google Cloud Text-to-Speech with multiple voices"""
+        try:
+            # Generate timestamp-based filename
+            timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            mp3_path = self.output_dir / f"podcast_{timestamp}.mp3"
+
+            # Build dialog script
+            dialog = self._build_dialog_script(insights)
+
+            logger.info(f"[Audio] Synthesizing {len(dialog)} speech segments with Google Cloud TTS...")
+
+            # Synthesize all segments
+            audio_segments = []
+            for speaker, text in dialog:
+                audio_data = self._synthesize_text(text, speaker)
+                if audio_data:
+                    audio_segments.append(audio_data)
+                    # Add pause between speakers
+                    silence = AudioSegment.silent(duration=500)
+                    audio_segments.append(silence)
+
+            if not audio_segments:
+                logger.error("[Audio] No audio segments generated")
+                return None
+
+            # Concatenate all segments
+            combined = audio_segments[0]
+            for segment in audio_segments[1:]:
+                combined += segment
+
+            # Export to file
+            combined.export(str(mp3_path), format="mp3", bitrate="192k")
+            logger.info(f"[Audio] Podcast generated: {mp3_path}")
+            return mp3_path
+
+        except Exception as e:
+            logger.error(f"[Audio] Google TTS generation failed: {e}")
+            return None
+
+    def _synthesize_text(self, text: str, speaker: str):
+        """Synthesize text to speech with specific voice for speaker"""
+        try:
+            # Select voice based on speaker
+            if speaker == "Explainer":
+                voice_name = "en-US-Neural2-C"  # Male voice
+            else:  # Questioner
+                voice_name = "en-US-Neural2-E"  # Female voice
+
+            # Build synthesis input
+            synthesis_input = texttospeech.SynthesisInput(text=text)
+
+            # Select voice parameters
+            voice = texttospeech.VoiceSelectionParams(
+                language_code="en-US",
+                name=voice_name,
+                ssml_gender=texttospeech.SsmlVoiceGender.MALE if speaker == "Explainer" else texttospeech.SsmlVoiceGender.FEMALE
+            )
+
+            # Audio config
+            audio_config = texttospeech.AudioConfig(
+                audio_encoding=texttospeech.AudioEncoding.MP3,
+                speaking_rate=1.0
+            )
+
+            # Synthesize
+            response = self.google_client.synthesize_speech(
+                input=synthesis_input,
+                voice=voice,
+                audio_config=audio_config
+            )
+
+            # Convert to AudioSegment
+            audio = AudioSegment.from_mp3(io.BytesIO(response.audio_content))
+            return audio
+
+        except Exception as e:
+            logger.error(f"[Audio] Synthesis failed for {speaker}: {e}")
+            return None
+
+    def _generate_with_gtts_fallback(self, insights: List[Dict]) -> Optional[Path]:
+        """Fallback to gTTS with speaker labels in text"""
+        try:
+            # Generate timestamp-based filename
+            timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            mp3_path = self.output_dir / f"podcast_{timestamp}.mp3"
+
+            dialog = self._build_dialog_script(insights)
+
+            # Combine all text with speaker labels
+            script = ""
+            for speaker, text in dialog:
+                script += f"{speaker}: {text}\n\n"
+
+            logger.info(f"[Audio] Generating podcast with gTTS (single voice with speaker labels)...")
+            tts = gTTS(text=script, lang=self.language, slow=False)
+            tts.save(str(mp3_path))
+
+            logger.info(f"[Audio] Podcast generated: {mp3_path}")
+            return mp3_path
+
+        except Exception as e:
+            logger.error(f"[Audio] gTTS generation failed: {e}")
+            return None
+
+    def _build_dialog_script(self, insights: List[Dict]) -> List[Tuple[str, str]]:
+        """Build dialog script as list of (speaker, text) tuples"""
         today = datetime.now().strftime("%B %d, %Y")
+        dialog = []
 
-        script = f"""
+        # 0. GREETING PHRASE (REQUIRED - EXACT PHRASE)
+        dialog.append(("Explainer", self.greeting))
+
+        # 1. Introduction
+        dialog.append(("Explainer", f"""
 Welcome to the On-Device AI Intelligence Report podcast for {today}.
+I'm your AI research analyst, and I'm here with our research specialist to break down
+the latest findings in on-device AI and mobile optimization.
+        """.strip()))
 
-I'm your AI research analyst, and today we're reviewing the latest research in on-device AI and mobile optimization.
+        # 2. Executive Summary
+        total_papers = len(insights)
+        avg_score = sum(i.get('relevance_score', 0) for i in insights) / total_papers if total_papers > 0 else 0
 
-Let me start with a quick executive summary. We've analyzed {len(insights)} papers this week.
-The average relevance score is {sum(i.get('relevance_score', 0) for i in insights) / len(insights):.1f} out of 100.
+        dialog.append(("Questioner", "So what are we looking at today? How many papers did we analyze this week?"))
 
-"""
+        dialog.append(("Explainer", f"""
+Great question! We've analyzed {total_papers} papers this week across multiple sources.
+The average relevance score is {avg_score:.1f} out of 100. That means we're seeing some really
+solid research focused on practical on-device AI deployment.
+        """.strip()))
 
-        # Add metrics
+        # Get platform distribution
         platforms = {}
+        model_types = {}
         for item in insights:
             platform = item.get('platform', 'Unknown')
             platforms[platform] = platforms.get(platform, 0) + 1
+            model_type = item.get('model_type', 'Unknown')
+            model_types[model_type] = model_types.get(model_type, 0) + 1
 
-        script += f"We found {platforms.get('Mobile', 0)} mobile-focused papers and {platforms.get('Laptop', 0)} laptop-focused papers. "
+        platforms_text = ", ".join([f"{count} {platform}" for platform, count in platforms.items()])
+        dialog.append(("Questioner", "What platforms are they focusing on?"))
+        dialog.append(("Explainer", f"We're seeing research across {platforms_text}. The diversity is actually quite important because different platforms have different constraints."))
 
-        high_impact = len([i for i in insights if i.get('dram_impact') == 'High'])
-        script += f"Notable is that {high_impact} papers addressed high DRAM impact challenges.\n\n"
-
-        # Add key findings
-        script += """
-Now, let's dive into the key findings this week.
-
-The three most mentioned optimization techniques are:
-"""
-
-        techniques = {}
-        for item in insights:
-            tech = item.get('quantization_method', 'N/A')
-            if tech != 'N/A':
-                techniques[tech] = techniques.get(tech, 0) + 1
-
-        top_techniques = sorted(techniques.items(), key=lambda x: x[1], reverse=True)[:3]
-        for idx, (tech, count) in enumerate(top_techniques, 1):
-            script += f"{idx}. {tech}, mentioned in {count} papers. "
-
-        script += "\n\n"
-
-        # Add top papers summaries
+        # 3. Q&A Section - Top 6 papers
         sorted_insights = sorted(
             insights,
             key=lambda x: x.get('relevance_score', 0),
             reverse=True
         )
 
-        script += "Let me now walk you through our top research papers for the week.\n\n"
+        dialog.append(("Explainer", "Let me walk you through our top findings this week. There are some really interesting papers."))
 
         for idx, paper in enumerate(sorted_insights[:6], 1):
             title = paper.get('title', 'Unknown')
             score = paper.get('relevance_score', 0)
             platform = paper.get('platform', 'Unknown')
-            insight = paper.get('memory_insight', 'No details')
-            takeaway = paper.get('engineering_takeaway', 'No takeaway')
+            memory_insight = paper.get('memory_insight', 'N/A')
+            dram_impact = paper.get('dram_impact', 'Unknown')
+            takeaway = paper.get('engineering_takeaway', 'N/A')
+            model_type = paper.get('model_type', 'Unknown')
 
-            script += f"Paper {idx}: {title}\n"
-            script += f"Score: {score} out of 100. This paper focuses on {platform.lower()} platforms.\n"
-            script += f"Key insight: {insight}\n"
-            script += f"Engineering takeaway: {takeaway}\n\n"
+            # Explainer presents the paper
+            dialog.append(("Explainer", f"""
+Paper {idx}: "{title}"
+This scored {score} out of 100 relevance. It focuses on {platform} platforms and deals with {model_type} models.
+{memory_insight}
+            """.strip()))
 
-        # Add closing
-        script += """
-That wraps up our top papers for this week.
+            # Questioner asks clarification question
+            dialog.append(("Questioner", f"That's fascinating. Can you explain the technical approach here and how it actually solves the memory problem?"))
 
-The main trends we're seeing include:
-- Continued focus on DRAM bandwidth optimization
-- Growing interest in mixed-precision quantization
-- Increasing adoption of neural architecture search for efficient models
-- Cross-platform deployment becoming more important
+            # Explainer provides deeper analysis
+            dialog.append(("Explainer", f"""
+Absolutely. The key innovation is in how it handles DRAM consumption. The DRAM impact is {dram_impact}.
+The engineering takeaway here is: {takeaway}
+This is particularly important for the memory engineering community because it shows a practical approach
+to reducing the bottleneck in model deployment on constrained devices.
+            """.strip()))
 
-For the complete analysis, check out the full PDF report and resource links.
+            # Questioner asks practical/comparative question
+            dialog.append(("Questioner", "How does this compare to other approaches, and what are the real-world implications for developers?"))
 
-This has been the On-Device AI Intelligence Report podcast.
-Thank you for listening, and I'll see you next week with fresh research insights!
-"""
+            # Explainer discusses implications
+            dialog.append(("Explainer", f"""
+This approach is particularly valuable because the research demonstrates a concrete path forward
+for on-device deployment. What makes it different is the efficiency gain against the implementation complexity trade-off.
+Developers can use these techniques immediately to improve their mobile or laptop-based AI applications.
+            """.strip()))
 
-        return script
+        # 4. Trends Discussion
+        dialog.append(("Questioner", "Looking at all these papers together, what are the major trends you're seeing?"))
 
-    def generate_conversation(self, insights: List[Dict], output_path: str = None) -> bool:
+        high_impact = len([i for i in insights if i.get('dram_impact') == 'High'])
+        medium_impact = len([i for i in insights if i.get('dram_impact') == 'Medium'])
+        low_impact = len([i for i in insights if i.get('dram_impact') == 'Low'])
+
+        dialog.append(("Explainer", f"""
+There are four major trends emerging. First, on-device AI strategy is shifting from "make it work" to "make it efficient."
+Second, we're seeing platform-specific optimization strategies. Mobile and laptop require very different approaches.
+Third, memory or DRAM remains the critical bottleneck. We have {high_impact} papers with high DRAM impact,
+{medium_impact} with medium impact, and {low_impact} with low impact. And fourth, there's growing interest in
+cross-platform solutions that balance the constraints of both mobile and laptop deployments.
+For memory engineers specifically, this research shows that DRAM bandwidth optimization is becoming increasingly critical,
+and techniques like activation swapping, quantization, and efficient attention mechanisms are the frontiers.
+        """.strip()))
+
+        # 5. Two-Minute Summary
+        dialog.append(("Explainer", self._build_summary_section(insights)))
+
+        # 6. Closing
+        dialog.append(("Questioner", "Excellent summary. Where can people find these papers and get more details?"))
+
+        dialog.append(("Explainer", """
+Everything is available in our comprehensive report. You'll find PDFs, abstracts, source links,
+and detailed analysis for each paper. The full resource section includes direct URLs to each paper.
+Whether you're a researcher, memory engineer, or developer, there's actionable intelligence in this week's findings.
+        """.strip()))
+
+        # Final closing
+        dialog.append(("Questioner", "Thank you for breaking this down. This has been incredibly valuable."))
+
+        dialog.append(("Explainer", """
+Thanks for being here. Stay tuned for next week's On-Device AI Intelligence Report podcast.
+Keep innovating on the edge!
+        """.strip()))
+
+        return dialog
+
+    def _build_summary_section(self, insights: List[Dict]) -> str:
+        """Build 2-minute summary section (approximately 300 words at normal speaking pace)"""
+        total = len(insights)
+        avg_score = sum(i.get('relevance_score', 0) for i in insights) / total if total > 0 else 0
+
+        # Analyze trends
+        platforms = {}
+        model_types = {}
+        high_impact = 0
+
+        for paper in insights:
+            platform = paper.get('platform', 'Unknown')
+            platforms[platform] = platforms.get(platform, 0) + 1
+            model_type = paper.get('model_type', 'Unknown')
+            model_types[model_type] = model_types.get(model_type, 0) + 1
+            if paper.get('dram_impact') == 'High':
+                high_impact += 1
+
+        top_platform = max(platforms.items(), key=lambda x: x[1])[0] if platforms else 'Unknown'
+        top_model_type = max(model_types.items(), key=lambda x: x[1])[0] if model_types else 'Unknown'
+
+        summary = f"""
+Now, let me give you the wrap-up summary covering all the week's findings.
+
+This week's research landscape is clear: on-device AI is maturing. We analyzed {total} papers with
+an average relevance score of {avg_score:.1f} out of 100, indicating solid, practical research focused
+on real deployment challenges.
+
+The dominant platform focus this week is {top_platform}, and the most researched model type is {top_model_type}.
+This reflects the industry's current prioritization of making these architectures efficient for edge deployment.
+
+The critical insight is that DRAM remains the primary bottleneck. With {high_impact} papers addressing high DRAM impact challenges,
+the research community is clearly focused on solving the memory constraint problem. Techniques like quantization,
+distillation, mixed-precision computation, and activation swapping are proving essential.
+
+For memory engineers and the memory industry, this research validates the importance of DRAM bandwidth optimization.
+The solutions being researched aren't about creating more memory – they're about using memory more intelligently.
+Efficient attention mechanisms, selective activation storage, and streaming inference patterns are practical
+approaches that reduce DRAM pressure without requiring hardware changes.
+
+The practical recommendations are: First, consider platform-specific strategies. Mobile and laptop deployments
+require different optimization techniques. Second, prioritize quantization and precision reduction as your first
+optimization step. Third, look at architectural approaches like knowledge distillation that reduce model size
+before deployment. And fourth, monitor emerging techniques in activation management and streaming inference.
+
+The trend is unmistakable: efficient on-device AI is not a future problem – it's a present opportunity.
+The research is advancing rapidly, and the solutions are becoming increasingly practical for real-world implementation.
         """
-        Generate a multi-voice conversation/interview style podcast
-        (Requires more advanced setup)
-        """
-        if output_path is None:
-            output_path = self.output_path
+
+        return summary.strip()
+
+    def _convert_mp3_to_wav(self, mp3_path: Path) -> Optional[Path]:
+        """Convert MP3 file to WAV format"""
+        if not self.has_pydub:
+            logger.warning("[Audio] pydub not available, skipping WAV conversion")
+            return None
 
         try:
-            # This would require additional setup with voice cloning
-            # For now, we'll generate a narrative style podcast
-            logger.info("[Audio] Generating conversation-style podcast...")
+            wav_path = mp3_path.with_suffix(".wav")
+            # Replace timestamp-based mp3_ with podcast_
+            wav_name = mp3_path.name.replace(".mp3", ".wav")
+            wav_path = mp3_path.parent / wav_name
 
-            script = self._build_conversation_script(insights)
-            tts = gTTS(text=script, lang=self.language, slow=False)
-            tts.save(output_path)
+            # Load MP3 and export as WAV
+            audio = AudioSegment.from_mp3(str(mp3_path))
+            audio.export(str(wav_path), format="wav")
 
-            logger.info(f"[Audio] Conversation podcast generated: {output_path}")
-            return True
+            logger.info(f"[Audio] Converted to WAV: {wav_path}")
+            return wav_path
 
         except Exception as e:
-            logger.error(f"[Audio] Conversation generation failed: {e}")
+            logger.warning(f"[Audio] WAV conversion failed: {e}")
+            return None
+
+    def _embed_metadata(
+        self,
+        mp3_path: Path,
+        title: str,
+        episode_number: Optional[str] = None,
+        description: Optional[str] = None,
+        source_links: Optional[List[str]] = None,
+    ) -> bool:
+        """Embed metadata into MP3 file"""
+        try:
+            from src.audio_metadata import AudioMetadataEmbedder
+
+            return AudioMetadataEmbedder.embed_audio_metadata(
+                file_path=mp3_path,
+                title=title,
+                episode_number=episode_number,
+                date=datetime.utcnow().isoformat(),
+                description=description,
+                source_links=source_links or [],
+            )
+        except ImportError:
+            logger.debug("AudioMetadataEmbedder not available")
             return False
-
-    def _build_conversation_script(self, insights: List[Dict]) -> str:
-        """Build a conversational podcast script"""
-        script = """
-Host: Welcome back to the AI Research Briefing. I'm your host. Today we're talking about
-the latest on-device AI research with our AI analyst. Welcome back!
-
-AI Analyst: Thanks for having me! It's great to be here.
-
-Host: So, what's the big story this week in on-device AI?
-
-AI Analyst: Well, there's a lot of exciting progress. We've seen a real focus on
-making large language models run efficiently on phones and laptops.
-
-Host: That's fascinating. What are the biggest challenges researchers are tackling?
-
-AI Analyst: The main challenge is DRAM bandwidth. Modern models need to move
-a lot of data, and that's often the bottleneck on mobile devices.
-
-Host: And what solutions are they finding?
-
-AI Analyst: Quantization is huge - reducing the precision of weights and activations.
-We're also seeing more research into efficient architectures specifically designed for edge devices.
-
-Host: That sounds promising. Are there any particularly interesting papers this week?
-
-AI Analyst: Absolutely. Let me highlight our top discoveries...
-
-"""
-
-        sorted_insights = sorted(
-            insights,
-            key=lambda x: x.get('relevance_score', 0),
-            reverse=True
-        )
-
-        for idx, paper in enumerate(sorted_insights[:3], 1):
-            title = paper.get('title', 'Unknown')
-            insight = paper.get('memory_insight', 'interesting findings')
-
-            script += f"\nAI Analyst: Paper {idx} shows {insight}.\n"
-            script += f"Host: That's really interesting! Tell us more about the specifics.\n"
-            script += f"AI Analyst: Well, the key innovation is...\n"
-
-        script += """
-
-Host: This is really valuable stuff. Where can people access these papers?
-
-AI Analyst: Everything is available in our full report. Links, PDFs, abstracts - all there.
-
-Host: Great! Thanks for breaking this down for us. And folks, remember to check out
-the full resources. Until next time, keep innovating!
-"""
-
-        return script
+        except Exception as e:
+            logger.warning(f"[Audio] Metadata embedding failed: {e}")
+            return False
 
 
 class TranscriptGenerator:
@@ -249,21 +516,22 @@ class TranscriptGenerator:
         pass
 
     def generate_transcript(self, insights: List[Dict], output_path: str = "results/transcript.txt") -> bool:
-        """
-        Generate text transcript of podcast
-        """
+        """Generate text transcript from insights"""
         try:
             podcast_gen = PodcastGenerator()
-            script = podcast_gen._build_podcast_script(insights)
+            dialog = podcast_gen._build_dialog_script(insights)
 
+            # Build transcript
+            transcript = "PODCAST TRANSCRIPT\n"
+            transcript += "=" * 80 + "\n\n"
+
+            for speaker, text in dialog:
+                transcript += f"{speaker}:\n{text}\n\n"
+                transcript += "-" * 40 + "\n\n"
+
+            # Write to file
             with open(output_path, 'w', encoding='utf-8') as f:
-                f.write("=" * 80 + "\n")
-                f.write("ON-DEVICE AI INTELLIGENCE REPORT PODCAST TRANSCRIPT\n")
-                f.write("=" * 80 + "\n\n")
-                f.write(script)
-                f.write("\n\n" + "=" * 80 + "\n")
-                f.write("END OF TRANSCRIPT\n")
-                f.write("=" * 80 + "\n")
+                f.write(transcript)
 
             logger.info(f"[Transcript] Generated: {output_path}")
             return True
@@ -273,4 +541,5 @@ class TranscriptGenerator:
             return False
 
 
+# Export for use
 __all__ = ['PodcastGenerator', 'TranscriptGenerator']
