@@ -110,7 +110,7 @@ class DualEmbeddingProvider:
             # GROQ doesn't have native embeddings, so we generate a semantic hash
             # by asking the model to analyze the text and produce a deterministic response
             response = self.groq_client.chat.completions.create(
-                model="mixtral-8x7b-32768",
+                model="llama-3.1-70b-versatile",  # Updated from mixtral-8x7b-32768 (decommissioned)
                 messages=[{
                     "role": "user",
                     "content": f"Analyze this paper and provide a semantic signature as 768 comma-separated decimal values between -1 and 1:\n{text[:2000]}"
