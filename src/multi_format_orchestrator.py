@@ -327,5 +327,45 @@ class MultiFormatReportOrchestrator:
             f.write("For more details, see the full reports in other formats.\n")
             f.write("=" * 80 + "\n")
 
+        # Generate JSON summary if path provided
+        if json_path:
+            try:
+                from .summary_generator import JsonSummaryGenerator
+                json_gen = JsonSummaryGenerator()
+
+                # Create executive summary
+                total = len(insights)
+                avg_score = sum(i.get('relevance_score', 0) for i in insights) / total if total else 0
+                high_impact = len([i for i in insights if i.get('dram_impact') == 'High'])
+
+                executive_summary = (
+                    f"Analysis of {total} papers on on-device AI optimization techniques. "
+                    f"Focus areas include quantization, pruning, and model compression with "
+                    f"average relevance score of {avg_score:.0f}/100 and {high_impact} high-impact papers."
+                )
+
+                # Extract takeaways from papers
+                takeaways = [
+                    paper.get('engineering_takeaway', 'N/A')
+                    for paper in sorted(
+                        insights,
+                        key=lambda x: x.get('relevance_score', 0),
+                        reverse=True
+                    )[:5]
+                ]
+
+                json_summary = json_gen.build_json_summary(
+                    papers=insights,
+                    executive_summary=executive_summary,
+                    takeaways=takeaways,
+                    confidence="primary"
+                )
+
+                with open(json_path, 'w', encoding='utf-8') as f:
+                    json.dump(json_summary.to_dict(), f, indent=2, default=str)
+                logger.info(f"[Orchestrator] JSON summary saved: {json_path}")
+            except Exception as e:
+                logger.warning(f"[Orchestrator] JSON summary generation failed: {e}")
+
 
 __all__ = ['MultiFormatReportOrchestrator']
