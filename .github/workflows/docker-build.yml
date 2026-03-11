@@ -58,6 +58,11 @@ jobs:
             type=sha,prefix={{branch}}-
             type=raw,value=latest,enable={{is_default_branch}}
 
+      # Build and push Docker image
+      # Features: Multi-format report generation (PDF, PPTX, Email, Podcast, Transcript, Summary)
+      # LLM Podcast Generator with GROQ API integration (llama-3.1-70b-versatile, llama-3.1-8b-instant)
+      # Graceful fallback to template podcasts if LLM unavailable
+      # Backup system with ISO 8601 timestamps
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -67,10 +72,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ steps.lowercase.outputs.image_name }}:buildcache
           cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ steps.lowercase.outputs.image_name }}:buildcache,mode=max
-        # Features: Multi-format report generation (PDF, PPTX, Email, Podcast, Transcript, Summary)
-        # LLM Podcast Generator with GROQ API integration (llama-3.1-70b-versatile, llama-3.1-8b-instant)
-        # Graceful fallback to template podcasts if LLM unavailable
-        # Backup system with ISO 8601 timestamps
 
       - name: Test Docker image locally
         if: github.event_name == 'pull_request'
