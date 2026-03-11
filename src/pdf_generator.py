@@ -16,6 +16,8 @@ try:
     from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle, Image
     from reportlab.lib import colors
     from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_JUSTIFY
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.ttfonts import TTFont
     HAS_REPORTLAB = True
 except ImportError:
     HAS_REPORTLAB = False
@@ -444,71 +446,105 @@ class PDFReportGenerator:
         return story
 
     def _build_resources_section(self, insights: List[Dict]) -> List:
-        """Build resources section with clickable links"""
+        """
+        Build comprehensive resources section with ALL sources and clickable hyperlinks
+        Uses SourceLinkProcessor for URL normalization, deduplication, and pagination
+        """
         story = []
         styles = getSampleStyleSheet()
 
-        story.append(Paragraph("Reference Resources", styles['Heading1']))
+        # Try to use SourceLinkProcessor if available
+        try:
+            from .source_link_processor import SourceLinkProcessor
+            processor = SourceLinkProcessor()
+            sources = processor.build_source_list(insights, sort_by='relevance')
+        except ImportError:
+            logger.warning("[PDF] SourceLinkProcessor not available, using fallback")
+            sources = self._build_fallback_sources(insights)
+
+        # Add header with source count
+        header_text = f"Reference Resources and Sources ({len(sources)} total)"
+        story.append(Paragraph(header_text, styles['Heading1']))
         story.append(Spacer(letter[0], 0.2 * inch))
 
-        story.append(Paragraph("Top 10 Ranked Papers:", styles['Heading2']))
-        story.append(Spacer(letter[0], 0.1 * inch))
+        story.append(Paragraph(
+            f"This report references <b>{len(sources)} unique sources</b> from the research analysis. "
+            "All sources are listed below as clickable hyperlinks.",
+            styles['Normal']
+        ))
+        story.append(Spacer(letter[0], 0.2 * inch))
 
-        # Sort by relevance
-        sorted_insights = sorted(
-            insights,
-            key=lambda x: x.get('relevance_score', 0),
-            reverse=True
-        )
+        # Paginate sources (40 per page)
+        sources_per_page = 40
+        pages = []
+        for i in range(0, len(sources), sources_per_page):
+            pages.append(sources[i:i + sources_per_page])
 
-        resources_data = [['#', 'Title', 'Source', 'Score']]
-
-        for idx, paper in enumerate(sorted_insights[:10], 1):
-            title = paper.get('title', 'Unknown')[:40]
-            source = paper.get('source', 'Unknown')
-            score = paper.get('relevance_score', 0)
-
-            resources_data.append([str(idx), title, source, str(score)])
-
-        table = Table(resources_data, colWidths=[0.4 * inch, 3 * inch, 1.2 * inch, 0.8 * inch])
-        table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#667eea')),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (-1, 0), 11),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-            ('GRID', (0, 0), (-1, -1), 1, colors.grey)
-        ]))
-
-        story.append(table)
-        story.append(Spacer(letter[0], 0.3 * inch))
-
-        # Add URL references if available
-        story.append(Paragraph("Paper Sources and URLs:", styles['Heading2']))
-        story.append(Spacer(letter[0], 0.1 * inch))
-
-        urls_text = ""
-        for idx, paper in enumerate(sorted_insights[:6], 1):
-            title = paper.get('title', 'Unknown')
-            url = paper.get('url', '')
-            source = paper.get('source', 'Unknown')
-
-            if url:
-                urls_text += f"{idx}. <b>{title}</b><br/>"
-                urls_text += f"   Source: {source} | URL: <u>{url}</u><br/><br/>"
+        # Add paginated source listings
+        for page_num, page_sources in enumerate(pages, 1):
+            # Page heading
+            if page_num == 1:
+                story.append(Paragraph("Complete Source List:", styles['Heading2']))
             else:
-                urls_text += f"{idx}. <b>{title}</b><br/>"
-                urls_text += f"   Source: {source}<br/><br/>"
+                story.append(Paragraph(f"Complete Source List (continued - Page {page_num}):", styles['Heading2']))
 
-        if urls_text:
-            story.append(Paragraph(urls_text, styles['Normal']))
-        else:
-            story.append(Paragraph("URL information not available for the top-ranked papers.", styles['Normal']))
+            story.append(Spacer(letter[0], 0.1 * inch))
 
-        story.append(Spacer(letter[0], 0.2 * inch))
+            # Create clickable source list
+            sources_text = ""
+            for idx, source in enumerate(page_sources, 1 + (page_num - 1) * sources_per_page):
+                title = source.get('title', 'Unknown Title')
+                url = source.get('url', '')
+                platform = source.get('source_platform', 'Unknown')
+                score = source.get('relevance_score', 0)
+
+                # Build entry with hyperlink if URL available
+                if url:
+                    # Use anchor tag syntax for ReportLab hyperlinks
+                    sources_text += f"{idx}. <a href='{url}'><b>{title}</b></a><br/>"
+                    sources_text += f"   Platform: {platform} | Score: {score:.1f}<br/><br/>"
+                else:
+                    sources_text += f"{idx}. <b>{title}</b><br/>"
+                    sources_text += f"   Platform: {platform} | Score: {score:.1f}<br/><br/>"
+
+            if sources_text:
+                story.append(Paragraph(sources_text, styles['Normal']))
+            story.append(Spacer(letter[0], 0.2 * inch))
+
+            # Add page break if not last page
+            if page_num < len(pages):
+                story.append(PageBreak())
 
         return story
+
+    def _build_fallback_sources(self, insights: List[Dict]) -> List[Dict]:
+        """
+        Fallback method to extract sources if SourceLinkProcessor unavailable
+        """
+        sources = []
+        seen_urls = set()
+
+        for paper in insights:
+            url = paper.get('link') or paper.get('url', '')
+            if not url or url in seen_urls:
+                continue
+
+            # Normalize URL
+            if url and not url.startswith(('http://', 'https://')):
+                url = 'https://' + url
+
+            seen_urls.add(url)
+            sources.append({
+                'title': paper.get('title', 'Unknown Title'),
+                'url': url,
+                'source_platform': paper.get('source', 'Unknown'),
+                'relevance_score': float(paper.get('relevance_score', 0)),
+                'summary': paper.get('summary', '')
+            })
+
+        # Sort by relevance
+        sources.sort(key=lambda x: x['relevance_score'], reverse=True)
+        return sources
 
 
 # Export for use

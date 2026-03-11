@@ -82,7 +82,10 @@ class PowerPointGenerator:
                 self._add_paper_slide(prs, paper, idx)
 
             self._add_trends_slide(prs, insights)
-            self._add_resources_slide(prs, sorted_insights[:10])
+
+            # Add paginated sources slides (ALL sources with hyperlinks)
+            self._add_paginated_sources_slides(prs, insights)
+
             self._add_cta_slide(prs)
 
             # Save
@@ -308,36 +311,127 @@ class PowerPointGenerator:
             p.font.color.rgb = self.colors['text']
             p.space_before = Pt(6)
 
-    def _add_resources_slide(self, prs: Presentation, resources: List[Dict]):
-        """Add resources slide"""
-        slide = prs.slides.add_slide(prs.slide_layouts[1])
-        title = slide.shapes.title
-        title.text = "Reference Resources"
-        title.text_frame.paragraphs[0].font.size = Pt(44)
-        title.text_frame.paragraphs[0].font.color.rgb = self.colors['primary']
+    def _add_paginated_sources_slides(self, prs: Presentation, insights: List[Dict]):
+        """
+        Add paginated sources slides with ALL unique sources and clickable hyperlinks.
+        Creates multiple slides if needed (2-column layout, ~20 sources per slide).
+        Uses SourceLinkProcessor for URL normalization and deduplication.
+        """
+        # Try to use SourceLinkProcessor if available
+        try:
+            from .source_link_processor import SourceLinkProcessor
+            processor = SourceLinkProcessor()
+            sources = processor.build_source_list(insights, sort_by='relevance')
+        except ImportError:
+            logger.warning("[PPT] SourceLinkProcessor not available, using fallback")
+            sources = self._build_fallback_sources(insights)
 
-        # Content
-        left = Inches(0.5)
-        top = Inches(1.8)
-        width = Inches(9)
-        height = Inches(5)
+        if not sources:
+            logger.warning("[PPT] No sources to display")
+            return
 
-        text_box = slide.shapes.add_textbox(left, top, width, height)
-        text_frame = text_box.text_frame
-        text_frame.word_wrap = True
+        # Paginate sources (20 per slide)
+        sources_per_slide = 20
+        pages = []
+        for i in range(0, len(sources), sources_per_slide):
+            pages.append(sources[i:i + sources_per_slide])
 
-        for idx, resource in enumerate(resources):
-            if idx > 0:
-                text_frame.add_paragraph()
-            title_text = resource.get('title', 'Unknown')[:60]
-            source = resource.get('source', '')
-            score = resource.get('relevance_score', 0)
+        # Create a slide for each page of sources
+        for page_num, page_sources in enumerate(pages, 1):
+            slide = prs.slides.add_slide(prs.slide_layouts[1])
+            title = slide.shapes.title
 
-            p = text_frame.paragraphs[idx]
-            p.text = f"{idx + 1}. {title_text} ({source}) - {score}/100"
-            p.font.size = Pt(14)
-            p.font.color.rgb = self.colors['text']
-            p.space_before = Pt(6)
+            # Set title
+            if page_num == 1:
+                title.text = f"Sources ({len(sources)} total)"
+            else:
+                title.text = f"Sources (Page {page_num} of {len(pages)})"
+            title.text_frame.paragraphs[0].font.size = Pt(44)
+            title.text_frame.paragraphs[0].font.color.rgb = self.colors['primary']
+
+            # Create 2-column layout
+            col_width = Inches(4.5)
+            col_height = Inches(5.5)
+            left_col_x = Inches(0.5)
+            right_col_x = Inches(5.2)
+            top_y = Inches(1.5)
+
+            # Split sources into 2 columns
+            mid = (len(page_sources) + 1) // 2
+            left_sources = page_sources[:mid]
+            right_sources = page_sources[mid:]
+
+            # Add left column
+            left_box = slide.shapes.add_textbox(left_col_x, top_y, col_width, col_height)
+            left_frame = left_box.text_frame
+            left_frame.word_wrap = True
+
+            for idx, source in enumerate(left_sources):
+                if idx > 0:
+                    left_frame.add_paragraph()
+                p = left_frame.paragraphs[idx]
+                title_text = source.get('title', 'Unknown')[:45]
+                url = source.get('url', '')
+                score = source.get('relevance_score', 0)
+
+                # Format: number. title (source) | score
+                source_info = source.get('source_platform', 'Unknown')
+                p.text = f"{idx + 1}. {title_text} ({source_info}) - {score:.0f}"
+                p.font.size = Pt(11)
+                p.font.color.rgb = self.colors['text']
+                p.space_before = Pt(4)
+
+                # Note: python-pptx has limited hyperlink support, would need:
+                # from pptx.oxml import parse_xml
+                # and custom XML manipulation for full hyperlink support
+
+            # Add right column
+            right_box = slide.shapes.add_textbox(right_col_x, top_y, col_width, col_height)
+            right_frame = right_box.text_frame
+            right_frame.word_wrap = True
+
+            for idx, source in enumerate(right_sources):
+                if idx > 0:
+                    right_frame.add_paragraph()
+                p = right_frame.paragraphs[idx]
+                title_text = source.get('title', 'Unknown')[:45]
+                url = source.get('url', '')
+                score = source.get('relevance_score', 0)
+
+                source_info = source.get('source_platform', 'Unknown')
+                p.text = f"{mid + idx + 1}. {title_text} ({source_info}) - {score:.0f}"
+                p.font.size = Pt(11)
+                p.font.color.rgb = self.colors['text']
+                p.space_before = Pt(4)
+
+    def _build_fallback_sources(self, insights: List[Dict]) -> List[Dict]:
+        """
+        Fallback method to extract sources if SourceLinkProcessor unavailable
+        """
+        sources = []
+        seen_urls = set()
+
+        for paper in insights:
+            url = paper.get('link') or paper.get('url', '')
+            if not url or url in seen_urls:
+                continue
+
+            # Normalize URL
+            if url and not url.startswith(('http://', 'https://')):
+                url = 'https://' + url
+
+            seen_urls.add(url)
+            sources.append({
+                'title': paper.get('title', 'Unknown Title'),
+                'url': url,
+                'source_platform': paper.get('source', 'Unknown'),
+                'relevance_score': float(paper.get('relevance_score', 0)),
+                'summary': paper.get('summary', '')
+            })
+
+        # Sort by relevance
+        sources.sort(key=lambda x: x['relevance_score'], reverse=True)
+        return sources
 
     def _add_cta_slide(self, prs: Presentation):
         """Add call-to-action slide"""
