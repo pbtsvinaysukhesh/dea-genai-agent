@@ -1,4 +1,4 @@
-name: Scheduled AI Pipeline
+name: Scheduled AI Pipeline (Multi-Format with LLM Podcasts)
 
 on:
   schedule:
@@ -26,7 +26,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run AI Pipeline (Ollama Disabled - Using Groq/Gemini)
+      - name: Run AI Pipeline with Multi-Format Generation & LLM Podcasts
         env:
           SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
@@ -37,6 +37,7 @@ jobs:
           ENABLE_OLLAMA: "false"
         run: |
           python main.py
+        continue-on-error: false
 
       - name: Upload generated reports
         if: always()
@@ -53,3 +54,16 @@ jobs:
           name: pipeline-logs
           path: logs/
           retention-days: 7
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Pipeline execution failed. Check workflow logs for details.'
+            })
+        continue-on-error: true

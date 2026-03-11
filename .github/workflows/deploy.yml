@@ -1,7 +1,10 @@
-name: Deploy to Production (Disabled - Use Railway.app)
+name: Deploy to Production (Multi-Format AI Agent - Disabled, Use Railway.app)
 
 on:
   # Disabled: Deploy via Railway.app instead
+  # Features deployed: Multi-format reports (PDF, PPTX, Email, Podcast, Transcript, Summary)
+  # LLM Podcast generation with graceful fallback to template podcasts
+  # Backup versioning with ISO 8601 timestamps
   workflow_dispatch:
     inputs:
       environment:
