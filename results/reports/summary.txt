@@ -6,64 +6,44 @@ Confidence: Based on primary sources
 
 EXECUTIVE SUMMARY
 --------------------------------------------------------------------------------
-Total Papers Analyzed: 6
+Total Papers Analyzed: 3
 Average Relevance Score: 0.9/100
 
 Platform Breakdown:
-  • Mobile: 4 papers
-  • Edge: 1 papers
-  • Laptop: 1 papers
+  • Mobile: 3 papers
 
 Impact Distribution:
   • High Impact: 2 papers
-  • Medium Impact: 3 papers
+  • Medium Impact: 0 papers
   • Low Impact: 1 papers
 
 TOP 6 PAPERS
 --------------------------------------------------------------------------------
 
-#1 INT8 Quantization: Achieving 4x Model Compression
+#1 INT8 Quantization: Achieving 4x Model Compression on Mobile
   Source: arXiv | Score: 0.98/100
   Platform: Mobile | Impact: High
   Memory Insight: INT8 reduces DRAM bandwidth by 75% with minimal accuracy loss
-  Takeaway: Implement INT8 quantization in production for 4x speedup
+  Takeaway: Implement INT8 quantization for 4x speedup on mobile
 
-#2 On-Device LLM Inference: Techniques and Trade-offs
+#2 On-Device LLM Inference: KV Cache Optimization
   Source: Papers with Code | Score: 0.95/100
   Platform: Mobile | Impact: High
-  Memory Insight: Batching and caching reduce latency
+  Memory Insight: Batching and caching reduce latency by 60%
   Takeaway: Implement aggressive batching and KV caching
 
-#3 Structured Pruning for Edge AI: A Comprehensive Study
-  Source: arXiv | Score: 0.92/100
-  Platform: Edge | Impact: Medium
-  Memory Insight: Achieve 50% sparsity with structured pruning
-  Takeaway: Use fine-grained structured pruning for mobile
-
-#4 Knowledge Distillation for Efficient Mobile Models
+#3 Knowledge Distillation for Mobile Models: 6x Compression
   Source: Papers with Code | Score: 0.89/100
   Platform: Mobile | Impact: Low
-  Memory Insight: Student models 6x smaller than teacher
-  Takeaway: Implement knowledge distillation pipeline
-
-#5 Mixed Precision Training for Efficient Inference
-  Source: arXiv | Score: 0.88/100
-  Platform: Laptop | Impact: Medium
-  Memory Insight: Mixed precision reduces memory by 40%
-  Takeaway: Use mixed precision for training and inference
-
-#6 Neural Architecture Search for Efficient Mobile Models
-  Source: arXiv | Score: 0.86/100
-  Platform: Mobile | Impact: Medium
-  Memory Insight: NAS finds models 40% smaller automatically
-  Takeaway: Deploy NAS-discovered architectures
+  Memory Insight: Student models 6x smaller than teacher with 95% accuracy retention
+  Takeaway: Deploy knowledge distillation pipelines in production
 
 KEY FINDINGS
 --------------------------------------------------------------------------------
 Top Techniques:
   • INT8: 1 papers
-  • Pruning: 1 papers
   • Distillation: 1 papers
+  • Quantization+Pruning: 1 papers
 
 ================================================================================
 For more details, see the full reports in other formats.

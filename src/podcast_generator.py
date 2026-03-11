@@ -280,12 +280,13 @@ class PodcastGenerator:
             return None
 
     def _build_dialog_script(self, insights: List[Dict]) -> List[Tuple[str, str]]:
-        """Build dialog script as list of (speaker, text) tuples"""
+        """Build deep-dive discussion script incorporating all sources and findings"""
         today = datetime.now().strftime("%B %d, %Y")
         dialog = []
 
-        # 0. GREETING PHRASE (REQUIRED - EXACT PHRASE)
-        dialog.append(("Explainer", self.greeting))
+        # 0. GREETING PHRASE - Updated to Vinay's DEA Podcast
+        greeting = "Hello everyone, welcome to Vinay's DEA podcast."
+        dialog.append(("Explainer", greeting))
 
         # 1. Introduction
         dialog.append(("Explainer", f"""
@@ -319,16 +320,22 @@ solid research focused on practical on-device AI deployment.
         dialog.append(("Questioner", "What platforms are they focusing on?"))
         dialog.append(("Explainer", f"We're seeing research across {platforms_text}. The diversity is actually quite important because different platforms have different constraints."))
 
-        # 3. Q&A Section - Top 6 papers
+        # 3. DEEP-DIVE DISCUSSION - Comprehensive Analysis of All Sources
         sorted_insights = sorted(
             insights,
             key=lambda x: x.get('relevance_score', 0),
             reverse=True
         )
 
-        dialog.append(("Explainer", "Let me walk you through our top findings this week. There are some really interesting papers."))
+        dialog.append(("Explainer", f"""
+Now, let's dive deep into our comprehensive analysis of all {len(sorted_insights)} sources we've gathered this week.
+This is where we really dissect what the research is telling us about on-device AI optimization and deployment strategies.
+        """.strip()))
 
-        for idx, paper in enumerate(sorted_insights[:6], 1):
+        dialog.append(("Questioner", "Perfect. Let's start with the highest-relevance papers and work our way through the complete picture."))
+
+        # SECTION A: Deep analysis of each source with full context
+        for idx, paper in enumerate(sorted_insights, 1):
             title = paper.get('title', 'Unknown')
             score = paper.get('relevance_score', 0)
             platform = paper.get('platform', 'Unknown')
@@ -336,33 +343,35 @@ solid research focused on practical on-device AI deployment.
             dram_impact = paper.get('dram_impact', 'Unknown')
             takeaway = paper.get('engineering_takeaway', 'N/A')
             model_type = paper.get('model_type', 'Unknown')
+            source_platform = paper.get('source', 'Unknown')
+            link = paper.get('link', 'N/A')
+            summary_text = paper.get('summary', 'N/A')
 
-            # Explainer presents the paper
             dialog.append(("Explainer", f"""
-Paper {idx}: "{title}"
-This scored {score} out of 100 relevance. It focuses on {platform} platforms and deals with {model_type} models.
-{memory_insight}
+SOURCE {idx}: {title}
+This paper comes from {source_platform} with a relevance score of {score} out of 100.
+The research focuses on {platform} platforms with a special emphasis on {model_type} model architectures.
+Summary: {summary_text}
+Available at: {link}
             """.strip()))
 
-            # Questioner asks clarification question
-            dialog.append(("Questioner", f"That's fascinating. Can you explain the technical approach here and how it actually solves the memory problem?"))
+            dialog.append(("Questioner", "What's the core technical contribution here?"))
 
-            # Explainer provides deeper analysis
             dialog.append(("Explainer", f"""
-Absolutely. The key innovation is in how it handles DRAM consumption. The DRAM impact is {dram_impact}.
-The engineering takeaway here is: {takeaway}
-This is particularly important for the memory engineering community because it shows a practical approach
-to reducing the bottleneck in model deployment on constrained devices.
+The core insight from this research is: {memory_insight}
+The DRAM impact level is {dram_impact}, which indicates the significance for memory-constrained environments.
+This directly translates to the engineering takeaway: {takeaway}
+What makes this particularly valuable is that it provides a concrete, implementable approach that practitioners
+can apply immediately to improve their on-device AI systems.
             """.strip()))
 
-            # Questioner asks practical/comparative question
-            dialog.append(("Questioner", "How does this compare to other approaches, and what are the real-world implications for developers?"))
+            dialog.append(("Questioner", "How does this fit into the broader context of on-device AI?"))
 
-            # Explainer discusses implications
             dialog.append(("Explainer", f"""
-This approach is particularly valuable because the research demonstrates a concrete path forward
-for on-device deployment. What makes it different is the efficiency gain against the implementation complexity trade-off.
-Developers can use these techniques immediately to improve their mobile or laptop-based AI applications.
+Excellent question. This source addresses a critical pain point in {platform} deployment.
+Given the {dram_impact} DRAM impact, it's clear that memory optimization is at the forefront of this research.
+The techniques and approaches outlined here represent the cutting edge of practical on-device AI implementation.
+This is directly applicable to anyone working on mobile applications, edge computing, or constrained device scenarios.
             """.strip()))
 
         # 4. Trends Discussion
@@ -405,52 +414,92 @@ Keep innovating on the edge!
         return dialog
 
     def _build_summary_section(self, insights: List[Dict]) -> str:
-        """Build 2-minute summary section (approximately 300 words at normal speaking pace)"""
+        """Build comprehensive summary incorporating all sources and deep-dive findings"""
         total = len(insights)
         avg_score = sum(i.get('relevance_score', 0) for i in insights) / total if total > 0 else 0
 
         # Analyze trends
         platforms = {}
         model_types = {}
+        techniques = {}
         high_impact = 0
+        sources_list = []
 
-        for paper in insights:
+        for idx, paper in enumerate(insights, 1):
             platform = paper.get('platform', 'Unknown')
             platforms[platform] = platforms.get(platform, 0) + 1
             model_type = paper.get('model_type', 'Unknown')
             model_types[model_type] = model_types.get(model_type, 0) + 1
+            technique = paper.get('quantization_method', 'Unknown')
+            techniques[technique] = techniques.get(technique, 0) + 1
             if paper.get('dram_impact') == 'High':
                 high_impact += 1
 
+            # Collect all sources
+            title = paper.get('title', 'Unknown')
+            link = paper.get('link', 'N/A')
+            sources_list.append(f"  {idx}. {title} - {link}")
+
         top_platform = max(platforms.items(), key=lambda x: x[1])[0] if platforms else 'Unknown'
         top_model_type = max(model_types.items(), key=lambda x: x[1])[0] if model_types else 'Unknown'
+        top_technique = max(techniques.items(), key=lambda x: x[1])[0] if techniques else 'Unknown'
+
+        sources_summary = "\n".join(sources_list[:5])  # First 5 for audio
+        sources_full = "\n".join(sources_list)  # All for reference
 
         summary = f"""
-Now, let me give you the wrap-up summary covering all the week's findings.
+COMPREHENSIVE SUMMARY AND SOURCE DEEP-DIVE
 
-This week's research landscape is clear: on-device AI is maturing. We analyzed {total} papers with
-an average relevance score of {avg_score:.1f} out of 100, indicating solid, practical research focused
-on real deployment challenges.
+We've just completed a thorough analysis of {total} research papers on on-device AI optimization.
+The average relevance score across all sources is {avg_score:.1f} out of 100, indicating high-quality,
+practical research focused on real deployment challenges.
 
-The dominant platform focus this week is {top_platform}, and the most researched model type is {top_model_type}.
-This reflects the industry's current prioritization of making these architectures efficient for edge deployment.
+COMPLETE SOURCE LIST:
+This deep-dive discussion covered the following sources:
+{sources_summary}
+And {len(sources_list) - 5 if len(sources_list) > 5 else 0} additional sources available in the full report.
 
-The critical insight is that DRAM remains the primary bottleneck. With {high_impact} papers addressing high DRAM impact challenges,
-the research community is clearly focused on solving the memory constraint problem. Techniques like quantization,
-distillation, mixed-precision computation, and activation swapping are proving essential.
+PLATFORM DISTRIBUTION:
+The research landscape shows strong focus on {top_platform} platforms, with papers addressing
+{', '.join([f"{count} {platform}" for platform, count in sorted(platforms.items(), key=lambda x: x[1], reverse=True)])}.
+Each platform has unique constraints, and the research demonstrates platform-specific optimization strategies.
 
-For memory engineers and the memory industry, this research validates the importance of DRAM bandwidth optimization.
-The solutions being researched aren't about creating more memory – they're about using memory more intelligently.
-Efficient attention mechanisms, selective activation storage, and streaming inference patterns are practical
-approaches that reduce DRAM pressure without requiring hardware changes.
+MODEL ARCHITECTURE TRENDS:
+The top researched model type is {top_model_type}, followed by emerging work across diverse architectures.
+This reflects the industry's current focus on making these popular models efficient for edge deployment.
 
-The practical recommendations are: First, consider platform-specific strategies. Mobile and laptop deployments
-require different optimization techniques. Second, prioritize quantization and precision reduction as your first
-optimization step. Third, look at architectural approaches like knowledge distillation that reduce model size
-before deployment. And fourth, monitor emerging techniques in activation management and streaming inference.
+KEY OPTIMIZATION TECHNIQUES:
+The most prevalent optimization approach is {top_technique}, with {', '.join([f"{technique}: {count}"
+for technique, count in sorted(techniques.items(), key=lambda x: x[1], reverse=True)[:3]])}.
 
-The trend is unmistakable: efficient on-device AI is not a future problem – it's a present opportunity.
-The research is advancing rapidly, and the solutions are becoming increasingly practical for real-world implementation.
+CRITICAL BOTTLENECK ANALYSIS:
+DRAM remains the primary bottleneck in on-device AI. With {high_impact} papers addressing high DRAM impact challenges,
+the research community is clearly focused on solving the memory constraint problem.
+
+PRACTICAL TAKEAWAYS FOR IMPLEMENTATION:
+First, the research validates that efficient on-device AI is not a future problem – it's a present opportunity.
+Second, platform-specific strategies are essential. Third, memory optimization techniques like quantization and pruning
+provide immediate, measurable improvements. Fourth, architectural approaches like knowledge distillation are becoming
+standard practice.
+
+DEEP-DIVE INSIGHTS:
+All {total} sources covered today represent the cutting edge of practical on-device AI implementation. The papers
+discuss concrete, implementable approaches that practitioners can apply immediately. Whether you're developing mobile
+applications, working on edge computing, or optimizing for constrained devices, these sources provide actionable intelligence.
+
+MEMORY ENGINEERING IMPLICATIONS:
+For the memory industry, this research validates the importance of DRAM bandwidth optimization. The solutions being
+researched aren't about creating more memory – they're about using memory more intelligently. Efficient attention
+mechanisms, selective activation storage, and streaming inference patterns are practical approaches that reduce DRAM
+pressure without requiring hardware changes.
+
+FUTURE OUTLOOK:
+The trend is unmistakable and accelerating. Efficient on-device AI is moving from academic research to production systems.
+The next generation of AI applications will prioritize both capability and efficiency. Organizations that master these
+optimization techniques will have competitive advantages in deploying AI solutions on mobile and edge devices.
+
+Thank you for this deep dive through all {total} sources. The complete analysis, including all source links,
+detailed metrics, and actionable takeaways, is available in our comprehensive report documents.
         """
 
         return summary.strip()
