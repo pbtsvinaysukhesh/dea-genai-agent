@@ -39,7 +39,7 @@ class LLMPodcastGenerator:
         self,
         output_dir: str = "results/podcasts",
         greeting: Optional[str] = None,
-        llm_model: str = "mixtral-8x7b-32768",  # GROQ fast model
+        llm_model: str = "llama-3.1-70b-versatile",  # GROQ current model (mixtral decommissioned)
     ):
         """Initialize LLM podcast generator
 

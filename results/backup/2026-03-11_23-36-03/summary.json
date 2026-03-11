@@ -1,0 +1,60 @@
+{
+  "session_id": "a70a7539-722f-4d39-bf86-322a4aa82ebc",
+  "generated_at": "2026-03-11T16:41:10.462967Z",
+  "total_papers": 3,
+  "executive_summary": "Analysis of 3 papers on on-device AI optimization techniques. Focus areas include quantization, pruning, and model compression with average relevance score of 1/100 and 2 high-impact papers.",
+  "confidence": "primary",
+  "takeaways": [
+    {
+      "number": 1,
+      "text": "Implement INT8 quantization for 4x speedup on mobile",
+      "source": "INT8 Quantization: Achieving 4x Model Compression on Mobile",
+      "confidence": "high"
+    },
+    {
+      "number": 2,
+      "text": "Implement aggressive batching and KV caching",
+      "source": "INT8 Quantization: Achieving 4x Model Compression on Mobile",
+      "confidence": "high"
+    },
+    {
+      "number": 3,
+      "text": "Deploy knowledge distillation pipelines in production",
+      "source": "INT8 Quantization: Achieving 4x Model Compression on Mobile",
+      "confidence": "high"
+    }
+  ],
+  "sources": [
+    {
+      "index": 1,
+      "title": "INT8 Quantization: Achieving 4x Model Compression on Mobile",
+      "url": "https://arxiv.org/abs/2401.quantization.001",
+      "source_platform": "arXiv",
+      "relevance_score": 0.98,
+      "summary": "Techniques for 8-bit integer quantization achieving 75% size reduction",
+      "quotes": [],
+      "authors": null
+    },
+    {
+      "index": 2,
+      "title": "Knowledge Distillation for Mobile Models: 6x Compression",
+      "url": "https://paperswithcode.com/paper-distillation-mobile",
+      "source_platform": "Papers with Code",
+      "relevance_score": 0.89,
+      "summary": "Student-teacher compression for mobile deployment",
+      "quotes": [],
+      "authors": null
+    },
+    {
+      "index": 3,
+      "title": "On-Device LLM Inference: KV Cache Optimization",
+      "url": "https://paperswithcode.com/paper-ondevice-llm",
+      "source_platform": "Papers with Code",
+      "relevance_score": 0.95,
+      "summary": "Batching and KV cache optimization for LLM inference",
+      "quotes": [],
+      "authors": null
+    }
+  ],
+  "metadata": {}
+}
