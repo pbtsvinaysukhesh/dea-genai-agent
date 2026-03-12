@@ -1,0 +1,44 @@
+{
+  "session_id": "8becd2f3-293f-4fd7-a9cc-746d78dbc262",
+  "generated_at": "2026-03-12T03:38:11.527052Z",
+  "total_papers": 2,
+  "executive_summary": "Analysis of 2 papers on on-device AI optimization techniques. Focus areas include quantization, pruning, and model compression with average relevance score of 92/100 and 1 high-impact papers.",
+  "confidence": "primary",
+  "takeaways": [
+    {
+      "number": 1,
+      "text": "Quantization essential for mobile",
+      "source": "Efficient Quantization for Mobile LLMs",
+      "confidence": "high"
+    },
+    {
+      "number": 2,
+      "text": "Distillation works",
+      "source": "Efficient Quantization for Mobile LLMs",
+      "confidence": "high"
+    }
+  ],
+  "sources": [
+    {
+      "index": 1,
+      "title": "Efficient Quantization for Mobile LLMs",
+      "url": "https://arxiv.org/test1",
+      "source_platform": "arXiv",
+      "relevance_score": 95.0,
+      "summary": "Quantization techniques",
+      "quotes": [],
+      "authors": null
+    },
+    {
+      "index": 2,
+      "title": "Knowledge Distillation for Vision",
+      "url": "https://github.com/test",
+      "source_platform": "GitHub",
+      "relevance_score": 88.0,
+      "summary": "Vision techniques",
+      "quotes": [],
+      "authors": null
+    }
+  ],
+  "metadata": {}
+}
