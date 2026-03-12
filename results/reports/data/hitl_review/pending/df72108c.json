@@ -1,0 +1,31 @@
+{
+  "review_id": "df72108c",
+  "created_at": "2026-03-09T22:45:48.048616",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Characterizing and Harnessing Correlations Featuring Independent Qubit Devices",
+    "abstract": "We propose a framework to characterize the correlations in qubit systems for Bell and prepare-and-measure scenarios with independent devices -- a typically non-convex problem. Based on this result, we introduce protocols for referring devices and detecting entanglement with correlation that are not necessarily extreme or nonlocal, as required by common linear approach. } Specifically, our correlation criterion, derived from uncertainty relation specific to qubit systems, can capture the non-conv",
+    "url": "https://arxiv.org/abs/2510.12022v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:48.048616"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

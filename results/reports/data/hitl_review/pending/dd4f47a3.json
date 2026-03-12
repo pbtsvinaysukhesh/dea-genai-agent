@@ -1,0 +1,47 @@
+{
+  "review_id": "dd4f47a3",
+  "created_at": "2026-03-02T23:16:39.557905",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Collaborative Processing for Multi-Tenant Inference on Memory-Constrained Edge TPUs",
+    "abstract": "IoT applications are increasingly relying on on-device AI accelerators to ensure high performance, especially in limited connectivity and safety-critical scenarios. However, the limited on-chip memory of these accelerators forces inference runtimes to swap model segments between host and accelerator memory, substantially inflating latency. While collaborative processing by partitioning the model processing between CPU and accelerator resources can reduce accelerator memory pressure and latency, ",
+    "url": "https://arxiv.org/abs/2602.17808v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_dram_usage": "up to 63.8% reduction in mean latency for single-tenant workloads and up to 77.4% for multi-tenant workloads",
+      "memory_bandwidth_requirements": "not specified",
+      "compression_quantization_methods": "not specified",
+      "before_after_comparisons": "SwapLess reduces mean latency by up to 63.8% for single-tenant workloads and up to 77.4% for multi-tenant workloads relative to the default Edge TPU compiler"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Continuous online adjustments of partition point and CPU core allocation can minimize end-to-end response time with low decision overhead",
+    "technical_details": [
+      "Analytic queueing model",
+      "Partition-dependent CPU/TPU service times",
+      "Inter- and intra-model swapping overheads",
+      "Adaptive, multi-tenant TPU-CPU collaborative inference"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop platforms, but actual performance may vary based on specific hardware configurations and workload mixes.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T23:16:39.553850"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

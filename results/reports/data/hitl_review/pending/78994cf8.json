@@ -1,0 +1,31 @@
+{
+  "review_id": "78994cf8",
+  "created_at": "2026-03-09T22:45:46.574207",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Deep Learning based Moving Target Defence for Federated Learning against Poisoning Attack in MEC Systems with a 6G Wireless Model",
+    "abstract": "Collaboration opportunities for devices are facilitated with Federated Learning (FL). Edge computing facilitates aggregation at edge and reduces latency. To deal with model poisoning attacks, model-based outlier detection mechanisms may not operate efficiently with hetereogenous models or in recognition of complex attacks. This paper fosters the defense line against model poisoning attack by exploiting device-level traffic analysis to anticipate the reliability of participants. FL is empowered w",
+    "url": "https://arxiv.org/abs/2509.10914v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:46.574207"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

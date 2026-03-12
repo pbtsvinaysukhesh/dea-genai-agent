@@ -1,0 +1,31 @@
+{
+  "review_id": "feef898e",
+  "created_at": "2026-03-09T22:46:23.916380",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Improving language understanding with unsupervised learning",
+    "abstract": "We\u2019ve obtained state-of-the-art results on a suite of diverse language tasks with a scalable, task-agnostic system, which we\u2019re also releasing. Our approach is a combination of two existing ideas:\u00a0transformers\u00a0and\u00a0unsupervised pre-training. These results provide a convincing example that pairing supervised learning methods with unsupervised pre-training works very well; this is an idea that many have explored in the past, and we hope our result motivates further research into applying this idea ",
+    "url": "https://openai.com/index/language-unsupervised",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:23.916380"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

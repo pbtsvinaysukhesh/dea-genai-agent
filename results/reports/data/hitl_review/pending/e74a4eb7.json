@@ -1,0 +1,31 @@
+{
+  "review_id": "e74a4eb7",
+  "created_at": "2026-03-09T22:46:20.452124",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "GPT-3 powers the next generation of apps",
+    "abstract": "Over 300 applications are delivering GPT-3\u2013powered search, conversation, text completion, and other advanced AI features through our\u00a0API.",
+    "url": "https://openai.com/index/gpt-3-apps",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:20.452124"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

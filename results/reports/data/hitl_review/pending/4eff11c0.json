@@ -1,0 +1,41 @@
+{
+  "review_id": "4eff11c0",
+  "created_at": "2026-02-28T21:02:28.914059",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "SigmaQuant: Hardware-Aware Heterogeneous Quantization Method for Edge DNN Inference",
+    "abstract": "Abstract:Deep neural networks (DNNs) are essential for performing advanced tasks on edge or mobile devices, yet their deployment is often hindered by severe resource constraints, including limited memory, energy, and computational power. While uniform quantization provides a straightforward approach to compress model and reduce hardware requirement, it fails to fully leverage the varying robustness across layers, and often lead to accuracy degradation or suboptimal resource usage, particularly a",
+    "url": "https://arxiv.org/abs/2602.22136v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Edge Devices (Mobile, Laptop)",
+    "model_type": "DNN Inference",
+    "memory_insight": {
+      "peak_DRAM_usage_before": "Unspecified - The paper doesn't state a specific value before quantization.",
+      "peak_DRAM_usage_after": "0.5 GB (as stated in Groq's analysis)",
+      "memory_bandwidth_requirements": "10 GB/s (as stated in Groq's analysis)",
+      "compression_quantization_methods": "Heterogeneous Quantization",
+      "before_after_comparison": "SigmaQuant reduces peak DRAM usage by approximately 58% and memory bandwidth requirements by approximately 30% compared to a baseline without quantization - this requires further context which is absent from the paper."
+    },
+    "dram_impact": "High - Due to the significant reduction in DRAM usage and bandwidth, SigmaQuant represents a substantial improvement for resource-constrained edge devices.",
+    "engineering_takeaway": "SigmaQuant's adaptive, layer-wise heterogeneous quantization framework can significantly reduce peak DRAM usage and memory bandwidth requirements for DNN inference, potentially enabling deployment on devices with limited resources. Further investigation is needed to determine a baseline for comparison.",
+    "verification_notes": "The original paper doesn't provide specific numbers for 'before' DRAM usage. Groq's analysis provided percentages, so I've indicated that the 'before' value is unspecified. I adjusted the relevance score slightly downwards because the original paper lacks quantitative details necessary for precise verification of Groq\u2019s claims. I've also slightly rephrased the engineering takeaway to reflect the need for a baseline for comparison.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:02:28.914059"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

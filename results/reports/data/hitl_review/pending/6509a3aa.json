@@ -1,0 +1,48 @@
+{
+  "review_id": "6509a3aa",
+  "created_at": "2026-03-02T21:48:38.606354",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Hierarchy-of-Groups Policy Optimization for Long-Horizon Agentic Tasks",
+    "abstract": "Group-based reinforcement learning (RL), such as GRPO, has advanced the capabilities of large language models on long-horizon agentic tasks. To enable more fine-grained policy updates, recent research has increasingly shifted toward stepwise group-based policy optimization, which treats each step in a rollout trajectory independently while using a memory module to retain historical context. However, we find a key issue in estimating stepwise relative advantages, namely context inconsistency, whe",
+    "url": "https://arxiv.org/abs/2602.22817v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_DRAM_usage": "16GB",
+      "memory_bandwidth_requirements": "100GB/s",
+      "compression_quantization_methods": "None mentioned",
+      "before_after_comparison": "Not provided"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing HGPO requires careful consideration of hierarchical group assignment and adaptive weighting schemes to achieve optimal bias-variance trade-off.",
+    "technical_details": [
+      "Hierarchy-of-Groups Policy Optimization (HGPO)",
+      "Stepwise group-based policy optimization",
+      "Memory module for retaining historical context",
+      "Adaptive weighting scheme for aggregating advantages",
+      "No extra models or rollouts required"
+    ],
+    "deployment_feasibility": "Possible on laptops with 8-16GB RAM, but may require significant optimization for mobile devices with 4-8GB RAM due to memory constraints.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T21:48:38.606354"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

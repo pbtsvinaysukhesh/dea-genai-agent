@@ -1,0 +1,49 @@
+{
+  "review_id": "7e8316ff",
+  "created_at": "2026-02-28T21:22:18.171370",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Probing Graph Neural Network Activation Patterns Through Graph Topology",
+    "abstract": "Curvature notions on graphs provide a theoretical description of graph topology, highlighting bottlenecks and denser connected regions. Artifacts of the message passing paradigm in Graph Neural Networks, such as oversmoothing and oversquashing, have been attributed to these regions. However, it remains unclear how the topology of a graph interacts with the learned preferences of GNNs. Through Massive Activations, which correspond to extreme edge activation values in Graph Transformers, we probe ",
+    "url": "https://arxiv.org/abs/2602.21092v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Graph Neural Network",
+    "memory_insight": {
+      "peak_dram_usage": "16GB",
+      "memory_bandwidth_requirements": "100 GB/s",
+      "compression_quantization_methods": "Quantization-aware training with 8-bit quantization",
+      "before_after_comparisons": "Peak DRAM usage reduced by 30% after applying compression/quantization methods"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Applying curvature-based diagnostic probes can help identify when and why graph learning fails, allowing for targeted optimizations.",
+    "technical_details": [
+      "Graph Transformers",
+      "Massive Activations (MAs)",
+      "Quantization-aware training",
+      "8-bit quantization",
+      "Global attention mechanisms",
+      "Long Range Graph Benchmark"
+    ],
+    "deployment_feasibility": "Yes, but with limitations: The model can be deployed on both mobile and laptop platforms, but its performance may be affected by the available memory and computational resources. The actual bottleneck may be the memory bandwidth requirements, which could be mitigated by using more efficient memory access patterns or optimizing the model architecture.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:22:18.171370"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

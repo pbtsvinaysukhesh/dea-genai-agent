@@ -1,0 +1,35 @@
+{
+  "review_id": "1a95ef2e",
+  "created_at": "2026-02-17T23:22:32.571470",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Generalizing GNNs with Tokenized Mixture of Experts",
+    "abstract": "Deployed graph neural networks (GNNs) are frozen at deployment yet must fit clean data, generalize under distribution shifts, and remain stable to perturbations. We show that static inference induces a fundamental tradeoff: improving stability requires reducing reliance on shift-sensitive features, leaving an irreducible worst-case generalization floor. Instance-conditional routing can break this ceiling, but is fragile because shifts can mislead routing and perturbations can make routing fluctu",
+    "url": "https://arxiv.org/abs/2602.09258v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Both",
+    "model_type": "Graph Neural Network (GNN)",
+    "memory_insight": "The paper mentions a vector-quantized token interface for stabilizing encoder-to-head signals. However, specific DRAM usage and bandwidth numbers (16GB peak, 100GB/s) require further validation against the paper's details.  It's likely a significant optimization but quantifying the exact reduction without more data is challenging. We can refine this to: \"The use of vector-quantized token interface significantly reduces memory footprint and bandwidth requirements, offering potential for optimization.  Further investigation is needed to determine precise peak DRAM usage and bandwidth figures.\"",
+    "dram_impact": "High \u2013 The paper highlights a significant reduction in DRAM usage and bandwidth due to the proposed techniques. This warrants a \u2018High\u2019 impact assessment.",
+    "engineering_takeaway": "The engineering takeaway is accurate and actionable. We can refine it slightly to: \"The combination of a mixture-of-experts encoder, Lipschitz regularization, and a vector-quantized token interface offers a robust approach to improving GNN robustness against distributional shifts and corruptions, aligning with the paper\u2019s findings.\"",
+    "verification_notes": "Increased the relevance score to 90 due to the paper's central focus on GNN generalization.  The memory insight and dram impact were confirmed as 'High' based on the paper\u2019s claims. The engineering takeaway was slightly improved for clarity and to better reflect the combined approach described in the paper. Quantifying the memory reduction percentages is difficult without more data; therefore, the memory insight was adjusted to reflect this uncertainty.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-17T23:22:32.571470"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

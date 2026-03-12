@@ -1,0 +1,50 @@
+{
+  "review_id": "4e8ae3e1",
+  "created_at": "2026-02-28T21:30:14.766528",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "UrbanFM: Scaling Urban Spatio-Temporal Foundation Models",
+    "abstract": "Urban systems, as dynamic complex systems, continuously generate spatio-temporal data streams that encode the fundamental laws of human mobility and city evolution. While AI for Science has witnessed the transformative power of foundation models in disciplines like genomics and meteorology, urban computing remains fragmented due to \"scenario-specific\" models, which are overfitted to specific regions or tasks, hindering their generalizability. To bridge this gap and advance spatio-temporal founda",
+    "url": "https://arxiv.org/abs/2602.20677v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_DRAM_usage": "16GB",
+      "memory_bandwidth_requirements": "100GB/s",
+      "compression_quantization_methods": "TensorFlow's Quantization Aware Training (QAT)",
+      "before_after_comparisons": "Before: 32GB, After: 16GB (using WorldST and MiniST)"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing WorldST and MiniST can reduce DRAM usage by 50% while maintaining performance.",
+    "technical_details": [
+      "Scaling as the central perspective",
+      "First-principles analysis",
+      "Heterogeneity, correlation, and dynamics",
+      "WorldST: billion-scale corpus",
+      "MiniST unit: novel split mechanism",
+      "UrbanFM: minimalist self-attention architecture",
+      "EvalST: largest-scale urban spatio-temporal benchmark"
+    ],
+    "deployment_feasibility": "Yes, but with limitations. The model can be deployed on both mobile and laptop, but the actual bottleneck may be the memory bandwidth requirements. Further optimization is needed to make it run smoothly on devices with limited RAM.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:30:14.764147"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

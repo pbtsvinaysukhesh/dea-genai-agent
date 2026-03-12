@@ -1,0 +1,47 @@
+{
+  "review_id": "88d1b8b9",
+  "created_at": "2026-03-09T22:11:03.859787",
+  "confidence": 0.8125,
+  "paper": {
+    "title": "LIMO: Low-Power In-Memory-Annealer and Matrix-Multiplication Primitive for Edge Computing",
+    "abstract": "Combinatorial optimization (CO) underpins applications in science and engineering, ranging from logistics to electronic design automation. A classic example is the NP-complete Traveling Salesman Problem (TSP). Finding exact solutions for large-scale TSP instances remains computationally intractable; on von Neumann architectures, such solvers are constrained by the memory wall, incurring compute-memory traffic that grows with instance size. Metaheuristics, such as simulated annealing implemented ",
+    "url": "https://arxiv.org/abs/2512.23212v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 92,
+    "platform": "Both",
+    "model_type": "Other",
+    "memory_insight": {
+      "peak_dram_usage": "Not specified",
+      "memory_bandwidth_requirements": "Not specified",
+      "compression_quantization_methods": "None mentioned",
+      "before_after_comparisons": "85,900 cities instance solved with superior solution quality and faster time-to-solution"
+    },
+    "dram_impact": "Medium",
+    "engineering_takeaway": "Using in-memory annealing with stochastic switching of spin-transfer-torque magnetic-tunnel-junctions (STT-MTJs) can improve solution quality for large-scale combinatorial optimization problems",
+    "technical_details": [
+      "In-memory annealing algorithm",
+      "Stochastic switching of spin-transfer-torque magnetic-tunnel-junctions (STT-MTJs)",
+      "Refinement-based divide-and-conquer algorithm",
+      "Mixed-signal computational macro",
+      "Vector-matrix multiplications (VMMs) support"
+    ],
+    "deployment_feasibility": "Feasible on laptop and possibly mobile with sufficient RAM, but actual deployment may be limited by hardware acceleration requirements and power consumption",
+    "council_metadata": {
+      "groq_score": 92,
+      "ollama_score": 92,
+      "gemini_score": 92,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T22:11:03.858321"
+    },
+    "hitl_confidence": 0.8125,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

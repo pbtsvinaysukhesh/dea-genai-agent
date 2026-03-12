@@ -1,0 +1,31 @@
+{
+  "review_id": "3e1948ba",
+  "created_at": "2026-03-09T22:46:07.686167",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Adebayo Ogunlesi joins OpenAI\u2019s Board of Directors",
+    "abstract": "Adebayo Ogunlesi Joins OpenAI\u2019s Board of Directors",
+    "url": "https://openai.com/index/adebayo-ogunlesi-joins-openais-board-of-directors",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:07.686167"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

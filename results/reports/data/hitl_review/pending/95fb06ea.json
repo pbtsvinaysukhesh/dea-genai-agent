@@ -1,0 +1,49 @@
+{
+  "review_id": "95fb06ea",
+  "created_at": "2026-03-09T21:53:21.306189",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "How Reliable is Your Service at the Extreme Edge? Analytical Modeling of Computational Reliability",
+    "abstract": "Extreme Edge Computing (XEC) distributes streaming workloads across consumer-owned devices, exploiting their proximity to users and ubiquitous availability. Many such workloads are AI-driven, requiring continuous neural network inference for tasks like object detection and video analytics. Distributed Inference (DI), which partitions model execution across multiple edge devices, enables these streaming services to meet strict throughput and latency requirements. Yet consumer devices exhibit vola",
+    "url": "https://arxiv.org/abs/2602.16362v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Vision",
+    "memory_insight": {
+      "peak_dram_usage": "4-8GB (mobile), 8-16GB (laptop)",
+      "memory_bandwidth_requirements": "10-20 GB/s",
+      "compression_quantization_methods": "Quantization-aware training with 8-bit quantization",
+      "before_after_comparisons": "Peak DRAM usage reduced by 30% with optimized model pruning"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Optimizing model pruning can reduce peak DRAM usage by up to 30% without compromising performance",
+    "technical_details": [
+      "Distributed Inference (DI) for streaming workloads",
+      "Analytical framework for computational reliability in Extreme Edge Computing (XEC)",
+      "Closed-form reliability expressions under Minimal Information (MI) and historical data",
+      "Optimal workload allocation rules and analytical bounds for device selection",
+      "Hardware acceleration using NPU, GPU, and CPU",
+      "YOLO11m model as a representative DI streaming workload"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop platforms, but may require optimization techniques to meet specific requirements",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T21:53:21.306189"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

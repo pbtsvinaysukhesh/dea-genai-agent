@@ -37,7 +37,8 @@ class MultiFormatReportOrchestrator:
             self.path_config = None
             self.output_dir = Path(output_dir or "results/reports")
             self.backup_dir = Path("results/backup")
-            self.podcast_dir = Path("results/podcasts")
+            # CRITICAL FIX: Podcast dir MUST be same as output_dir so files get backed up together with PDF/PPT
+            self.podcast_dir = self.output_dir
 
         # Ensure directories exist
         self.output_dir.mkdir(parents=True, exist_ok=True)
@@ -81,40 +82,29 @@ class MultiFormatReportOrchestrator:
 
         try:
             from .podcast_generator import PodcastGenerator, TranscriptGenerator
-            # Get greeting from PathConfig if available
+            # Get greeting and narration mode from PathConfig
             greeting = None
+            narration_mode = "classic"
             if self.path_config:
-                greeting = self.path_config.get_podcast_greeting()
+                greeting       = self.path_config.get_podcast_greeting()
+                narration_mode = self.path_config.get_narration_mode()
 
             self.podcast_gen = PodcastGenerator(
                 output_dir=str(self.podcast_dir),
                 greeting=greeting,
                 intro_music_path=self.path_config.get_podcast_intro_music() if self.path_config else None,
                 outro_music_path=self.path_config.get_podcast_outro_music() if self.path_config else None,
+                narration_mode=narration_mode,
             )
             self.transcript_gen = TranscriptGenerator()
+            logger.info(f"[Orchestrator] Podcast generator ready (mode={narration_mode})")
         except ImportError:
             self.podcast_gen = None
             self.transcript_gen = None
             logger.warning("[Orchestrator] podcast_generator not available")
 
-        # Initialize LLM Podcast Generator if available
-        try:
-            from .llm_podcast_generator import LLMPodcastGenerator
-            greeting = None
-            if self.path_config:
-                greeting = self.path_config.get_podcast_greeting()
-            self.llm_podcast_gen = LLMPodcastGenerator(
-                output_dir=str(self.podcast_dir),
-                greeting=greeting or "Hello everyone, welcome to Vinay's DEA podcast."
-            )
-            if self.llm_podcast_gen.has_groq:
-                logger.info("[Orchestrator] LLM Podcast Generator available - will use for natural dialogue")
-            else:
-                logger.info("[Orchestrator] LLM Podcast Generator available but GROQ not configured - will fall back to template")
-        except ImportError:
-            self.llm_podcast_gen = None
-            logger.debug("[Orchestrator] LLM podcast generator not available")
+        # LLM Podcast Generator - archived (using template-based generator instead)
+        self.llm_podcast_gen = None
 
         # Initialize JSON summary generator
         try:
@@ -198,34 +188,18 @@ class MultiFormatReportOrchestrator:
         else:
             results['pptx'] = False
 
-        # 4. Podcast Audio - Use LLM-generated natural dialogue if available, otherwise fall back to template
+        # 4. Podcast Audio
         podcast_success = False
 
-        # Try LLM podcast first
-        if self.llm_podcast_gen and self.llm_podcast_gen.has_groq:
+        if self.podcast_gen:
             try:
-                logger.info("[Orchestrator] Generating LLM-powered natural dialogue podcast...")
-                podcast_results = self.llm_podcast_gen.generate(
-                    insights=insights,
-                    title="On-Device AI Intelligence Report",
-                    episode_number=datetime.now().strftime("%Y-%m-%d"),
-                    description=f"Intelligence report on {len(insights)} papers"
-                )
-                if podcast_results.get("mp3"):
-                    logger.info(f"[Orchestrator] ✅ LLM Podcast MP3: {podcast_results['mp3']}")
-                    podcast_success = True
-            except Exception as e:
-                logger.warning(f"[Orchestrator] LLM podcast generation failed, falling back to template: {e}")
-                podcast_success = False
-
-        # Fall back to template-based podcast if LLM unavailable
-        if not podcast_success and self.podcast_gen:
-            try:
-                logger.info("[Orchestrator] Generating template-based podcast...")
+                run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
+                mode = getattr(self.podcast_gen, 'narration_mode', 'classic')
+                logger.info(f"[Orchestrator] Generating podcast (mode={mode}, run_id={run_id})...")
                 podcast_results = self.podcast_gen.generate(
                     insights=insights,
                     title="On-Device AI Intelligence Report",
-                    episode_number=datetime.now().strftime("%Y-%m-%d"),
+                    episode_number=run_id,
                     description=f"Intelligence report on {len(insights)} papers",
                     source_links=[p.get('link') for p in insights if p.get('link')]
                 )

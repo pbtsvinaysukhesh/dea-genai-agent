@@ -1,0 +1,31 @@
+{
+  "review_id": "04ff9550",
+  "created_at": "2026-03-09T22:46:01.284206",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "From hard refusals to safe-completions: toward output-centric safety training",
+    "abstract": "Discover how OpenAI's new safe-completions approach in GPT-5 improves both safety and helpfulness in AI responses\u2014moving beyond hard refusals to nuanced, output-centric safety training for handling dual-use prompts.",
+    "url": "https://openai.com/index/gpt-5-safe-completions",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:01.284206"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

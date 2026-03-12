@@ -1,0 +1,1064 @@
+2026-02-17 21:33:18,480 - INFO - ================================================================================
+2026-02-17 21:33:18,480 - INFO - ULTIMATE AGI RESEARCH SYSTEM
+2026-02-17 21:33:18,496 - INFO - Playwright + CrewAI + AI Council
+2026-02-17 21:33:18,496 - INFO - ================================================================================
+2026-02-17 21:33:18,522 - INFO - 
+Configuration:
+2026-02-17 21:33:18,522 - INFO -   Threshold: 60
+2026-02-17 21:33:18,523 - INFO -   Playwright: True
+2026-02-17 21:33:18,523 - INFO -   CrewAI: True
+2026-02-17 21:33:19,099 - INFO - [HITL] Initialized (auto-approve: 0.85, review threshold: 90)
+2026-02-17 21:33:19,100 - INFO - [EmailTracker] Loaded 0 previously sent papers
+2026-02-17 21:33:19,101 - INFO - [Archiver] Results directory: results
+2026-02-17 21:33:19,102 - INFO - 
+================================================================================
+2026-02-17 21:33:19,103 - INFO - STAGE 1: DEEP WEB SCRAPING
+2026-02-17 21:33:19,103 - INFO - ================================================================================
+2026-02-17 21:33:20,439 - INFO - Fetching 13 arXiv queries...
+2026-02-17 21:33:54,445 - INFO - Processing 4 web sources...
+2026-02-17 21:33:56,521 - INFO - [RSS] Found 10 items in https://machinelearning.apple.com/rss.xml
+2026-02-17 21:33:58,960 - INFO - [RSS] Found 20 items in https://blog.google/technology/ai/rss
+2026-02-17 21:34:01,331 - INFO - [RSS] Found 20 items in https://developers.googleblog.com/feeds/posts/default?alt=rss
+2026-02-17 21:34:03,582 - INFO - [HTML] RSS empty, attempting scrape: https://developer.qualcomm.com/rss/blog
+2026-02-17 21:34:03,582 - WARNING - [-] Could not extract content from: https://developer.qualcomm.com/rss/blog
+2026-02-17 21:34:04,591 - INFO - Collected 280 articles via RSS/API
+2026-02-17 21:34:04,591 - INFO - Enhancing articles with deep content extraction...
+2026-02-17 21:34:04,591 - INFO - [1/20] Deep scraping: On the Lea...
+2026-02-17 21:34:16,923 - INFO - [Playwright] Scraping: On the Learning Dynamics of RLVR at the Edge of Co...
+2026-02-17 21:34:22,500 - INFO -   [OK] Extracted 1271 chars
+2026-02-17 21:34:22,500 - INFO - [2/20] Deep scraping: GREAT-EER:...
+2026-02-17 21:34:23,492 - INFO - [Playwright] Scraping: GREAT-EER: Graph Edge Attention Network for Emerge...
+2026-02-17 21:34:55,077 - INFO -   [OK] Extracted 1354 chars
+2026-02-17 21:34:55,077 - INFO - [3/20] Deep scraping: LongAudio-...
+2026-02-17 21:34:55,940 - INFO - [Playwright] Scraping: LongAudio-RAG: Event-Grounded Question Answering o...
+2026-02-17 21:35:28,326 - INFO -   [OK] Extracted 1579 chars
+2026-02-17 21:35:28,326 - INFO - [4/20] Deep scraping: Governing ...
+2026-02-17 21:35:29,275 - INFO - [Playwright] Scraping: Governing AI Forgetting: Auditing for Machine Unle...
+2026-02-17 21:36:01,604 - INFO -   [OK] Extracted 1878 chars
+2026-02-17 21:36:01,604 - INFO - [5/20] Deep scraping: Benchmarki...
+2026-02-17 21:36:02,719 - INFO - [Playwright] Scraping: Benchmarking at the Edge of Comprehension...
+2026-02-17 21:36:34,254 - INFO -   [OK] Extracted 1459 chars
+2026-02-17 21:36:34,255 - INFO - [6/20] Deep scraping: Floe: Fede...
+2026-02-17 21:36:35,397 - INFO - [Playwright] Scraping: Floe: Federated Specialization for Real-Time LLM-S...
+2026-02-17 21:37:07,261 - INFO -   [OK] Extracted 1025 chars
+2026-02-17 21:37:07,262 - INFO - [7/20] Deep scraping: DeepFusion...
+2026-02-17 21:37:08,507 - INFO - [Playwright] Scraping: DeepFusion: Accelerating MoE Training via Federate...
+2026-02-17 21:37:39,983 - INFO -   [OK] Extracted 1825 chars
+2026-02-17 21:37:39,983 - INFO - [8/20] Deep scraping: Energy-Eff...
+2026-02-17 21:37:41,349 - INFO - [Playwright] Scraping: Energy-Efficient Over-the-Air Federated Learning v...
+2026-02-17 21:38:13,476 - INFO -   [OK] Extracted 1118 chars
+2026-02-17 21:38:13,476 - INFO - [9/20] Deep scraping: Decentrali...
+2026-02-17 21:38:14,451 - INFO - [Playwright] Scraping: Decentralized Federated Learning With Energy Harve...
+2026-02-17 21:38:46,162 - INFO -   [OK] Extracted 1720 chars
+2026-02-17 21:38:46,162 - INFO - [10/20] Deep scraping: sleep2vec:...
+2026-02-17 21:38:47,224 - INFO - [Playwright] Scraping: sleep2vec: Unified Cross-Modal Alignment for Heter...
+2026-02-17 21:39:19,419 - INFO -   [OK] Extracted 1436 chars
+2026-02-17 21:39:19,419 - INFO - [11/20] Deep scraping: HBVLA: Pus...
+2026-02-17 21:39:21,497 - INFO - [Playwright] Scraping: HBVLA: Pushing 1-Bit Post-Training Quantization fo...
+2026-02-17 21:39:54,428 - INFO -   [OK] Extracted 1571 chars
+2026-02-17 21:39:54,428 - INFO - [12/20] Deep scraping: On the Spa...
+2026-02-17 21:39:55,510 - INFO - [Playwright] Scraping: On the Sparsifiability of Correlation Clustering: ...
+2026-02-17 21:40:27,345 - INFO -   [OK] Extracted 1557 chars
+2026-02-17 21:40:27,345 - INFO - [13/20] Deep scraping: Scenario-A...
+2026-02-17 21:40:28,469 - INFO - [Playwright] Scraping: Scenario-Adaptive MU-MIMO OFDM Semantic Communicat...
+2026-02-17 21:40:59,938 - INFO -   [OK] Extracted 1593 chars
+2026-02-17 21:40:59,938 - INFO - [14/20] Deep scraping: AsyncVLA: ...
+2026-02-17 21:41:01,038 - INFO - [Playwright] Scraping: AsyncVLA: An Asynchronous VLA for Fast and Robust ...
+2026-02-17 21:41:32,543 - INFO -   [OK] Extracted 1177 chars
+2026-02-17 21:41:32,543 - INFO - [15/20] Deep scraping: FlashSchNe...
+2026-02-17 21:41:33,660 - INFO - [Playwright] Scraping: FlashSchNet: Fast and Accurate Coarse-Grained Neur...
+2026-02-17 21:42:05,210 - INFO -   [OK] Extracted 1667 chars
+2026-02-17 21:42:05,210 - INFO - [16/20] Deep scraping: LCSB: Laye...
+2026-02-17 21:42:06,240 - INFO - [Playwright] Scraping: LCSB: Layer-Cyclic Selective Backpropagation for M...
+2026-02-17 21:42:37,920 - INFO -   [OK] Extracted 1109 chars
+2026-02-17 21:42:37,920 - INFO - [17/20] Deep scraping: Bus-Condit...
+2026-02-17 21:42:38,992 - INFO - [Playwright] Scraping: Bus-Conditioned Zero-Shot Trajectory Generation vi...
+2026-02-17 21:43:10,681 - INFO -   [OK] Extracted 1372 chars
+2026-02-17 21:43:10,682 - INFO - [18/20] Deep scraping: Memory-Eff...
+2026-02-17 21:43:11,598 - INFO - [Playwright] Scraping: Memory-Efficient Structured Backpropagation for On...
+2026-02-17 21:43:44,266 - INFO -   [OK] Extracted 1145 chars
+2026-02-17 21:43:44,266 - INFO - [19/20] Deep scraping: Backdoor A...
+2026-02-17 21:43:45,098 - INFO - [Playwright] Scraping: Backdoor Attacks on Contrastive Continual Learning...
+2026-02-17 21:44:16,926 - INFO -   [OK] Extracted 1425 chars
+2026-02-17 21:44:16,926 - INFO - [20/20] Deep scraping: Quantizati...
+2026-02-17 21:44:17,874 - INFO - [Playwright] Scraping: Quantization-Aware Collaborative Inference for Lar...
+2026-02-17 21:44:49,644 - INFO -   [OK] Extracted 1303 chars
+2026-02-17 21:44:49,644 - INFO - Deep scraping complete. Enhanced 20 articles.
+2026-02-17 21:44:49,644 - INFO - Stats: {'papers_scraped': 20, 'pdfs_extracted': 20, 'html_extracted': 0, 'failed': 0}
+2026-02-17 21:44:49,645 - INFO - [OK] Playwright scraping complete
+2026-02-17 21:44:49,645 - INFO - Collected: 280 articles
+2026-02-17 21:44:49,645 - INFO - 
+================================================================================
+2026-02-17 21:44:49,646 - INFO - STAGE 2: VECTOR STORE INITIALIZATION
+2026-02-17 21:44:49,646 - INFO - ================================================================================
+2026-02-17 21:45:52,444 - INFO - [Qdrant] In-memory mode
+2026-02-17 21:45:52,444 - INFO - [Embeddings] Loading gemma-300m(offline)...
+2026-02-17 21:45:52,444 - INFO - [History] Loaded 0 papers from last 7 days
+2026-02-17 21:45:52,446 - INFO - 
+================================================================================
+2026-02-17 21:45:52,446 - INFO - STAGE 3: AGI ANALYSIS
+2026-02-17 21:45:52,446 - INFO - Using: CrewAI (high-value) + AI Council (others)
+2026-02-17 21:45:52,446 - INFO - ================================================================================
+
+2026-02-17 21:45:55,639 - INFO - Using config path: C:\Users\PBTSVS\.config\crewai\settings.json
+2026-02-17 21:46:00,604 - WARNING - CrewAI not installed. Run: pip install crewai crewai-tools
+2026-02-17 21:46:01,332 - INFO - [Council] Groq initialized
+2026-02-17 21:46:03,375 - INFO - [Council] Ollama initialized
+2026-02-17 21:46:07,083 - INFO - [Council] Gemini initialized
+2026-02-17 21:46:07,084 - INFO - [Hybrid] AI Council enabled
+2026-02-17 21:46:07,084 - INFO - 
+[1/280] On the Learning Dynamics of RLVR at the Edge of Competence
+2026-02-17 21:46:07,084 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 21:46:08,175 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 21:46:08,198 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 21:48:10,258 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 21:48:10,267 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 21:48:10,777 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 21:48:10,779 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 21:48:10,779 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 21:48:10,779 - INFO - 
+[2/280] GREAT-EER: Graph Edge Attention Network for Emergency Evacua...
+2026-02-17 21:48:10,780 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 21:48:11,974 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 21:48:11,974 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 21:50:09,384 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 21:50:09,487 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 21:50:09,488 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 21:50:09,488 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 21:50:09,489 - INFO - 
+[3/280] LongAudio-RAG: Event-Grounded Question Answering over Multi-...
+2026-02-17 21:50:09,489 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 21:50:11,070 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 21:50:11,072 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 21:52:13,128 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 21:52:13,134 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 21:52:13,245 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 21:52:13,247 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 21:52:13,247 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 21:52:13,248 - INFO - 
+[4/280] Governing AI Forgetting: Auditing for Machine Unlearning Com...
+2026-02-17 21:52:13,249 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 21:52:13,899 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 21:52:13,901 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 21:54:15,937 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 21:54:15,976 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 21:54:16,223 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 21:54:16,225 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 21:54:16,225 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 21:54:16,225 - INFO - 
+[5/280] Benchmarking at the Edge of Comprehension
+2026-02-17 21:54:16,225 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 21:54:16,889 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 21:54:16,889 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 21:56:17,673 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 21:56:18,017 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 21:56:18,017 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 21:56:18,017 - INFO - [HITL] Saved for review: data/hitl_review/pending/0ce0f081.json
+2026-02-17 21:56:18,017 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 0ce0f081)
+2026-02-17 21:56:18,017 - INFO -   [HITL] High score (90) requires verification
+2026-02-17 21:56:18,032 - INFO - 
+[6/280] Floe: Federated Specialization for Real-Time LLM-SLM Inferen...
+2026-02-17 21:56:18,033 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 21:56:18,684 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 21:56:18,698 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 21:58:20,734 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 21:58:20,736 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 21:58:20,825 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 21:58:20,825 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 21:58:20,829 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 21:58:20,829 - INFO - 
+[7/280] DeepFusion: Accelerating MoE Training via Federated Knowledg...
+2026-02-17 21:58:20,829 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 21:58:21,411 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 21:58:21,411 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:00:23,450 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:00:23,454 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:00:23,579 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:00:23,580 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:00:23,580 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:00:23,581 - INFO - 
+[8/280] Energy-Efficient Over-the-Air Federated Learning via Pinchin...
+2026-02-17 22:00:23,582 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:00:24,168 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:00:24,168 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:02:26,226 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:02:26,233 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:02:26,330 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:02:26,332 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:02:26,332 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:02:26,334 - INFO - 
+[9/280] Decentralized Federated Learning With Energy Harvesting Devi...
+2026-02-17 22:02:26,334 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:02:27,026 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:02:27,026 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:04:29,069 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:04:29,073 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:04:29,163 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:04:29,163 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:04:29,163 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:04:29,163 - INFO - 
+[10/280] sleep2vec: Unified Cross-Modal Alignment for Heterogeneous N...
+2026-02-17 22:04:29,165 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:04:29,709 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:04:29,718 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:06:31,790 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:06:31,792 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:06:31,881 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:06:31,882 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:06:31,884 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:06:31,884 - INFO - 
+[11/280] HBVLA: Pushing 1-Bit Post-Training Quantization for Vision-L...
+2026-02-17 22:06:31,884 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:06:32,751 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:06:32,751 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:08:34,802 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:08:34,804 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:08:34,895 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:08:34,898 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:08:34,899 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:08:34,899 - INFO - 
+[12/280] On the Sparsifiability of Correlation Clustering: Approximat...
+2026-02-17 22:08:34,900 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:08:35,546 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:08:35,548 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:10:37,599 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:10:37,603 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:10:37,714 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:10:37,717 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:10:37,719 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:10:37,719 - INFO - 
+[13/280] Scenario-Adaptive MU-MIMO OFDM Semantic Communication With A...
+2026-02-17 22:10:37,719 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:10:38,348 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:10:38,348 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:12:40,403 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:12:40,499 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:12:40,739 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:12:40,740 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:12:40,740 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:12:40,740 - INFO - 
+[14/280] AsyncVLA: An Asynchronous VLA for Fast and Robust Navigation...
+2026-02-17 22:12:40,740 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:12:41,354 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:12:41,355 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:14:43,433 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:14:43,435 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:14:43,543 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:14:43,556 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:14:43,557 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:14:43,558 - INFO - 
+[15/280] FlashSchNet: Fast and Accurate Coarse-Grained Neural Network...
+2026-02-17 22:14:43,559 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:14:44,195 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:14:44,197 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:16:46,253 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:16:46,289 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:16:46,395 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:16:46,396 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:16:46,396 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:16:46,397 - INFO - 
+[16/280] LCSB: Layer-Cyclic Selective Backpropagation for Memory-Effi...
+2026-02-17 22:16:46,398 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:16:47,118 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:16:47,120 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:18:49,166 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:18:49,192 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:18:49,301 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:18:49,302 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:18:49,304 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:18:49,305 - INFO - 
+[17/280] Bus-Conditioned Zero-Shot Trajectory Generation via Task Ari...
+2026-02-17 22:18:49,305 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:18:49,840 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:18:49,843 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:20:51,890 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:20:51,892 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:20:51,993 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:20:51,995 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:20:51,995 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:20:51,996 - INFO - 
+[18/280] Memory-Efficient Structured Backpropagation for On-Device LL...
+2026-02-17 22:20:51,996 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:20:52,560 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:20:52,564 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:22:54,635 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:22:54,636 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:22:54,763 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:22:54,763 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:22:54,765 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:22:54,765 - INFO - 
+[19/280] Backdoor Attacks on Contrastive Continual Learning for IoT S...
+2026-02-17 22:22:54,765 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:22:55,501 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:22:55,501 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:24:57,577 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:24:57,579 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:24:57,678 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:24:57,679 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:24:57,680 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:24:57,681 - INFO - 
+[20/280] Quantization-Aware Collaborative Inference for Large Embodie...
+2026-02-17 22:24:57,681 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:24:58,446 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:24:58,446 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:27:00,518 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:27:00,524 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:27:00,655 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:27:00,656 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:27:00,657 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:27:00,658 - INFO - 
+[21/280] Resource-Efficient Gesture Recognition through Convexified A...
+2026-02-17 22:27:00,659 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:27:01,236 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:27:01,236 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:29:03,294 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:29:03,295 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:29:03,414 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:29:03,419 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:29:03,420 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:29:03,422 - INFO - 
+[22/280] Adaptive Structured Pruning of Convolutional Neural Networks...
+2026-02-17 22:29:03,423 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:29:04,212 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:29:04,212 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:31:01,867 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 22:31:01,975 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:31:01,975 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 22:31:01,975 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:31:01,976 - INFO - 
+[23/280] SWING: Unlocking Implicit Graph Representations for Graph Ra...
+2026-02-17 22:31:01,976 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:31:02,708 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:31:02,708 - INFO - [Council] Groq proposed: Score 85
+2026-02-17 22:33:00,980 - INFO - [Council] Ollama verified: Score 80
+2026-02-17 22:33:01,088 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:33:01,088 - INFO - [Council] FINAL: Score 80 (strong consensus)
+2026-02-17 22:33:01,090 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:33:01,090 - INFO - 
+[24/280] Community Concealment from Unsupervised Graph Learning-Based...
+2026-02-17 22:33:01,090 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:33:01,887 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:33:01,887 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:35:03,963 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:35:03,966 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:35:04,064 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:35:04,064 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:35:04,064 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:35:04,064 - INFO - 
+[25/280] Moonshine v2: Ergodic Streaming Encoder ASR for Latency-Crit...
+2026-02-17 22:35:04,064 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:35:04,547 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:35:04,547 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:36:44,798 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 22:36:44,892 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:36:44,893 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 22:36:44,893 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:36:44,893 - INFO - 
+[26/280] KAN-FIF: Spline-Parameterized Lightweight Physics-based Trop...
+2026-02-17 22:36:44,893 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:36:45,527 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:36:45,527 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:38:47,601 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:38:47,605 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:38:47,704 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:38:47,705 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:38:47,705 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:38:47,705 - INFO - 
+[27/280] PathCRF: Ball-Free Soccer Event Detection via Possession Pat...
+2026-02-17 22:38:47,705 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:38:48,219 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:38:48,219 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:40:50,291 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:40:50,293 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:40:50,393 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:40:50,394 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:40:50,395 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:40:50,395 - INFO - 
+[28/280] FedGRPO: Privately Optimizing Foundation Models with Group-R...
+2026-02-17 22:40:50,397 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:40:51,080 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:40:51,083 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:42:53,152 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:42:53,155 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:42:53,249 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:42:53,345 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:42:53,355 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:42:53,382 - INFO - 
+[29/280] On the Sensitivity of Firing Rate-Based Federated Spiking Ne...
+2026-02-17 22:42:53,390 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:42:54,152 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:42:54,158 - INFO - [Council] Groq proposed: Score 85
+2026-02-17 22:44:56,209 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:44:56,210 - INFO - [Council] Ollama verified: Score 85
+2026-02-17 22:44:56,305 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:44:56,306 - INFO - [Council] FINAL: Score 85 (strong consensus)
+2026-02-17 22:44:56,307 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:44:56,308 - INFO - 
+[30/280] LAER-MoE: Load-Adaptive Expert Re-layout for Efficient Mixtu...
+2026-02-17 22:44:56,308 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:44:56,879 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:44:56,879 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:46:58,937 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:46:58,943 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:46:59,059 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:46:59,059 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:46:59,059 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:46:59,059 - INFO - 
+[31/280] Brain4FMs: A Benchmark of Foundation Models for Electrical B...
+2026-02-17 22:46:59,059 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:46:59,652 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:46:59,656 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:49:01,686 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:49:01,688 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:49:01,777 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:49:01,778 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:49:01,778 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:49:01,778 - INFO - 
+[32/280] Adaptive Milestone Reward for GUI Agents
+2026-02-17 22:49:01,779 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:49:02,496 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:49:02,512 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:50:35,368 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 22:50:35,466 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:50:35,466 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 22:50:35,471 - INFO - [HITL] Saved for review: data/hitl_review/pending/8b0ad2d6.json
+2026-02-17 22:50:35,471 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 8b0ad2d6)
+2026-02-17 22:50:35,471 - INFO -   [HITL] High score (90) requires verification
+2026-02-17 22:50:35,471 - INFO - 
+[33/280] RooflineBench: A Benchmarking Framework for On-Device LLMs v...
+2026-02-17 22:50:35,471 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:50:36,033 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:50:36,033 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:52:27,086 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 22:52:27,169 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:52:27,169 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 22:52:27,169 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:52:27,169 - INFO - 
+[34/280] YOR: Your Own Mobile Manipulator for Generalizable Robotics
+2026-02-17 22:52:27,169 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:52:27,800 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:52:27,800 - INFO - [Council] Groq proposed: Score 85
+2026-02-17 22:54:29,849 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:54:29,850 - INFO - [Council] Ollama verified: Score 85
+2026-02-17 22:54:29,937 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:54:29,937 - INFO - [Council] FINAL: Score 85 (strong consensus)
+2026-02-17 22:54:29,937 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:54:29,937 - INFO - 
+[35/280] How Many Features Can a Language Model Store Under the Linea...
+2026-02-17 22:54:29,937 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:54:30,627 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:54:30,643 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:56:32,711 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 22:56:32,712 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 22:56:32,804 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:56:32,804 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 22:56:32,804 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:56:32,804 - INFO - 
+[36/280] Ask the Expert: Collaborative Inference for Vision Transform...
+2026-02-17 22:56:32,804 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:56:33,484 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:56:33,485 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:58:20,659 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 22:58:20,839 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:58:20,839 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 22:58:20,840 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:58:20,840 - INFO - 
+[37/280] Transport, Don't Generate: Deterministic Geometric Flows for...
+2026-02-17 22:58:20,840 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:58:21,308 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:58:21,322 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 22:59:55,920 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 22:59:56,010 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 22:59:56,010 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 22:59:56,010 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 22:59:56,010 - INFO - 
+[38/280] Bayesian Signal Component Decomposition via Diffusion-within...
+2026-02-17 22:59:56,010 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 22:59:56,840 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 22:59:56,840 - INFO - [Council] Groq proposed: Score 85
+2026-02-17 23:01:58,900 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 23:01:58,900 - INFO - [Council] Ollama verified: Score 85
+2026-02-17 23:01:58,983 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:01:58,983 - INFO - [Council] FINAL: Score 85 (strong consensus)
+2026-02-17 23:01:58,983 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:01:58,983 - INFO - 
+[39/280] From Diet to Free Lunch: Estimating Auxiliary Signal Propert...
+2026-02-17 23:01:58,983 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:01:59,534 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:01:59,534 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:03:54,074 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:03:54,166 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:03:54,166 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:03:54,167 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:03:54,167 - INFO - 
+[40/280] Enhancing Ride-Hailing Forecasting at DiDi with Multi-View G...
+2026-02-17 23:03:54,168 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:03:54,848 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:03:54,848 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:05:50,463 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:05:50,566 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:05:50,568 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:05:50,568 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:05:50,568 - INFO - 
+[41/280] A Dual-Stream Physics-Augmented Unsupervised Architecture fo...
+2026-02-17 23:05:50,568 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:05:51,077 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:05:51,077 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:07:53,152 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 23:07:53,153 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 23:07:53,240 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:07:53,240 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 23:07:53,240 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:07:53,240 - INFO - 
+[42/280] Hardware Co-Design Scaling Laws via Roofline Modelling for O...
+2026-02-17 23:07:53,240 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:07:53,989 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:07:54,006 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:09:56,083 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 23:09:56,085 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 23:09:56,166 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:09:56,180 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 23:09:56,180 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:09:56,180 - INFO - 
+[43/280] Linear-LLM-SCM: Benchmarking LLMs for Coefficient Elicitatio...
+2026-02-17 23:09:56,180 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:09:56,865 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:09:56,865 - INFO - [Council] Groq proposed: Score 85
+2026-02-17 23:11:58,925 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 23:11:58,938 - INFO - [Council] Ollama verified: Score 85
+2026-02-17 23:11:59,069 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:11:59,073 - INFO - [Council] FINAL: Score 85 (strong consensus)
+2026-02-17 23:11:59,074 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:11:59,078 - INFO - 
+[44/280] Safeguarding Privacy: Privacy-Preserving Detection of Mind W...
+2026-02-17 23:11:59,079 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:11:59,809 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:11:59,978 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:13:52,983 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:13:53,078 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:13:53,079 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:13:53,079 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:13:53,079 - INFO - 
+[45/280] Differentiable Tripartite Modularity for Clustering Heteroge...
+2026-02-17 23:13:53,080 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:13:53,795 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:13:53,799 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:15:36,856 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:15:36,950 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:15:36,950 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:15:36,950 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:15:36,950 - INFO - 
+[46/280] PlugSI: Plug-and-Play Test-Time Graph Adaptation for Spatial...
+2026-02-17 23:15:36,950 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:15:37,540 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:15:37,542 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:17:03,752 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:17:03,857 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:17:03,857 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:17:03,857 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:17:03,857 - INFO - 
+[47/280] Squeezing More from the Stream : Learning Representation Onl...
+2026-02-17 23:17:03,857 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:17:04,449 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:17:04,449 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:18:37,194 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:18:37,276 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:18:37,276 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:18:37,276 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:18:37,276 - INFO - 
+[48/280] Empowering Contrastive Federated Sequential Recommendation w...
+2026-02-17 23:18:37,276 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:18:37,900 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:18:37,900 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:20:36,976 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:20:37,087 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:20:37,087 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:20:37,087 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:20:37,087 - INFO - 
+[49/280] Generalizing GNNs with Tokenized Mixture of Experts
+2026-02-17 23:20:37,087 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:20:37,656 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:20:37,656 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:22:32,446 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:22:32,571 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:22:32,571 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:22:32,575 - INFO - [HITL] Saved for review: data/hitl_review/pending/1a95ef2e.json
+2026-02-17 23:22:32,575 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 1a95ef2e)
+2026-02-17 23:22:32,577 - INFO -   [HITL] High score (90) requires verification
+2026-02-17 23:22:32,577 - INFO - 
+[50/280] Feature salience -- not task-informativeness -- drives machi...
+2026-02-17 23:22:32,577 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:22:33,221 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:22:33,222 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:24:35,257 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 23:24:35,259 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 23:24:35,356 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:24:35,357 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 23:24:35,357 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:24:35,357 - INFO - 
+[51/280] AnchorWeave: World-Consistent Video Generation with Retrieve...
+2026-02-17 23:24:35,358 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:24:36,057 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:24:36,057 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:26:29,624 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:26:29,728 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:26:29,729 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:26:29,729 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:26:29,730 - INFO - 
+[52/280] Multi-Agent Comedy Club: Investigating Community Discussion ...
+2026-02-17 23:26:29,730 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:26:30,290 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:26:30,290 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:28:16,875 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:28:16,952 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:28:16,952 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:28:16,952 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:28:16,952 - INFO - 
+[53/280] TikArt: Aperture-Guided Observation for Fine-Grained Visual ...
+2026-02-17 23:28:16,952 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:28:17,710 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:28:17,710 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:30:08,826 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:30:08,919 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:30:08,921 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:30:08,923 - INFO - [HITL] Saved for review: data/hitl_review/pending/fe8ce787.json
+2026-02-17 23:30:08,925 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: fe8ce787)
+2026-02-17 23:30:08,925 - INFO -   [HITL] High score (90) requires verification
+2026-02-17 23:30:08,927 - INFO - 
+[54/280] Frontier AI Risk Management Framework in Practice: A Risk An...
+2026-02-17 23:30:08,929 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:30:09,702 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:30:09,704 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:32:11,764 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 23:32:11,766 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 23:32:11,863 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:32:11,863 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 23:32:11,864 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:32:11,864 - INFO - 
+[55/280] WiSparse: Boosting LLM Inference Efficiency with Weight-Awar...
+2026-02-17 23:32:11,864 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:32:12,474 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:32:12,474 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:34:03,899 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:34:03,998 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:34:03,998 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:34:03,998 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:34:03,998 - INFO - 
+[56/280] S2D: Selective Spectral Decay for Quantization-Friendly Cond...
+2026-02-17 23:34:03,998 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:34:04,896 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:34:04,896 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:36:00,596 - INFO - [Council] Ollama verified: Score 92
+2026-02-17 23:36:00,679 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:36:00,679 - INFO - [Council] FINAL: Score 92 (strong consensus)
+2026-02-17 23:36:00,679 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:36:00,679 - INFO - 
+[57/280] Does Socialization Emerge in AI Agent Society? A Case Study ...
+2026-02-17 23:36:00,679 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:36:01,344 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:36:01,344 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:37:52,503 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:37:52,582 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:37:52,582 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:37:52,582 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:37:52,582 - INFO - 
+[58/280] KernelBlaster: Continual Cross-Task CUDA Optimization via Me...
+2026-02-17 23:37:52,582 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:37:53,147 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:37:53,147 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:39:53,086 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:39:53,176 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:39:53,176 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:39:53,176 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:39:53,176 - INFO - 
+[59/280] Dual-Signal Adaptive KV-Cache Optimization for Long-Form Vid...
+2026-02-17 23:39:53,176 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:39:53,789 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:39:53,789 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:41:55,852 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 23:41:55,852 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 23:41:55,939 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:41:55,940 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 23:41:55,940 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:41:55,941 - INFO - 
+[60/280] CORPGEN: Simulating Corporate Environments with Autonomous D...
+2026-02-17 23:41:55,941 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:41:56,560 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:41:56,560 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:43:49,075 - INFO - [Council] Ollama verified: Score 92
+2026-02-17 23:43:49,158 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:43:49,158 - INFO - [Council] FINAL: Score 92 (strong consensus)
+2026-02-17 23:43:49,158 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:43:49,158 - INFO - 
+[61/280] Choosing How to Remember: Adaptive Memory Structures for LLM...
+2026-02-17 23:43:49,158 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:43:49,697 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:43:49,710 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:45:49,947 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:45:50,030 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:45:50,030 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:45:50,030 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:45:50,030 - INFO - 
+[62/280] Named Entity Recognition for Payment Data Using NLP
+2026-02-17 23:45:50,030 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:45:50,691 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:45:50,740 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:47:26,657 - INFO - [Council] Ollama verified: Score 92
+2026-02-17 23:47:26,731 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:47:26,731 - INFO - [Council] FINAL: Score 92 (strong consensus)
+2026-02-17 23:47:26,731 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:47:26,731 - INFO - 
+[63/280] Prompt-Driven Low-Altitude Edge Intelligence: Modular Agents...
+2026-02-17 23:47:26,731 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:47:27,524 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:47:27,524 - INFO - [Council] Groq proposed: Score 92
+2026-02-17 23:49:03,789 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:49:03,893 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:49:03,894 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:49:03,894 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:49:03,894 - INFO - 
+[64/280] Cognitive Chunking for Soft Prompts: Accelerating Compressor...
+2026-02-17 23:49:03,894 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:49:04,538 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:49:04,538 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:51:06,650 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 23:51:06,651 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 23:51:06,741 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:51:06,745 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 23:51:06,745 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:51:06,745 - INFO - 
+[65/280] Neuromem: A Granular Decomposition of the Streaming Lifecycl...
+2026-02-17 23:51:06,745 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:51:07,326 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:51:07,332 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:53:09,377 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 23:53:09,378 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 23:53:09,479 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:53:09,479 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 23:53:09,483 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:53:09,483 - INFO - 
+[66/280] HyMem: Hybrid Memory Architecture with Dynamic Retrieval Sch...
+2026-02-17 23:53:09,483 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:53:10,026 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:53:10,026 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:54:50,270 - INFO - [Council] Ollama verified: Score 90
+2026-02-17 23:54:50,364 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:54:50,364 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-17 23:54:50,364 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:54:50,364 - INFO - 
+[67/280] OR-Agent: Bridging Evolutionary Search and Structured Resear...
+2026-02-17 23:54:50,364 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:54:51,017 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:54:51,033 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:56:53,091 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 23:56:53,093 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 23:56:53,172 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:56:53,180 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 23:56:53,180 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:56:53,180 - INFO - 
+[68/280] MOTIF: Learning Action Motifs for Few-shot Cross-Embodiment ...
+2026-02-17 23:56:53,182 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:56:53,898 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:56:53,898 - INFO - [Council] Groq proposed: Score 95
+2026-02-17 23:58:55,973 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-17 23:58:55,975 - INFO - [Council] Ollama verified: Score 95
+2026-02-17 23:58:56,083 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-17 23:58:56,083 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-17 23:58:56,083 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-17 23:58:56,083 - INFO - 
+[69/280] AllMem: A Memory-centric Recipe for Efficient Long-context M...
+2026-02-17 23:58:56,083 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-17 23:58:56,929 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 23:58:56,929 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:04:02,972 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-18 09:04:02,973 - INFO - [Council] Ollama verified: Score 95
+2026-02-18 09:04:04,468 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:04:04,468 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-18 09:04:04,468 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:04:04,468 - INFO - 
+[70/280] The Quantization Trap: Breaking Linear Scaling Laws in Multi...
+2026-02-18 09:04:04,468 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:04:05,957 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:04:05,957 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:06:21,330 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-18 09:06:21,330 - INFO - [Council] Ollama verified: Score 95
+2026-02-18 09:15:51,248 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:15:51,248 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-18 09:15:51,250 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:15:51,252 - INFO - 
+[71/280] Hippocampus: An Efficient and Scalable Memory Module for Age...
+2026-02-18 09:15:51,252 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:15:51,806 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:15:51,806 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:17:53,846 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-18 09:17:53,850 - INFO - [Council] Ollama verified: Score 95
+2026-02-18 09:17:53,937 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:17:53,937 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-18 09:17:53,937 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:17:53,938 - INFO - 
+[72/280] REMem: Reasoning with Episodic Memory in Language Agent
+2026-02-18 09:17:53,938 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:17:54,465 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:17:54,465 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:19:39,146 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:19:39,243 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:19:39,243 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:19:39,243 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:19:39,243 - INFO - 
+[73/280] Language Model Memory and Memory Models for Language
+2026-02-18 09:19:39,243 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:19:39,785 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:19:39,785 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:21:41,851 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-18 09:21:41,851 - INFO - [Council] Ollama verified: Score 95
+2026-02-18 09:21:41,935 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:21:41,936 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-18 09:21:41,936 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:21:41,983 - INFO - 
+[74/280] End-to-End NOMA with Perfect and Quantized CSI Over Rayleigh...
+2026-02-18 09:21:41,983 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:21:42,452 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:21:42,456 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:23:06,078 - INFO - [Council] Ollama verified: Score 92
+2026-02-18 09:23:06,160 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:23:06,160 - INFO - [Council] FINAL: Score 92 (strong consensus)
+2026-02-18 09:23:06,160 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:23:06,160 - INFO - 
+[75/280] On-Policy Supervised Fine-Tuning for Efficient Reasoning
+2026-02-18 09:23:06,176 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:23:06,814 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:23:07,022 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:24:52,949 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:24:53,048 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:24:53,048 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:24:53,048 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:24:53,063 - INFO - 
+[76/280] EXCODER: EXplainable Classification Of DiscretE time series ...
+2026-02-18 09:24:53,064 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:24:53,690 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:24:53,690 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:26:28,059 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:26:28,133 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:26:28,133 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:26:28,133 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:26:28,148 - INFO - 
+[77/280] Can we trust AI to detect healthy multilingual English speak...
+2026-02-18 09:26:28,148 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:26:28,913 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:26:28,913 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:28:16,045 - INFO - [Council] Ollama verified: Score 85
+2026-02-18 09:28:16,141 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:28:16,141 - INFO - [Council] FINAL: Score 85 (strong consensus)
+2026-02-18 09:28:16,334 - INFO - [HITL] AUTO-APPROVED (confidence: 86%, score: 85)
+2026-02-18 09:28:16,334 - INFO -   [Council] strong consensus
+2026-02-18 09:28:16,337 - INFO -   [ACCEPTED] Score: 85
+2026-02-18 09:28:16,337 - INFO - 
+[78/280] TriGen: NPU Architecture for End-to-End Acceleration of Larg...
+2026-02-18 09:28:16,337 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:28:17,084 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:28:17,084 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:29:58,602 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:29:58,682 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:29:58,682 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:29:58,682 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:29:58,682 - INFO - 
+[79/280] TRACE: Temporal Reasoning via Agentic Context Evolution for ...
+2026-02-18 09:29:58,682 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:29:59,370 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:29:59,375 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:31:34,838 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:31:35,028 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:31:35,028 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:31:35,055 - INFO - [HITL] Saved for review: data/hitl_review/pending/973a3220.json
+2026-02-18 09:31:35,056 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 973a3220)
+2026-02-18 09:31:35,056 - INFO -   [HITL] High score (90) requires verification
+2026-02-18 09:31:35,057 - INFO - 
+[80/280] SLA2: Sparse-Linear Attention with Learnable Routing and QAT
+2026-02-18 09:31:35,057 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:31:36,229 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:31:36,229 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:32:59,667 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:32:59,756 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:32:59,756 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:32:59,756 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:32:59,756 - INFO - 
+[81/280] Unleashing Low-Bit Inference on Ascend NPUs: A Comprehensive...
+2026-02-18 09:32:59,756 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:33:00,218 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:33:00,218 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:34:24,378 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:34:24,481 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:34:24,481 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:34:24,481 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:34:24,481 - INFO - 
+[82/280] Vision Token Reduction via Attention-Driven Self-Compression...
+2026-02-18 09:34:24,481 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:34:25,109 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:34:25,109 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:36:16,589 - INFO - [Council] Ollama verified: Score 98
+2026-02-18 09:36:16,679 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:36:16,679 - INFO - [Council] FINAL: Score 98 (strong consensus)
+2026-02-18 09:36:16,680 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:36:16,680 - INFO - 
+[83/280] QuEPT: Quantized Elastic Precision Transformers with One-Sho...
+2026-02-18 09:36:16,680 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:36:17,524 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:36:17,524 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:37:55,725 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:37:55,868 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:37:55,868 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:37:55,868 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:37:55,868 - INFO - 
+[84/280] HyperMLP: An Integrated Perspective for Sequence Modeling
+2026-02-18 09:37:55,868 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:37:56,460 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:37:56,460 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:39:36,463 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:39:36,543 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:39:36,543 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:39:36,543 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:39:36,543 - INFO - 
+[85/280] RQ-GMM: Residual Quantized Gaussian Mixture Model for Multim...
+2026-02-18 09:39:36,543 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:39:37,121 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:39:37,127 - INFO - [Council] Groq proposed: Score 92
+2026-02-18 09:41:00,588 - INFO - [Council] Ollama verified: Score 95
+2026-02-18 09:41:00,684 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:41:00,684 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-18 09:41:00,684 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:41:00,684 - INFO - 
+[86/280] A consequence of failed sequential learning: A computational...
+2026-02-18 09:41:00,684 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:41:01,422 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:41:01,422 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:42:38,902 - INFO - [Council] Ollama verified: Score 85
+2026-02-18 09:42:39,003 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:42:39,005 - INFO - [Council] FINAL: Score 85 (strong consensus)
+2026-02-18 09:42:39,005 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:42:39,005 - INFO - 
+[87/280] CacheMind: From Miss Rates to Why -- Natural-Language, Trace...
+2026-02-18 09:42:39,005 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:42:39,611 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:42:39,625 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:44:37,910 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:44:37,993 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:44:37,993 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:44:38,004 - INFO - [HITL] Saved for review: data/hitl_review/pending/3d261021.json
+2026-02-18 09:44:38,007 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 3d261021)
+2026-02-18 09:44:38,007 - INFO -   [HITL] High score (90) requires verification
+2026-02-18 09:44:38,007 - INFO - 
+[88/280] Evolving Beyond Snapshots: Harmonizing Structure and Sequenc...
+2026-02-18 09:44:38,008 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:44:38,594 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:44:38,603 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:46:08,178 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:46:08,266 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:46:08,266 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:46:08,266 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:46:08,266 - INFO - 
+[89/280] TFT-ACB-XML: Decision-Level Integration of Customized Tempor...
+2026-02-18 09:46:08,266 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:46:08,958 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:46:08,958 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:47:49,590 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:47:49,662 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:47:49,662 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:47:49,662 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:47:49,662 - INFO - 
+[90/280] UniT: Unified Multimodal Chain-of-Thought Test-time Scaling
+2026-02-18 09:47:49,662 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:47:50,542 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:47:50,556 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:49:31,156 - WARNING - [Council] Ollama verification failed - using Groq only
+2026-02-18 09:49:31,157 - INFO - [Council] Ollama verified: Score 95
+2026-02-18 09:49:31,248 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:49:31,248 - INFO - [Council] FINAL: Score 95 (strong consensus)
+2026-02-18 09:49:31,249 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:49:31,249 - INFO - 
+[91/280] SAM3-LiteText: An Anatomical Study of the SAM3 Text Encoder ...
+2026-02-18 09:49:31,249 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:49:31,844 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:49:31,844 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:51:21,100 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:51:21,189 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:51:21,190 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:51:21,190 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:51:21,192 - INFO - 
+[92/280] 3DGSNav: Enhancing Vision-Language Model Reasoning for Objec...
+2026-02-18 09:51:21,192 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:51:21,890 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:51:21,906 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:53:15,532 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:53:15,609 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:53:15,625 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:53:15,625 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:53:15,625 - INFO - 
+[93/280] The Pensieve Paradigm: Stateful Language Models Mastering Th...
+2026-02-18 09:53:15,625 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:53:16,247 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:53:16,247 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:55:07,987 - INFO - [Council] Ollama verified: Score 85
+2026-02-18 09:55:08,076 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:55:08,076 - INFO - [Council] FINAL: Score 85 (strong consensus)
+2026-02-18 09:55:08,076 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:55:08,076 - INFO - 
+[94/280] Multi Graph Search for High-Dimensional Robot Motion Plannin...
+2026-02-18 09:55:08,076 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:55:08,652 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:55:08,670 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:56:40,074 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:56:40,195 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:56:40,195 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:56:40,195 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:56:40,195 - INFO - 
+[95/280] LawThinker: A Deep Research Legal Agent in Dynamic Environme...
+2026-02-18 09:56:40,195 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:56:40,772 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:56:40,772 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 09:58:13,457 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:58:13,548 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:58:13,548 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:58:13,548 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 09:58:13,548 - INFO - 
+[96/280] On the Sensitivity of Firing Rate-Based Federated Spiking Ne...
+2026-02-18 09:58:13,548 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:58:14,153 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:58:14,153 - INFO - [Council] Groq proposed: Score 85
+2026-02-18 09:59:48,478 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 09:59:48,565 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 09:59:48,565 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 09:59:48,581 - INFO - [HITL] Saved for review: data/hitl_review/pending/44a6f09b.json
+2026-02-18 09:59:48,584 - INFO - [HITL] NEEDS REVIEW: High score (90) requires verification (ID: 44a6f09b)
+2026-02-18 09:59:48,584 - INFO -   [HITL] High score (90) requires verification
+2026-02-18 09:59:48,586 - INFO - 
+[97/280] Where Bits Matter in World Model Planning: A Paired Mixed-Bi...
+2026-02-18 09:59:48,586 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 09:59:49,159 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 09:59:49,159 - INFO - [Council] Groq proposed: Score 92
+2026-02-18 10:01:36,990 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 10:01:37,070 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 10:01:37,070 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 10:01:37,078 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 10:01:37,078 - INFO - 
+[98/280] Hi-SAM: A Hierarchical Structure-Aware Multi-modal Framework...
+2026-02-18 10:01:37,078 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 10:01:37,585 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 10:01:37,585 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 10:03:16,364 - INFO - [Council] Ollama verified: Score 90
+2026-02-18 10:03:16,465 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 10:03:16,465 - INFO - [Council] FINAL: Score 90 (strong consensus)
+2026-02-18 10:03:16,465 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 10:03:16,465 - INFO - 
+[99/280] MiniCPM-SALA: Hybridizing Sparse and Linear Attention for Ef...
+2026-02-18 10:03:16,465 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 10:03:17,067 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 10:03:17,067 - INFO - [Council] Groq proposed: Score 95
+2026-02-18 10:05:08,075 - INFO - [Council] Ollama verified: Score 92
+2026-02-18 10:05:08,216 - WARNING - [Council] Gemini failed - using Ollama result
+2026-02-18 10:05:08,216 - INFO - [Council] FINAL: Score 92 (strong consensus)
+2026-02-18 10:05:08,216 - ERROR -   [ERROR] 'dict' object has no attribute 'lower'
+2026-02-18 10:05:08,216 - INFO - 
+[100/280] LoRA-based Parameter-Efficient LLMs for Continuous Learning ...
+2026-02-18 10:05:08,216 - INFO - [Hybrid] Using AI Council (standard paper)
+2026-02-18 10:05:09,020 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 10:05:09,020 - INFO - [Council] Groq proposed: Score 95

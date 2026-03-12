@@ -1,0 +1,44 @@
+{
+  "session_id": "60764368-fea0-4e4c-b928-6ebad84aad82",
+  "generated_at": "2026-03-11T19:29:13.466772Z",
+  "total_papers": 2,
+  "executive_summary": "Analysis of 2 papers on on-device AI optimization techniques. Focus areas include quantization, pruning, and model compression with average relevance score of 92/100 and 1 high-impact papers.",
+  "confidence": "primary",
+  "takeaways": [
+    {
+      "number": 1,
+      "text": "Use quantization",
+      "source": "Mobile LLM Optimization",
+      "confidence": "high"
+    },
+    {
+      "number": 2,
+      "text": "Apply distillation",
+      "source": "Mobile LLM Optimization",
+      "confidence": "high"
+    }
+  ],
+  "sources": [
+    {
+      "index": 1,
+      "title": "Mobile LLM Optimization",
+      "url": "https://arxiv.org/abs/2401.00001",
+      "source_platform": "arXiv",
+      "relevance_score": 95.0,
+      "summary": "Test summary",
+      "quotes": [],
+      "authors": null
+    },
+    {
+      "index": 2,
+      "title": "Vision Distillation",
+      "url": "https://github.com/test",
+      "source_platform": "GitHub",
+      "relevance_score": 88.0,
+      "summary": "Test summary",
+      "quotes": [],
+      "authors": null
+    }
+  ],
+  "metadata": {}
+}

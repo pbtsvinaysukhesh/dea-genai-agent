@@ -1,0 +1,31 @@
+{
+  "review_id": "db79524a",
+  "created_at": "2026-03-09T22:45:57.448760",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "OpenAI acquires Software Applications Incorporated, maker of Sky",
+    "abstract": "OpenAI has acquired Software Applications Incorporated, maker of Sky\u2014a natural language interface for Mac that brings AI directly into your desktop experience. Together, we\u2019re integrating Sky\u2019s deep macOS capabilities into ChatGPT to make AI more intuitive, contextual, and action-oriented.",
+    "url": "https://openai.com/index/openai-acquires-software-applications-incorporated",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:57.448760"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

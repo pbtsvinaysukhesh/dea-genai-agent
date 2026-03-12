@@ -1,0 +1,31 @@
+{
+  "review_id": "7fa3828a",
+  "created_at": "2026-03-09T22:46:20.750675",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "OpenAI licenses GPT-3 technology to Microsoft",
+    "abstract": "OpenAI has agreed to license GPT-3 to Microsoft for their own products and services.",
+    "url": "https://openai.com/index/openai-licenses-gpt-3-technology-to-microsoft",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:20.750675"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

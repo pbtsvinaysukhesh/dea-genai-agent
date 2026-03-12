@@ -1,0 +1,31 @@
+{
+  "review_id": "9d493dd3",
+  "created_at": "2026-03-09T22:45:52.215366",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "ServiceNow powers actionable enterprise AI with OpenAI",
+    "abstract": "ServiceNow expands access to OpenAI frontier models to power AI-driven enterprise workflows, summarization, search, and voice across the ServiceNow Platform.",
+    "url": "https://openai.com/index/servicenow-powers-actionable-enterprise-ai-with-openai",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:52.215366"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

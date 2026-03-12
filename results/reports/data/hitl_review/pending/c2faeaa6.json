@@ -1,0 +1,31 @@
+{
+  "review_id": "c2faeaa6",
+  "created_at": "2026-03-09T22:46:22.331811",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "OpenAI Five Finals",
+    "abstract": "We\u2019ll be holding our final live event for OpenAI Five at 11:30am PT on April 13.",
+    "url": "https://openai.com/index/openai-five-finals",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:22.331811"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

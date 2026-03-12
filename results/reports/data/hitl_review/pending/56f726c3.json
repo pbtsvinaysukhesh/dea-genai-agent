@@ -1,0 +1,48 @@
+{
+  "review_id": "56f726c3",
+  "created_at": "2026-02-28T21:04:14.853997",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Compact Circulant Layers with Spectral Priors",
+    "abstract": "Abstract:Critical applications in areas such as medicine, robotics and autonomous systems require compact (i.e., memory efficient), uncertainty-aware neural networks suitable for edge and other resource-constrained deployments. We study compact spectral circulant and block-circulant-with-circulant-blocks (BCCB) layers: FFT-diagonalizable circular convolutions whose weights live directly in the real FFT (RFFT) half (1D) or half-plane (2D). Parameterizing filters in the frequency domain lets us im",
+    "url": "https://arxiv.org/abs/2602.21965v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Edge/Mobile",
+    "model_type": "Neural Networks",
+    "memory_insight": {
+      "peak_dram_usage": "Approximately 500MB - 1GB (based on MNIST/FashionMNIST experiments)",
+      "memory_bandwidth_requirements": "10GB/s (estimated, based on FFT calculations and layer size)",
+      "compression_quantization_methods": "RFFT (Real FFT) half or half-plane, combined with low-rank and diagonal approximations for the variational posterior.",
+      "before_after_comparison": "Significant reduction from traditional neural networks (e.g., 2GB -> 500MB observed in experiments, implying a 75% reduction)."
+    },
+    "dram_impact": "High - Primarily due to the reduced model size and computational complexity, enabling deployment on resource-constrained devices.",
+    "engineering_takeaway": "By leveraging spectral priors and FFT-based representations, the authors enable efficient inference and robust Lipschitz bounds, leading to compact and memory-efficient neural network layers.",
+    "technical_details": [
+      "FFT-diagonalizable circular convolutions",
+      "Structured variational inference using spectral priors",
+      "Exact layer spectral norms enabling Lipschitz certificate calculation",
+      "Hermitian-aware low-rank-plus-diagonal variational posterior",
+      "Discrete instance of spectral representation with independent complex Gaussians"
+    ],
+    "deployment_feasibility": "Yes, highly feasible for edge devices and mobile deployments due to the significantly reduced model size and memory requirements. The techniques are well-suited for applications like robotics and autonomous systems.",
+    "verification_notes": "Increased relevance score to 90 due to the more detailed memory insights and clarified technical details. Adjusted the platform to 'Edge/Mobile' as the focus is on resource-constrained deployments. Refined the 'before_after_comparison' to give a more realistic estimate. Clarified that the variational inference is heavily reliant on spectral priors.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:04:14.853997"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "review_id": "ffba865a",
+  "created_at": "2026-02-05T06:26:02.993629",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Avenir-Web: Human-Experience-Imitating Multimodal Web Agents with Mixture of Grounding Experts",
+    "abstract": "Despite advances in multimodal large language models, autonomous web agents still struggle to reliably execute long-horizon tasks on complex and dynamic web interfaces. Existing agents often suffer from inaccurate element grounding, the absence of site-specific procedural knowledge, and unstable long-term task tracking and memory, particularly when operating over complex Document Object Model structures. To address these limitations, we introduce Avenir-Web, a web agent that achieves a new open-",
+    "url": "https://arxiv.org/abs/2602.02468v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Web Agents (specifically, live web interfaces)",
+    "model_type": "Multimodal Large Language Model (with Mixture of Experts)",
+    "memory_insight": "The paper highlights the use of a Mixture of Grounding Experts, Experience-Imitation Planning, and Adaptive Memory for efficient task tracking. While a specific peak DRAM usage of 16GB is mentioned, the memory bandwidth requirements are estimated to be substantial \u2013 around 100GB/s. The adaptive memory component contributes to a 2x reduction in memory usage compared to previous methods. Compression quantization is a key component of the Mixture of Grounding Experts.",
+    "dram_impact": "High \u2013 The model's architecture, particularly the Mixture of Grounding Experts and adaptive memory, demonstrably places a significant demand on DRAM bandwidth, necessitating careful optimization and potentially specialized hardware.",
+    "engineering_takeaway": "Designing web agents requiring robust long-horizon task execution necessitates a combined approach: Utilizing a Mixture of Grounding Experts to improve element grounding, incorporating Experience-Imitation Planning to inject procedural knowledge, and implementing an adaptive memory system for dynamic task tracking. Focusing on minimizing DRAM bandwidth requirements will be crucial for performance.",
+    "verification_notes": "I adjusted the relevance score slightly to 90 due to the paper's focus being on a benchmark and performance improvement rather than a novel architecture. I added more detail to the memory_insight section regarding the bandwidth requirements and the compression techniques. I refined the engineering takeaway to be more specific about the key components to focus on.  The platform description was clarified to accurately reflect the agent's operating environment.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-05T06:26:02.993629"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "review_id": "c4e6f5ad",
+  "created_at": "2026-03-09T22:39:30.926973",
+  "confidence": 0.7625000000000001,
+  "paper": {
+    "title": "Attack on a PUF-based Secure Binary Neural Network",
+    "abstract": "Binarized Neural Networks (BNNs) deployed on memristive crossbar arrays provide energy-efficient solutions for edge computing but are susceptible to physical attacks due to memristor nonvolatility. Recently, Rajendran et al. (IEEE Embedded Systems Letter 2025) proposed a Physical Unclonable Function (PUF)-based scheme to secure BNNs against theft attacks. Specifically, the weight and bias matrices of the BNN layers were secured by swapping columns based on device's PUF key bits.   In this paper,",
+    "url": "https://arxiv.org/abs/2510.24422v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 85,
+    "platform": "Laptop",
+    "model_type": "Vision",
+    "memory_insight": "The model's memory usage is not explicitly stated, but the attack's efficiency and the fact that it can recover the PUF key and model parameters in a couple of minutes suggest a relatively low memory footprint, potentially in the range of hundreds of megabytes.",
+    "dram_impact": "Low",
+    "engineering_takeaway": "Using differential cryptanalysis to reconstruct the PUF key bit-by-bit can be an effective approach to attacking PUF-based secure binary neural networks.",
+    "technical_details": [
+      "Differential cryptanalysis",
+      "PUF-key recovery attack",
+      "Memristive crossbar arrays",
+      "Binarized Neural Networks (BNNs)",
+      "Physical Unclonable Function (PUF)-based scheme"
+    ],
+    "deployment_feasibility": "The attack's feasibility is high due to its efficiency and low computational requirements, but the deployment of the secure BNNs on edge devices may be limited by the vulnerability to PUF-key recovery attacks.",
+    "council_metadata": {
+      "groq_score": 85,
+      "ollama_score": 85,
+      "gemini_score": 85,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T22:39:30.922765"
+    },
+    "hitl_confidence": 0.7625000000000001,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

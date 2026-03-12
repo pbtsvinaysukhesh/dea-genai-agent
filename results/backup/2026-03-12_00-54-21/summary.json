@@ -1,0 +1,60 @@
+{
+  "session_id": "07aff879-86eb-423a-9a47-fb49187e3451",
+  "generated_at": "2026-03-11T19:22:18.403767Z",
+  "total_papers": 3,
+  "executive_summary": "Analysis of 3 papers on on-device AI optimization techniques. Focus areas include quantization, pruning, and model compression with average relevance score of 88/100 and 1 high-impact papers.",
+  "confidence": "primary",
+  "takeaways": [
+    {
+      "number": 1,
+      "text": "Quantization is essential for mobile deployment",
+      "source": "Efficient Mobile LLMs via Quantization",
+      "confidence": "high"
+    },
+    {
+      "number": 2,
+      "text": "Apply distillation for cross-platform deployment",
+      "source": "Efficient Mobile LLMs via Quantization",
+      "confidence": "high"
+    },
+    {
+      "number": 3,
+      "text": "Use streaming-based inference for real-time audio",
+      "source": "Efficient Mobile LLMs via Quantization",
+      "confidence": "high"
+    }
+  ],
+  "sources": [
+    {
+      "index": 1,
+      "title": "Efficient Mobile LLMs via Quantization",
+      "url": "https://arxiv.org/abs/2401.00001",
+      "source_platform": "arXiv",
+      "relevance_score": 95.0,
+      "summary": "Shows how quantization enables LLMs on mobile devices",
+      "quotes": [],
+      "authors": null
+    },
+    {
+      "index": 2,
+      "title": "Vision Model Distillation",
+      "url": "https://github.com/example/vision-distill",
+      "source_platform": "GitHub",
+      "relevance_score": 88.0,
+      "summary": "Demonstrates knowledge distillation for vision models",
+      "quotes": [],
+      "authors": null
+    },
+    {
+      "index": 3,
+      "title": "Streaming Audio Inference",
+      "url": "https://scholar.google.com/example",
+      "source_platform": "Scholar",
+      "relevance_score": 82.0,
+      "summary": "Real-time audio processing architecture",
+      "quotes": [],
+      "authors": null
+    }
+  ],
+  "metadata": {}
+}

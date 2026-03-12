@@ -1,0 +1,31 @@
+{
+  "review_id": "5b46ee8a",
+  "created_at": "2026-03-09T22:46:21.596300",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Solving Rubik\u2019s Cube with a robot hand",
+    "abstract": "We\u2019ve trained a pair of neural networks to solve the Rubik\u2019s Cube with a human-like robot hand. The neural networks are trained entirely in simulation, using the same reinforcement learning code as\u00a0OpenAI Five\u00a0paired with a new technique called Automatic Domain Randomization (ADR). The system can handle situations it never saw during training, such as being prodded by a\u00a0stuffed giraffe. This shows that reinforcement learning isn\u2019t just a tool for virtual tasks, but can solve physical-world probl",
+    "url": "https://openai.com/index/solving-rubiks-cube",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:21.596300"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

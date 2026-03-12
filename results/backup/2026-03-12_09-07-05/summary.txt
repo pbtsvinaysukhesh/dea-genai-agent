@@ -1,0 +1,35 @@
+================================================================================
+ON-DEVICE AI INTELLIGENCE REPORT - SUMMARY
+Generated: March 12, 2026
+Confidence: Based on primary sources
+================================================================================
+
+EXECUTIVE SUMMARY
+--------------------------------------------------------------------------------
+Total Papers Analyzed: 1
+Average Relevance Score: 95.0/100
+
+Platform Breakdown:
+  • Mobile: 1 papers
+
+Impact Distribution:
+  • High Impact: 1 papers
+  • Medium Impact: 0 papers
+  • Low Impact: 0 papers
+
+TOP 6 PAPERS
+--------------------------------------------------------------------------------
+
+#1 Test Paper
+  Source: arXiv | Score: 95/100
+  Platform: Mobile | Impact: High
+  Memory Insight: Test insight
+  Takeaway: Test takeaway
+
+KEY FINDINGS
+--------------------------------------------------------------------------------
+Top Techniques:
+
+================================================================================
+For more details, see the full reports in other formats.
+================================================================================

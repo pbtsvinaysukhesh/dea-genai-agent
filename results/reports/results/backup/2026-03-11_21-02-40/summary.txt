@@ -1,0 +1,51 @@
+================================================================================
+ON-DEVICE AI INTELLIGENCE REPORT - SUMMARY
+Generated: March 11, 2026
+Confidence: Based on primary sources
+================================================================================
+
+EXECUTIVE SUMMARY
+--------------------------------------------------------------------------------
+Total Papers Analyzed: 3
+Average Relevance Score: 0.9/100
+
+Platform Breakdown:
+  • Mobile: 2 papers
+  • Edge: 1 papers
+
+Impact Distribution:
+  • High Impact: 1 papers
+  • Medium Impact: 1 papers
+  • Low Impact: 1 papers
+
+TOP 6 PAPERS
+--------------------------------------------------------------------------------
+
+#1 Paper 1: Efficient Quantization on Mobile Devices
+  Source: arXiv | Score: 0.97/100
+  Platform: Mobile | Impact: High
+  Memory Insight: INT8 reduces model size by 75%
+  Takeaway: Deploy INT8 quantization in production
+
+#2 Paper 3: Knowledge Distillation for Mobile
+  Source: Papers with Code | Score: 0.92/100
+  Platform: Mobile | Impact: Low
+  Memory Insight: 6x smaller student models
+  Takeaway: Implement distillation pipeline
+
+#3 Paper 2: Pruning Strategies for Edge Inference
+  Source: arXiv | Score: 0.85/100
+  Platform: Edge | Impact: Medium
+  Memory Insight: 50% sparsity achievable
+  Takeaway: Use structured pruning
+
+KEY FINDINGS
+--------------------------------------------------------------------------------
+Top Techniques:
+  • INT8: 1 papers
+  • Pruning: 1 papers
+  • Distillation: 1 papers
+
+================================================================================
+For more details, see the full reports in other formats.
+================================================================================

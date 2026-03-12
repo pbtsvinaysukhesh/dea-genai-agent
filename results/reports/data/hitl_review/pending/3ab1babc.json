@@ -1,0 +1,47 @@
+{
+  "review_id": "3ab1babc",
+  "created_at": "2026-02-28T21:50:45.032998",
+  "confidence": 0.8125,
+  "paper": {
+    "title": "Detecting High-Potential SMEs with Heterogeneous Graph Neural Networks",
+    "abstract": "Small and Medium Enterprises (SMEs) constitute 99.9% of U.S. businesses and generate 44% of economic activity, yet systematically identifying high-potential SMEs remains an open challenge. We introduce SME-HGT, a Heterogeneous Graph Transformer framework that predicts which SBIR Phase I awardees will advance to Phase II funding using exclusively public data. We construct a heterogeneous graph with 32,268 company nodes, 124 research topic nodes, and 13 government agency nodes connected by approxi",
+    "url": "https://arxiv.org/abs/2602.19591v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 92,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_dram_usage": "approximately 99,000 edges across 32,268 company nodes, 124 research topic nodes, and 13 government agency nodes",
+      "memory_bandwidth_requirements": "not specified",
+      "compression_quantization_methods": "not mentioned",
+      "before_after_comparisons": "not provided"
+    },
+    "dram_impact": "Medium",
+    "engineering_takeaway": "The use of heterogeneous graph neural networks can provide meaningful signal for SME potential assessment, with implications for policymakers and early-stage investors.",
+    "technical_details": [
+      "Heterogeneous Graph Transformer framework",
+      "MLP baseline",
+      "R-GCN",
+      "Temporal evaluation protocol",
+      "Public data reliance for reproducibility"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop devices, but may require optimization for smaller RAM sizes.",
+    "council_metadata": {
+      "groq_score": 92,
+      "ollama_score": 92,
+      "gemini_score": 92,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:50:45.032998"
+    },
+    "hitl_confidence": 0.8125,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

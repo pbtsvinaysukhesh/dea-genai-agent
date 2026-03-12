@@ -1,0 +1,31 @@
+{
+  "review_id": "a36d4d89",
+  "created_at": "2026-03-09T22:45:49.072216",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "DistMLIP: A Distributed Inference Platform for Machine Learning Interatomic Potentials",
+    "abstract": "Large-scale atomistic simulations are essential to bridge computational materials and chemistry to realistic materials and drug discovery applications. In the past few years, rapid developments of machine learning interatomic potentials (MLIPs) have offered a solution to scale up quantum mechanical calculations. Parallelizing these interatomic potentials across multiple devices poses a challenging, but promising approach to further extending simulation scales to real-world applications. In this ",
+    "url": "https://arxiv.org/abs/2506.02023v2",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:49.072216"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

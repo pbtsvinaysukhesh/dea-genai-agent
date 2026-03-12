@@ -1,0 +1,31 @@
+{
+  "review_id": "757dcf65",
+  "created_at": "2026-03-09T22:45:46.346338",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "An Attention-Enhanced \u03a6-OTDR Event Recognition Framework for Edge-Based Distributed Acoustic Sensing",
+    "abstract": "Phase-sensitive optical time-domain reflectometry \u03a6-OTDR has emerged as a promising sensing technology in Internet of Things (IoT) infrastructures, enabling large-scale distributed acoustic sensing (DAS) for real-time monitoring at the edge in smart cities, industrial pipelines, and critical infrastructures. However, accurately recognizing events from massive \u03a6-OTDR data streams remains challenging, as existing deep learning methods either disrupt the inherent spatiotemporal structure of signals",
+    "url": "https://arxiv.org/abs/2509.19281v2",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:46.346338"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

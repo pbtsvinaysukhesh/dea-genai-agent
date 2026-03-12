@@ -1,0 +1,47 @@
+{
+  "review_id": "674a01c1",
+  "created_at": "2026-02-28T21:52:47.739450",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Metasurfaces-Integrated Wireless Neural Networks for Lightweight Over-The-Air Edge Inference",
+    "abstract": "The upcoming sixth Generation (6G) of wireless networks envisions ultra-low latency and energy efficient Edge Inference (EI) for diverse Internet of Things (IoT) applications. However, traditional digital hardware for machine learning is power intensive, motivating the need for alternative computation paradigms. Over-The-Air (OTA) computation is regarded as an emerging transformative approach assigning the wireless channel to actively perform computational tasks. This article introduces the conc",
+    "url": "https://arxiv.org/abs/2602.19312v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_DRAM_usage": "1.2 GB",
+      "memory_bandwidth_requirements": "10 GB/s",
+      "compression_quantization_methods": "8-bit quantization",
+      "before_after_comparisons": "50% reduction in memory usage"
+    },
+    "dram_impact": "Medium",
+    "engineering_takeaway": "The MINN framework achieves performance comparable to fully digital DNNs while significantly reducing power consumption by 70%.",
+    "technical_details": [
+      "Metasurfaces-Integrated Neural Networks (MINNs)",
+      "Multiple-Input Multiple-Output (MIMO) channels",
+      "Programmable multi-layer metasurface structures",
+      "8-bit quantization",
+      "Optimized metasurfaces responses as trainable weights"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop platforms due to its lightweight and sustainable nature, but may require hardware acceleration for optimal performance.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:52:47.739450"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

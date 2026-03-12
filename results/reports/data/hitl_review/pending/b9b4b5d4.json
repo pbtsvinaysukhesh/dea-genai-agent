@@ -1,0 +1,31 @@
+{
+  "review_id": "b9b4b5d4",
+  "created_at": "2026-03-09T22:46:11.337668",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Improving Model Safety Behavior with Rule-Based Rewards",
+    "abstract": "We've developed and applied a new method leveraging Rule-Based Rewards (RBRs) that aligns models to behave safely without extensive human data collection.",
+    "url": "https://openai.com/index/improving-model-safety-behavior-with-rule-based-rewards",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:11.337668"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

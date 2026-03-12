@@ -1,0 +1,48 @@
+{
+  "review_id": "750f2ed7",
+  "created_at": "2026-03-09T21:12:08.570773",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Reducing Inference Energy Consumption Using Dual Complementary CNNs",
+    "abstract": "Energy efficiency of Convolutional Neural Networks (CNNs) has become an important area of research, with various strategies being developed to minimize the power consumption of these models. Previous efforts, including techniques like model pruning, quantization, and hardware optimization, have made significant strides in this direction. However, there remains a need for more effective on device AI solutions that balance energy efficiency with model performance. In this paper, we propose a novel",
+    "url": "https://arxiv.org/abs/2412.01039v2",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Vision",
+    "memory_insight": {
+      "peak_DRAM_usage": "approx. 1.5GB",
+      "memory_bandwidth_requirements": "up to 10GB/s",
+      "compression_quantization_methods": "None mentioned",
+      "before_after_comparisons": "85.8% energy reduction on Jetson Nano"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing a dual-CNN setup with a memory component can significantly reduce energy consumption while maintaining high accuracy.",
+    "technical_details": [
+      "Dual Complementary CNNs",
+      "Model Pruning",
+      "Quantization",
+      "Hardware Optimization",
+      "NPU acceleration on Jetson Nano"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop platforms, given the relatively low peak DRAM usage and moderate memory bandwidth requirements.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T21:12:08.565228"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

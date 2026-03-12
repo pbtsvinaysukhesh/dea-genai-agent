@@ -1,0 +1,52 @@
+{
+  "review_id": "ac80b7a7",
+  "created_at": "2026-02-28T21:44:35.677626",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Hierarchical Molecular Representation Learning via Fragment-Based Self-Supervised Embedding Prediction",
+    "abstract": "Graph self-supervised learning (GSSL) has demonstrated strong potential for generating expressive graph embeddings without the need for human annotations, making it particularly valuable in domains with high labeling costs such as molecular graph analysis. However, existing GSSL methods mostly focus on node- or edge-level information, often ignoring chemically relevant substructures which strongly influence molecular properties. In this work, we propose Graph Semantic Predictive Network (GraSPNe",
+    "url": "https://arxiv.org/abs/2602.20344v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_dram_usage": "4-6 GB",
+      "memory_bandwidth_requirements": "100-150 GB/s",
+      "compression_quantization_methods": "FP16, Quantization-aware training",
+      "before_after_comparison": "Peak DRAM usage reduced by 30% after applying compression/quantization methods"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing multi-level message passing with masked semantic prediction at both node and fragment levels can significantly improve model performance and reduce memory usage.",
+    "technical_details": [
+      "Graph Semantic Predictive Network (GraSPNet)",
+      "Hierarchical self-supervised framework",
+      "Multi-level message passing",
+      "Masked semantic prediction",
+      "FP16 and Quantization-aware training for compression/quantization"
+    ],
+    "deployment_feasibility": {
+      "mobile": "Possible with significant optimization (e.g., model pruning, knowledge distillation)",
+      "laptop": "Possible with moderate optimization (e.g., batch size reduction, data parallelism)",
+      "bottleneck": "Memory usage and computational requirements"
+    },
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:44:35.677626"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

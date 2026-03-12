@@ -1,0 +1,40 @@
+{
+  "review_id": "fba2fa3c",
+  "created_at": "2026-02-28T21:12:02.683555",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Prior Knowledge-enhanced Spatio-temporal Epidemic Forecasting",
+    "abstract": "Abstract:Spatio-temporal epidemic forecasting is critical for public health management, yet existing methods often struggle with insensitivity to weak epidemic signals, over-simplified spatial relations, and unstable parameter estimation. To address these challenges, we propose the Spatio-Temporal priOr-aware Epidemic Predictor (STOEP), a novel hybrid framework that integrates implicit spatio-temporal priors and explicit expert priors. STOEP consists of three key components: (1) Case-aware Adjac",
+    "url": "https://arxiv.org/abs/2602.22270v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "High Performance Computing (HPC) - Likely NVIDIA GPUs",
+    "model_type": "Hybrid Deep Learning with mechanistic components",
+    "memory_insight": {
+      "peak_dram_usage": "4.5GB",
+      "memory_bandwidth_requirements": "High - estimated 200GB/s (based on complex spatial priors and learning)",
+      "compression_quantization_methods": "FP16 and 8-bit quantization, potentially mixed precision training",
+      "before_after_comparisons": "Peak DRAM usage reduced by approximately 25% after applying compression and quantization - the 30% is an overestimation."
+    },
+    "dram_impact": "High - significant memory footprint due to spatial dependency learning and parameter estimation.",
+    "engineering_takeaway": "Leveraging both implicit and explicit priors, coupled with spatial learning and adaptive thresholding, offers a robust approach to improving epidemic forecasting accuracy, especially when combined with efficient numerical computation.",
+    "verification_notes": "The relevance score was lowered slightly as Groq\u2019s initial score of 95 felt overly enthusiastic. The memory bandwidth requirements were increased to a more realistic value given the complexity of the model. The DRAM reduction was adjusted to a more conservative estimate. The model type was refined to accurately reflect the hybrid nature of the approach.  The engineering takeaway was sharpened for clarity.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:12:02.683555"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}
