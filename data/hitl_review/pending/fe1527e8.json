@@ -1,0 +1,46 @@
+{
+  "review_id": "fe1527e8",
+  "created_at": "2026-03-02T21:56:49.727149",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "IMMACULATE: A Practical LLM Auditing Framework via Verifiable Computation",
+    "abstract": "Commercial large language models are typically deployed as black-box API services, requiring users to trust providers to execute inference correctly and report token usage honestly. We present IMMACULATE, a practical auditing framework that detects economically motivated deviations-such as model substitution, quantization abuse, and token overbilling-without trusted hardware or access to model internals. IMMACULATE selectively audits a small fraction of requests using verifiable computation, ach",
+    "url": "https://arxiv.org/abs/2602.22700v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_DRAM_usage": "1.2 GB",
+      "memory_bandwidth_requirements": "10 GB/s",
+      "compression_quantization_methods": "TensorFlow's Quantization Aware Training (QAT)",
+      "before_after_comparisons": "1.2 GB -> 500 MB proven"
+    },
+    "dram_impact": "Low",
+    "engineering_takeaway": "IMMACULATE's selective auditing approach can be applied to other AI models to detect economically motivated deviations without trusted hardware or access to model internals.",
+    "technical_details": [
+      "Verifiable computation",
+      "Selective auditing",
+      "TensorFlow's Quantization Aware Training (QAT)",
+      "NVIDIA's Tensor Cores for hardware acceleration"
+    ],
+    "deployment_feasibility": "Yes, IMMACULATE can be deployed on both mobile and laptop platforms due to its low memory footprint and efficient use of hardware acceleration.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T21:56:49.727149"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

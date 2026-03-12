@@ -1,0 +1,48 @@
+{
+  "review_id": "2fca122b",
+  "created_at": "2026-03-09T21:34:52.820744",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Dissecting the Impact of Mobile DVFS Governors on LLM Inference Performance and Energy Efficiency",
+    "abstract": "Large Language Models (LLMs) are increasingly being integrated into various applications and services running on billions of mobile devices. However, deploying LLMs on resource-limited mobile devices faces a significant challenge due to their high demand for computation, memory, and ultimately energy. While current LLM frameworks for mobile use three power-hungry components-CPU, GPU, and Memory-even when running primarily-GPU LLM models, optimized DVFS governors for CPU, GPU, and memory featured",
+    "url": "https://arxiv.org/abs/2507.02135v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Mobile",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_DRAM_usage": "up to 4GB",
+      "memory_bandwidth_requirements": "up to 40.4% longer prefilling and decoding latency",
+      "compression_quantization_methods": "not mentioned",
+      "before_after_comparisons": "up to 40.4% longer prefilling and decoding latency"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Optimizing the energy efficiency of LLM inference on mobile devices requires a unified energy-aware governor that considers the intricate interplay among CPU, GPU, and memory frequencies.",
+    "technical_details": [
+      "DVFS governors for CPU, GPU, and memory",
+      "Optimized combinations of CPU, GPU, and memory frequencies",
+      "FUSE - a unified energy-aware governor",
+      "ShareGPT dataset",
+      "LLM inference performance and energy efficiency"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on mobile devices with 4-8GB RAM, as it reduces time-to-first-token and time-per-output-token latencies by 7.0%-16.9% and 25.4%-36.8% on average with the same energy-per-token for various mobile LLM models.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T21:34:52.816933"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

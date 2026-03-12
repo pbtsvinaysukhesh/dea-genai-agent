@@ -1,0 +1,31 @@
+{
+  "review_id": "281db833",
+  "created_at": "2026-03-09T22:45:47.825421",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Systematizing LLM Persona Design: A Four-Quadrant Technical Taxonomy for AI Companion Applications",
+    "abstract": "The design and application of LLM-based personas in AI companionship is a rapidly expanding but fragmented field, spanning from virtual emotional companions and game NPCs to embodied functional robots. This diversity in objectives, modality, and technical stacks creates an urgent need for a unified framework. To address this gap, this paper systematizes the field by proposing a Four-Quadrant Technical Taxonomy for AI companion applications. The framework is structured along two critical axes: Vi",
+    "url": "https://arxiv.org/abs/2511.02979v2",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:47.825421"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

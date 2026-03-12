@@ -1,0 +1,31 @@
+{
+  "review_id": "85a6de49",
+  "created_at": "2026-03-09T22:45:59.180084",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Transforming the manufacturing industry with ChatGPT",
+    "abstract": "By deploying ChatGPT Enterprise, ENEOS Materials transformed operations with faster research, safer plant design, and streamlined HR processes. Over 80% of employees report major workflow improvements, strengthening competitiveness in manufacturing.",
+    "url": "https://openai.com/index/eneos-materials",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:59.180084"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

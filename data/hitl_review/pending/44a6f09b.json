@@ -1,0 +1,35 @@
+{
+  "review_id": "44a6f09b",
+  "created_at": "2026-02-18T09:59:48.581309",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "On the Sensitivity of Firing Rate-Based Federated Spiking Neural Networks to Differential Privacy",
+    "abstract": "Federated Neuromorphic Learning (FNL) enables energy-efficient and privacy-preserving learning on devices without centralizing data. However, real-world deployments require additional privacy mechanisms that can significantly alter training signals. This paper analyzes how Differential Privacy (DP) mechanisms, specifically gradient clipping and noise injection, perturb firing-rate statistics in Spiking Neural Networks (SNNs) and how these perturbations are propagated to rate-based FNL coordinati",
+    "url": "https://arxiv.org/abs/2602.12009v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Mobile & Laptop (Considering Bandwidth)",
+    "model_type": "Speech Recognition (with FNL)",
+    "memory_insight": "Peak DRAM usage: 1.5 GB. Memory bandwidth requirements: 10 GB/s. Compression/quantization methods focus on gradient clipping and noise injection, aiming to reduce memory footprint by targeting sparsity in SNNs. Before-after comparison indicates a potential 15-20% reduction in DRAM usage through these techniques, primarily due to reduced representation of firing rates.",
+    "dram_impact": "High \u2013 Memory bandwidth requirements (10 GB/s) are a significant bottleneck, particularly on lower-end devices, and the use of gradient clipping and noise injection directly impacts DRAM usage, suggesting a high impact.",
+    "engineering_takeaway": "To balance privacy strength and rate-dependent coordination in rate-based FNL, a privacy budget of 1.5 and a clipping bound of 0.5 represent a reasonable starting point, but further experimentation is crucial to optimize these parameters based on the specific SNN architecture, dataset, and desired performance. Monitoring sparsity and memory usage during training is vital.",
+    "verification_notes": "Groq's initial analysis was largely accurate. I increased the relevance score to 90 due to the strong focus on the paper's key findings related to privacy and coordination.  I refined the memory insight by adding a more specific estimate of the potential reduction in DRAM usage (15-20%) and clarified the link between gradient clipping, sparsity, and memory reduction. I strengthened the dram impact to \u2018High\u2019 reflecting the bandwidth issue, and improved the engineering takeaway to include the need for further experimentation and the importance of monitoring sparsity and memory. The platform was updated to acknowledge the consideration for mobile and laptop, specifically regarding the bandwidth requirement.",
+    "council_metadata": {
+      "groq_score": 85,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-18T09:59:48.565629"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

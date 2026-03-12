@@ -1,0 +1,31 @@
+{
+  "review_id": "b0251536",
+  "created_at": "2026-03-09T22:46:22.859078",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Quantifying generalization in reinforcement learning",
+    "abstract": "We\u2019re releasing CoinRun, a training environment which provides a metric for an agent\u2019s ability to transfer its experience to novel situations and has already helped clarify a\u00a0longstanding\u00a0puzzle\u00a0in reinforcement learning. CoinRun strikes a desirable balance in complexity: the environment is simpler than traditional platformer games like Sonic the Hedgehog but still poses a worthy generalization challenge for state of the art\u00a0algorithms.",
+    "url": "https://openai.com/index/quantifying-generalization-in-reinforcement-learning",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:22.859078"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

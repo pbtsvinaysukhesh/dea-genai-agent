@@ -1,0 +1,51 @@
+# Core AI & LLM Dependencies
+groq>=0.9.0
+google-generativeai>=0.3.0
+
+# Configuration
+python-dotenv>=1.0.0
+PyYAML>=6.0.0
+
+# Data Collection & Web Scraping
+feedparser>=6.0.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Web Framework & API
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.0.0
+python-multipart>=0.0.6
+websockets>=12.0
+
+# AI & ML
+sentence-transformers>=2.2.0
+numpy>=1.24.0
+
+# Report Generation
+python-pptx>=0.6.21
+reportlab>=4.0.0
+gTTS>=2.3.0
+pydub>=0.25.1
+mutagen>=1.46.0
+scipy>=1.11.0
+
+# Utilities
+colorlog>=6.7.0
+python-dateutil>=2.8.0
+
+# Development & Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+black>=23.0.0
+flake8>=6.0.0
+isort>=5.12.0
+mypy>=1.7.0
+
+# Production Monitoring (Optional)
+sentry-sdk>=1.40.0
+prometheus-client>=0.19.0
+
+# NOTE: Ollama support is optional and controlled via ENABLE_OLLAMA environment variable
+# Do not install ollama by default to avoid bloated images

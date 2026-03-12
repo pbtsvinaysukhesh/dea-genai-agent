@@ -1,0 +1,38 @@
+{
+  "session_id": "20260221_062510",
+  "timestamp": "2026-02-21T06:25:11.130484",
+  "total_papers": 2,
+  "top_papers": [
+    {
+      "title": "Frontier AI Risk Management Framework in Practice: A Risk Analysis Technical Rep",
+      "score": 85,
+      "platform": "Not explicitly stated, but likely LLM inference and simulation"
+    },
+    {
+      "title": "Evaluating fairness in ChatGPT",
+      "score": 75,
+      "platform": "Both"
+    }
+  ],
+  "statistics": {
+    "total_analyzed": 1087,
+    "new_findings": 2,
+    "rejected": {
+      "duplicate": 2,
+      "low_score": 0,
+      "failed": 1025
+    },
+    "vector_stats": {
+      "enabled": false
+    },
+    "hitl_stats": {
+      "total_checked": 1085,
+      "auto_approved": 2,
+      "pending_review": 58,
+      "human_approved": 0,
+      "human_rejected": 0,
+      "currently_pending": 86,
+      "auto_approve_rate": 0.18433179723502305
+    }
+  }
+}

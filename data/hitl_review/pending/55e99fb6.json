@@ -1,0 +1,31 @@
+{
+  "review_id": "55e99fb6",
+  "created_at": "2026-03-09T22:46:10.411228",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Economics and reasoning with OpenAI o1",
+    "abstract": "Economist Tyler Cowen explains how OpenAI o1 tackles complex economic questions.",
+    "url": "https://openai.com/index/o1-economics",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:10.411228"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

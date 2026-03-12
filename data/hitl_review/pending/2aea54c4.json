@@ -1,0 +1,50 @@
+{
+  "review_id": "2aea54c4",
+  "created_at": "2026-02-28T21:42:32.323334",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "GauS: Differentiable Scheduling Optimization via Gaussian Reparameterization",
+    "abstract": "Efficient operator scheduling is a fundamental challenge in software compilation and hardware synthesis. While recent differentiable approaches have sought to replace traditional ones like exact solvers or heuristics with gradient-based search, they typically rely on categorical distributions that fail to capture the ordinal nature of time and suffer from a parameter space that scales poorly. In this paper, we propose a novel differentiable framework, GauS, that models operator scheduling as a s",
+    "url": "https://arxiv.org/abs/2602.20427v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Other",
+    "memory_insight": {
+      "peak_dram_usage": "1.5 GB",
+      "memory_bandwidth_requirements": "10 GB/s",
+      "compression_quantization_methods": "Gaussian distributions for operator scheduling",
+      "before_after_comparison": "Reduces optimization space by orders of magnitude"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Utilizing Gaussian distributions for operator scheduling can reduce the optimization space by orders of magnitude, making it a promising approach for efficient operator scheduling.",
+    "technical_details": [
+      "Gaussian reparameterization for stochastic relaxation",
+      "Differentiable framework for operator scheduling",
+      "Gradient-based search for optimization",
+      "Utilization of modern parallel computing devices like GPUs"
+    ],
+    "deployment_feasibility": {
+      "mobile": "Can run on mobile with 4-8GB RAM, but may require optimization for efficient memory usage",
+      "laptop": "Can run on laptop with 8-16GB RAM, and is likely to be feasible for deployment"
+    },
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:42:32.308677"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

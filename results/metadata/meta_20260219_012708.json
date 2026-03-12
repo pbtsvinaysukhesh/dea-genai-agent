@@ -1,0 +1,38 @@
+{
+  "session_id": "20260219_012708",
+  "timestamp": "2026-02-19T01:27:09.392250",
+  "total_papers": 2,
+  "top_papers": [
+    {
+      "title": "Improving MLLMs in Embodied Exploration and Question Answering with Human-Inspir",
+      "score": 88,
+      "platform": "Both"
+    },
+    {
+      "title": "Can we trust AI to detect healthy multilingual English speakers among the cognit",
+      "score": 85,
+      "platform": "Audio"
+    }
+  ],
+  "statistics": {
+    "total_analyzed": 280,
+    "new_findings": 2,
+    "rejected": {
+      "duplicate": 0,
+      "low_score": 0,
+      "failed": 269
+    },
+    "vector_stats": {
+      "enabled": false
+    },
+    "hitl_stats": {
+      "total_checked": 280,
+      "auto_approved": 2,
+      "pending_review": 9,
+      "human_approved": 0,
+      "human_rejected": 0,
+      "currently_pending": 28,
+      "auto_approve_rate": 0.7142857142857143
+    }
+  }
+}

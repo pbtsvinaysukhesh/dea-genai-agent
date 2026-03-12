@@ -1,0 +1,31 @@
+{
+  "review_id": "d3c3ba22",
+  "created_at": "2026-03-09T22:46:25.646882",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "More on Dota 2",
+    "abstract": "Our Dota 2 result shows that self-play can catapult the performance of machine learning systems from far below human level to superhuman, given sufficient compute. In the span of a month, our system went from barely matching a high-ranked player to beating the top pros and has continued to improve since then. Supervised deep learning systems can only be as good as their training datasets, but in self-play systems, the available data improves automatically as the agent gets better.",
+    "url": "https://openai.com/index/more-on-dota-2",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:25.646882"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

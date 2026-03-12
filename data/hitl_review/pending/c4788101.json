@@ -1,0 +1,48 @@
+{
+  "review_id": "c4788101",
+  "created_at": "2026-02-28T21:14:05.621534",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Generative Bayesian Computation as a Scalable Alternative to Gaussian Process Surrogates",
+    "abstract": "Abstract:Gaussian process (GP) surrogates are the default tool for emulating expensive computer experiments, but cubic cost, stationarity assumptions, and Gaussian predictive distributions limit their reach. We propose Generative Bayesian Computation (GBC) via Implicit Quantile Networks (IQNs) as a surrogate framework that targets all three limitations. GBC learns the full conditional quantile function from input--output pairs; at test time, a single forward pass per quantile level produces draw",
+    "url": "https://arxiv.org/abs/2602.21408v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Other",
+    "memory_insight": {
+      "peak_DRAM_usage": "90,000 training points",
+      "memory_bandwidth_requirements": "Not specified",
+      "compression/quantization_methods": "Not mentioned",
+      "before/after_comparisons": "GBC scales linearly to 90,000 training points"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "GBC can be used as a scalable alternative to Gaussian Process Surrogates, especially for large datasets.",
+    "technical_details": [
+      "Generative Bayesian Computation (GBC)",
+      "Implicit Quantile Networks (IQNs)",
+      "Boundary-augmented variant",
+      "Randomized-prior IQN ensemble",
+      "Deep GP active learning"
+    ],
+    "deployment_feasibility": "Yes, but may require significant optimization for mobile devices due to high peak DRAM usage and lack of specific memory bandwidth requirements.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:14:05.618070"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

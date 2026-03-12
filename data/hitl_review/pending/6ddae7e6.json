@@ -1,0 +1,31 @@
+{
+  "review_id": "6ddae7e6",
+  "created_at": "2026-03-09T22:45:46.922500",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Optimizing Multi-Tier Supply Chain Ordering with LNN+XGBoost: Mitigating the Bullwhip Effect",
+    "abstract": "Supply chain management faces significant challenges, including demand fluctuations, inventory imbalances, and amplified upstream order variability due to the bullwhip effect. Traditional methods, such as simple moving averages, struggle to address dynamic market conditions. Emerging machine learning techniques, including LSTM, reinforcement learning, and XGBoost, offer potential solutions but are limited by computational complexity, training inefficiencies, or constraints in time-series modelin",
+    "url": "https://arxiv.org/abs/2507.21383v2",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:46.922500"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

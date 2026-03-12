@@ -1,0 +1,31 @@
+{
+  "review_id": "6fe809ca",
+  "created_at": "2026-03-09T22:46:03.736920",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Introducing data residency in Asia",
+    "abstract": "Data residency builds on OpenAI\u2019s enterprise-grade data privacy, security, and compliance programs supporting customers worldwide.",
+    "url": "https://openai.com/index/introducing-data-residency-in-asia",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:03.736920"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

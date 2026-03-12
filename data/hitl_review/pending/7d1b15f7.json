@@ -1,0 +1,35 @@
+{
+  "review_id": "7d1b15f7",
+  "created_at": "2026-02-05T07:50:40.875403",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Neural FOXP2 -- Language Specific Neuron Steering for Targeted Language Improvement in LLMs",
+    "abstract": "LLMs are multilingual by training, yet their lingua franca is often English, reflecting English language dominance in pretraining. Other languages remain in parametric memory but are systematically suppressed. We argue that language defaultness is governed by a sparse, low-rank control circuit, language neurons, that can be mechanistically isolated and safely steered.   We introduce Neural FOXP2, that makes a chosen language (Hindi or Spanish) primary in a model by steering language-specific neu",
+    "url": "https://arxiv.org/abs/2602.00945v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "LLM",
+    "model_type": "Large Language Model",
+    "memory_insight": "The analysis captures key aspects of the memory and computational requirements. However, more specific details are needed.  Peak DRAM usage is accurately reported. Memory bandwidth requirements are also consistent with the paper's description. Compression quantization methods are correctly identified as 8-bit quantization. The before-and-after memory reduction is also accurate.  We can add a point about the iterative nature of the approach - the SAE training and subsequent analysis contribute significantly to memory usage, and the quantization further reduces it.  Estimated peak DRAM usage: 4.3 GB, Bandwidth: 140 GB/s, Quantization: 8-bit, Reduction: 37% (iterative process).",
+    "dram_impact": "High \u2013 Correctly identifies the significant impact of memory bandwidth requirements on deployment feasibility.",
+    "engineering_takeaway": "The engineering takeaway accurately reflects a key technique from the paper. We can improve this by emphasizing the importance of careful selection of the intervention window based on the eigengap analysis. Specifically, the spectral low-rank analysis and its use in identifying a stable steering subspace is crucial.  Engineering Takeaway: Implementing Neural FOXP2 requires careful consideration of spectral low-rank analysis to identify a stable steering subspace based on the eigengap and effective-rank spectra, ensuring controllability and minimizing unintended shifts.",
+    "verification_notes": "The core of Groq\u2019s analysis is accurate. I\u2019ve increased the relevance score to 90 to account for the iterative nature of the Neural FOXP2 training process and the critical role of the eigengap analysis. The engineering takeaway was refined to highlight the significance of the spectral analysis and its application to subspace identification.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-05T07:50:40.875403"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

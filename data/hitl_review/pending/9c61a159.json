@@ -1,0 +1,31 @@
+{
+  "review_id": "9c61a159",
+  "created_at": "2026-03-09T22:45:57.675325",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "AI in Japan\u2014OpenAI\u2019s Japan Economic Blueprint",
+    "abstract": "OpenAI\u2019s Japan Economic Blueprint outlines how Japan can harness AI to boost innovation, strengthen competitiveness, and enable sustainable, inclusive growth.",
+    "url": "https://openai.com/index/japan-economic-blueprint",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:57.675325"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

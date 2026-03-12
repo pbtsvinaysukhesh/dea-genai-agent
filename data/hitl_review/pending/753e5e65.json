@@ -1,0 +1,31 @@
+{
+  "review_id": "753e5e65",
+  "created_at": "2026-03-09T22:46:08.798027",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Promega\u2019s top-down adoption of ChatGPT accelerates manufacturing, sales, and marketing",
+    "abstract": "Promega's top-down adoption of ChatGPT accelerates manufacturing, sales, and marketing",
+    "url": "https://openai.com/index/promega",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:08.798027"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

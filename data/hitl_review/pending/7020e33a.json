@@ -1,0 +1,31 @@
+{
+  "review_id": "7020e33a",
+  "created_at": "2026-03-09T22:46:19.127571",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "AI-written critiques help humans notice flaws",
+    "abstract": "We trained \u201ccritique-writing\u201d models to describe flaws in summaries. Human evaluators find flaws in summaries much more often when shown our model\u2019s critiques. Larger models are better at self-critiquing, with scale improving critique-writing more than summary-writing. This shows promise for using AI systems to assist human supervision of AI systems on difficult\u00a0tasks.",
+    "url": "https://openai.com/index/critiques",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:19.127571"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

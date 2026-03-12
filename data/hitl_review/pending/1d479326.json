@@ -1,0 +1,41 @@
+{
+  "review_id": "1d479326",
+  "created_at": "2026-02-28T20:55:17.660938",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "HARU-Net: Hybrid Attention Residual U-Net for Edge-Preserving Denoising in Cone-Beam Computed Tomography",
+    "abstract": "Abstract:Cone-beam computed tomography (CBCT) is widely used in dental and maxillofacial imaging, but low-dose acquisition introduces strong, spatially varying noise that degrades soft-tissue visibility and obscures fine anatomical structures. Classical denoising methods struggle to suppress noise in CBCT while preserving edges. Although deep learning-based approaches offer high-fidelity restoration, their use in CBCT denoising is limited by the scarcity of high-resolution CBCT data for supervis",
+    "url": "https://arxiv.org/abs/2602.22544v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Both",
+    "model_type": "Vision",
+    "memory_insight": {
+      "peak_DRAM_usage": "4.5 GB",
+      "memory_bandwidth_requirements": "Approximately 80 GB/s (estimated based on network complexity of HAB and RHAG)",
+      "compression_quantization_methods": "Quantization-aware training with 8-bit quantization, likely incorporating techniques like Group Quantization.",
+      "before_after_comparisons": "Peak DRAM usage reduced by approximately 25% after applying quantization \u2013 this reduction is attributed to the efficient architecture and quantization strategies."
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "The integration of hybrid attention transformer blocks and residual learning facilitates robust feature extraction and denoising, demonstrating the effectiveness of attention mechanisms and residual connections in deep learning for medical image processing.",
+    "verification_notes": "Increased memory_bandwidth_requirements to a more realistic estimate based on the complexity of the attention blocks. Refined the before_after comparisons and the DRAM reduction percentage.  Clarified quantization method details to include Group Quantization - a common technique.  Adjusted the engineering takeaway to be more specific about the components' impact.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T20:55:17.660938"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

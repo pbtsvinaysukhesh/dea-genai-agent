@@ -1,0 +1,31 @@
+{
+  "review_id": "ecc12093",
+  "created_at": "2026-03-09T22:46:02.050484",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Pioneering an AI clinical copilot with Penda Health",
+    "abstract": "OpenAI and Penda Health debut an AI clinical copilot that cuts diagnostic errors by 16% in real-world use\u2014offering a new path for safe, effective AI in healthcare.",
+    "url": "https://openai.com/index/ai-clinical-copilot-penda-health",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:02.050484"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

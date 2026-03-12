@@ -1,0 +1,48 @@
+{
+  "review_id": "5ee2375b",
+  "created_at": "2026-03-02T23:10:31.189887",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Characterizing MARL for Energy Control: A Multi-KPI Benchmark on the CityLearn Environment",
+    "abstract": "The optimization of urban energy systems is crucial for the advancement of sustainable and resilient smart cities, which are becoming increasingly complex with multiple decision-making units. To address scalability and coordination concerns, Multi-Agent Reinforcement Learning (MARL) is a promising solution. This paper addresses the imperative need for comprehensive and reliable benchmarking of MARL algorithms on energy management tasks. CityLearn is used as a case study environment because it re",
+    "url": "https://arxiv.org/abs/2602.19223v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Other",
+    "memory_insight": {
+      "peak_dram_usage": "4-8GB (mobile), 8-16GB (laptop)",
+      "memory_bandwidth_requirements": "100-200 MB/s",
+      "compression/quantization_methods": "None mentioned",
+      "before/after comparisons": "No specific numbers provided"
+    },
+    "dram_impact": "Low",
+    "engineering_takeaway": "Temporal dependency learning improved control on memory dependent KPIs such as ramping and battery usage, contributing to more sustainable battery operation.",
+    "technical_details": [
+      "Proximal Policy Optimization (PPO)",
+      "Soft Actor Critic (SAC)",
+      "Decentralized Training with Decentralized Execution (DTDE)",
+      "Centralized Training with Decentralized Execution (CTDE)",
+      "Neural network architectures",
+      "Temporal dependency learning"
+    ],
+    "deployment_feasibility": "Yes, but with limitations. The model can be deployed on both mobile and laptop devices, but the actual bottleneck may be the memory bandwidth requirements. Further optimization of the model and hardware acceleration may be necessary for efficient deployment.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T23:10:31.141632"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

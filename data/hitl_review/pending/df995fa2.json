@@ -1,0 +1,31 @@
+{
+  "review_id": "df995fa2",
+  "created_at": "2026-03-09T22:46:18.703847",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Our approach to alignment research",
+    "abstract": "We are improving our AI systems\u2019 ability to learn from human feedback and to assist humans at evaluating AI. Our goal is to build a sufficiently aligned AI system that can help us solve all other alignment\u00a0problems.",
+    "url": "https://openai.com/index/our-approach-to-alignment-research",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:18.703847"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

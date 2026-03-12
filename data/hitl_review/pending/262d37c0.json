@@ -1,0 +1,48 @@
+{
+  "review_id": "262d37c0",
+  "created_at": "2026-03-02T22:58:14.358146",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Active perception and disentangled representations allow continual, episodic zero and few-shot learning",
+    "abstract": "Generalization is often regarded as an essential property of machine learning systems. However, perhaps not every component of a system needs to generalize. Training models for generalization typically produces entangled representations at the boundaries of entities or classes, which can lead to destructive interference when rapid, high-magnitude updates are required for continual or few-shot learning. Techniques for fast learning with non-interfering representations exist, but they generally fa",
+    "url": "https://arxiv.org/abs/2602.19355v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_dram_usage": "4GB",
+      "memory_bandwidth_requirements": "100GB/s",
+      "compression_quantization_methods": "Quantization-aware training with 8-bit weights",
+      "before_after_comparisons": "Reduced memory usage by 30% through disentangled representations"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing a parallel reasoning system with a fast, disentangled learner can significantly reduce memory usage and improve performance in continual learning scenarios",
+    "technical_details": [
+      "Active perception system with contextual bias",
+      "Complementary Learning System (CLS) architecture",
+      "Disentangled representations for non-interfering learning",
+      "Quantization-aware training for efficient memory usage",
+      "Optimization techniques: Stochastic gradient descent (SGD), Momentum, Nesterov Accelerated Gradient (NAG)"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop platforms, but may require adjustments for specific hardware configurations and memory constraints",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T22:58:14.356629"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

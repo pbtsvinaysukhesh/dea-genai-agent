@@ -1,0 +1,31 @@
+{
+  "review_id": "30e105e8",
+  "created_at": "2026-03-09T22:45:48.532471",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "MedMambaLite: Hardware-Aware Mamba for Medical Image Classification",
+    "abstract": "AI-powered medical devices have driven the need for real-time, on-device inference such as biomedical image classification. Deployment of deep learning models at the edge is now used for applications such as anomaly detection and classification in medical images. However, achieving this level of performance on edge devices remains challenging due to limitations in model size and computational capacity. To address this, we present MedMambaLite, a hardware-aware Mamba-based model optimized through",
+    "url": "https://arxiv.org/abs/2508.05049v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:48.532471"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

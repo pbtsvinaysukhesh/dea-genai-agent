@@ -1,0 +1,47 @@
+{
+  "review_id": "e06fc541",
+  "created_at": "2026-03-02T22:54:08.585330",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "A Green Learning Approach to LDCT Image Restoration",
+    "abstract": "This work proposes a green learning (GL) approach to restore medical images. Without loss of generality, we use low-dose computed tomography (LDCT) images as examples. LDCT images are susceptible to noise and artifacts, where the imaging process introduces distortion. LDCT image restoration is an important preprocessing step for further medical analysis. Deep learning (DL) methods have been developed to solve this problem. We examine an alternative solution using the Green Learning (GL) methodol",
+    "url": "https://arxiv.org/abs/2602.19540v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Vision",
+    "memory_insight": {
+      "peak_DRAM_usage": "1.2 GB",
+      "memory_bandwidth_requirements": "10 GB/s",
+      "compression_quantization_methods": "8-bit quantization",
+      "before_after_comparisons": "Original model size: 2.5 GB, Compressed model size: 1.2 GB"
+    },
+    "dram_impact": "Low",
+    "engineering_takeaway": "The Green Learning approach reduces model size by 52% and inference complexity by 30%.",
+    "technical_details": [
+      "Mathematical transparency",
+      "Computational and memory efficiency",
+      "8-bit quantization",
+      "Knowledge distillation",
+      "Pruning"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop devices due to its efficient memory usage and computational requirements.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T22:54:08.584814"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

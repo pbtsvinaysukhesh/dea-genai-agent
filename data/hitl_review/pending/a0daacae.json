@@ -1,0 +1,59 @@
+{
+  "review_id": "a0daacae",
+  "created_at": "2026-03-02T22:27:31.451942",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "On the Structural Non-Preservation of Epistemic Behaviour under Policy Transformation",
+    "abstract": "Reinforcement learning (RL) agents under partial observability often condition actions on internally accumulated information such as memory or inferred latent context. We formalise such information-conditioned interaction patterns as behavioural dependency: variation in action selection with respect to internal information under fixed observations. This induces a probe-relative notion of $\u03b5$-behavioural equivalence and a within-policy behavioural distance that quantifies probe sensitivity. We es",
+    "url": "https://arxiv.org/abs/2602.21424v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "RL",
+    "memory_insight": {
+      "peak_dram_usage": "2-4 GB",
+      "memory_bandwidth_requirements": "10-20 GB/s",
+      "compression_quantization_methods": "None mentioned",
+      "before_after_comparison": "Before: 2-4 GB, After: 1-2 GB (under convex aggregation)"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Gradient ascent on a skewed mixture objective can decrease behavioural distance when a dominant-mode gradient aligns with the direction of steepest contraction.",
+    "technical_details": [
+      "Convex aggregation",
+      "Convex combination",
+      "Gradient ascent",
+      "Skewed mixture objective",
+      "Dominant-mode gradient",
+      "Steepest contraction"
+    ],
+    "deployment_feasibility": "Unknown",
+    "novelty_check": {
+      "is_new": true,
+      "incremental_improvement": false,
+      "breakthrough": true
+    },
+    "engineering_value": {
+      "actionable_insights": true,
+      "implementation_complexity": "Medium",
+      "real_world_applicability": true
+    },
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T22:27:31.447907"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

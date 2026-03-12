@@ -1,0 +1,47 @@
+{
+  "review_id": "948b9b4a",
+  "created_at": "2026-02-28T20:43:52.330631",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Evaluating Zero-Shot and One-Shot Adaptation of Small Language Models in Leader-Follower Interaction",
+    "abstract": "Abstract:Leader-follower interaction is an important paradigm in human-robot interaction (HRI). Yet, assigning roles in real time remains challenging for resource-constrained mobile and assistive robots. While large language models (LLMs) have shown promise for natural communication, their size and latency limit on-device deployment. Small language models (SLMs) offer a potential alternative, but their effectiveness for role classification in HRI has not been systematically evaluated. In this pa",
+    "url": "https://arxiv.org/abs/2602.23312v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_DRAM_usage": "0.5B",
+      "memory_bandwidth_requirements": "22.2 ms per sample",
+      "compression_quantization_methods": "None mentioned",
+      "before_after_comparison": "Fine-tuning reduces latency from 22.2 ms to 22.2 ms"
+    },
+    "dram_impact": "Low",
+    "engineering_takeaway": "Fine-tuning achieves robust classification performance (86.66% accuracy) while maintaining low latency (22.2 ms per sample)",
+    "technical_details": [
+      "Zero-shot fine-tuning",
+      "Prompt engineering",
+      "Fine-tuning",
+      "Qwen2.5-0.5B model",
+      "Augmented dataset with synthetic samples"
+    ],
+    "deployment_feasibility": "Yes, can be deployed on both mobile and laptop due to low latency and peak DRAM usage.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T20:43:52.326916"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

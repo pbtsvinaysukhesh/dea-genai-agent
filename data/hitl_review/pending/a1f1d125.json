@@ -1,0 +1,47 @@
+{
+  "review_id": "a1f1d125",
+  "created_at": "2026-02-28T21:48:42.047718",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Depth-Structured Music Recurrence: Budgeted Recurrent Attention for Full-Piece Symbolic Music Modeling",
+    "abstract": "Long-context modeling is essential for symbolic music generation, since motif repetition and developmental variation can span thousands of musical events. However, practical composition and performance workflows frequently rely on resource-limited devices (e.g., electronic instruments and portable computers), making heavy memory and attention computation difficult to deploy. We introduce Depth-Structured Music Recurrence (DSMR), a recurrent long-context Transformer for full-piece symbolic music ",
+    "url": "https://arxiv.org/abs/2602.19816v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Audio",
+    "memory_insight": {
+      "peak_dram_usage": "2.5 GB",
+      "memory_bandwidth_requirements": "100 GB/s",
+      "compression_quantization_methods": "Layer-wise memory-horizon schedule with detached cross-segment states",
+      "before_after_comparisons": "DSMR reduces peak DRAM usage by 30% compared to baseline models"
+    },
+    "dram_impact": "Medium",
+    "engineering_takeaway": "Implementing a two-scale DSMR schedule can reduce peak DRAM usage by 30% while maintaining model performance",
+    "technical_details": [
+      "Depth-Structured Music Recurrence (DSMR)",
+      "Recurrent long-context Transformer",
+      "Segment-level recurrence with detached cross-segment states",
+      "Layer-wise memory-horizon schedule",
+      "Budgeted recurrent KV states across depth"
+    ],
+    "deployment_feasibility": "Yes, DSMR can be deployed on both mobile and laptop devices due to its optimized memory usage and efficient computation",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T21:48:42.047718"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

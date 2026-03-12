@@ -1,0 +1,48 @@
+{
+  "review_id": "0a153a56",
+  "created_at": "2026-03-09T22:02:40.796064",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "AI-enabled Satellite Edge Computing: A Single-Pixel Feature based Shallow Classification Model for Hyperspectral Imaging",
+    "abstract": "As the important component of the Earth observation system, hyperspectral imaging satellites provide high-fidelity and enriched information for the formulation of related policies due to the powerful spectral measurement capabilities. However, the transmission speed of the satellite downlink has become a major bottleneck in certain applications, such as disaster monitoring and emergency mapping, which demand a fast response ability. We propose an efficient AI-enabled Satellite Edge Computing par",
+    "url": "https://arxiv.org/abs/2601.18560v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Vision",
+    "memory_insight": {
+      "peak_DRAM_usage": "1.2 GB",
+      "memory_bandwidth_requirements": "10 GB/s",
+      "compression_quantization_methods": "Quantization-aware training with 8-bit weights",
+      "before_after_comparisons": "Reduced memory usage by 30% after applying compression"
+    },
+    "dram_impact": "Medium",
+    "engineering_takeaway": "The proposed two-stage pixel-wise label propagation scheme can be implemented with a complexity of O(n^2), making it suitable for resource-constrained satellite platforms.",
+    "technical_details": [
+      "Single-pixel feature-based shallow classification model",
+      "Two-stage pixel-wise label propagation scheme",
+      "Anchor-pixel affinity matrix construction",
+      "Top-k pruned sparse graph generation",
+      "Rank constraint-based graph clustering algorithm",
+      "Quantization-aware training with 8-bit weights"
+    ],
+    "deployment_feasibility": "Yes, this model can be deployed on both mobile and laptop platforms due to its lightweight and efficient design. However, the actual bottleneck may be the memory bandwidth requirements, which could be a challenge for low-end devices.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T22:02:40.794052"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

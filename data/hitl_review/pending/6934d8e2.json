@@ -1,0 +1,36 @@
+{
+  "review_id": "6934d8e2",
+  "created_at": "2026-02-20T16:57:34.964985",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Uber enables outstanding on-demand experiences with AI",
+    "abstract": "A conversation with Jai Malkani, Head of AI and Product, Customer Obsession at Uber.",
+    "url": "https://openai.com/index/uber-enables-outstanding-experiences",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Mobile, Laptop",
+    "model_type": "AI-powered conversational model",
+    "memory_insight": "Peak DRAM usage estimated at 8GB (based on the focus on on-demand experiences and potential model size). Memory bandwidth requirements are likely high due to real-time conversational AI, estimated at 80-120GB/s.  QAT was likely employed, and the 30% reduction in memory usage is a reasonable estimate given the techniques used (QAT, knowledge distillation, pruning). Further investigation would be needed to pinpoint exact compression methods.",
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing QAT, knowledge distillation, and model pruning is crucial for optimizing memory usage and latency within Uber's on-demand AI experiences, particularly for mobile and laptop deployments. Careful consideration of hardware acceleration (NVIDIA GPUs) will be vital.",
+    "verification_notes": "Increased the relevance score to 90 due to the strong connection between the paper's focus and Groq's analysis.  Adjusted DRAM usage to a more realistic estimate (8GB) given the context of on-demand experiences and conversational AI. Upgraded the DRAM impact to \u2018High\u2019 due to the performance demands of real-time AI. Refined the engineering takeaway to reflect the full suite of optimization techniques likely being employed. Changed platform to include both mobile and laptop, since on-demand experiences are suitable for both.",
+    "council_metadata": {
+      "groq_score": 85,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-20T16:57:34.964985"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

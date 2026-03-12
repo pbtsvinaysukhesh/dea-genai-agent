@@ -1,0 +1,31 @@
+{
+  "review_id": "02d94d68",
+  "created_at": "2026-03-09T22:46:10.952161",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Introducing SWE-bench Verified",
+    "abstract": "We\u2019re releasing a human-validated subset of SWE-bench that more reliably evaluates AI models\u2019 ability to solve real-world software issues.",
+    "url": "https://openai.com/index/introducing-swe-bench-verified",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:10.952161"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

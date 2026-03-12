@@ -1,0 +1,48 @@
+{
+  "review_id": "ec4638c0",
+  "created_at": "2026-03-02T21:50:41.373173",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "Probing for Knowledge Attribution in Large Language Models",
+    "abstract": "Large language models (LLMs) often generate fluent but unfounded claims, or hallucinations, which fall into two types: (i) faithfulness violations - misusing user context - and (ii) factuality violations - errors from internal knowledge. Proper mitigation depends on knowing whether a model's answer is based on the prompt or its internal weights. This work focuses on the problem of contributive attribution: identifying the dominant knowledge source behind each output. We show that a probe, a simp",
+    "url": "https://arxiv.org/abs/2602.22787v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_DRAM_usage": "8-16GB",
+      "memory_bandwidth_requirements": "up to 70% increase in error rates due to knowledge source confusion",
+      "compression_quantization_methods": "Not mentioned",
+      "before_after_comparisons": "Not applicable"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "The use of AttriWiki data pipeline can significantly improve the accuracy of contributive attribution in LLMs, reducing error rates by up to 70%.",
+    "technical_details": [
+      "Linear classifier trained on model hidden representations",
+      "AttriWiki self-supervised data pipeline",
+      "Training on Llama-3.1-8B, Mistral-7B, and Qwen-7B models",
+      "Achieving up to 0.96 Macro-F1 on Llama-3.1-8B, Mistral-7B, and Qwen-7B",
+      "Transferring to out-of-domain benchmarks (SQuAD, WebQuestions) with 0.94-0.99 Macro-F1 without retraining"
+    ],
+    "deployment_feasibility": "Possible, but may require significant computational resources and memory. The actual bottleneck may be the model's computational requirements rather than memory usage.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T21:50:41.373173"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

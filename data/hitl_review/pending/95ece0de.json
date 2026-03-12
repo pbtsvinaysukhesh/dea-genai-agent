@@ -1,0 +1,49 @@
+{
+  "review_id": "95ece0de",
+  "created_at": "2026-03-02T23:18:42.274669",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "KAN-FIF: Spline-Parameterized Lightweight Physics-based Tropical Cyclone Estimation on Meteorological Satellite",
+    "abstract": "Tropical cyclones (TC) are among the most destructive natural disasters, causing catastrophic damage to coastal regions through extreme winds, heavy rainfall, and storm surges. Timely monitoring of tropical cyclones is crucial for reducing loss of life and property, yet it is hindered by the computational inefficiency and high parameter counts of existing methods on resource-constrained edge devices. Current physics-guided models suffer from linear feature interactions that fail to capture high-",
+    "url": "https://arxiv.org/abs/2602.12117v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Both",
+    "model_type": "Multimodal",
+    "memory_insight": {
+      "peak_dram_usage": "0.99MB",
+      "memory_bandwidth_requirements": "not specified",
+      "compression_quantization_methods": "spline-parameterized",
+      "before_after_comparisons": {
+        "baseline_model": "19MB",
+        "kandif_framework": "0.99MB"
+      }
+    },
+    "dram_impact": "Low",
+    "engineering_takeaway": "The KAN-FIF framework achieves a 94.8% reduction in parameters and 68.7% faster inference per sample compared to the baseline model Phy-CoCo.",
+    "technical_details": [
+      "Kolmogorov-Arnold Network-based Feature Interaction Framework (KAN-FIF)",
+      "MLP and CNN layers",
+      "Spline-parameterized KAN layers",
+      "Lightweight multimodal architecture"
+    ],
+    "deployment_feasibility": "Yes, the KAN-FIF framework can be deployed on edge devices such as the Qingyun-1000 development board, with an inference latency of 14.41ms per sample.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-02T23:18:42.272153"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

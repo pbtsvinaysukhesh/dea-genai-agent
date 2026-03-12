@@ -1,0 +1,31 @@
+{
+  "review_id": "7cb14b10",
+  "created_at": "2026-03-09T22:45:52.692114",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "OpenAI\u2019s Raising Concerns Policy",
+    "abstract": "We\u2019re publishing our Raising Concerns Policy, which protects employees\u2019 rights to make protected disclosures.",
+    "url": "https://openai.com/index/openai-raising-concerns-policy",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:45:52.692114"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

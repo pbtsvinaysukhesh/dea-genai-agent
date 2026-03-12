@@ -1,0 +1,31 @@
+{
+  "review_id": "2f8ec556",
+  "created_at": "2026-03-09T22:46:21.928593",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Microsoft invests in and partners with OpenAI to support us building beneficial AGI",
+    "abstract": "Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits. We\u2019re partnering to develop a hardware and software platform within Microsoft Azure which will scale to AGI. We\u2019ll jointly develop new Azure AI supercomputing technologies, and Microsoft will become our exclusive cloud provider\u2014so we\u2019ll be working hard together to further extend Microsoft Azure\u2019s capabilities in large-scale AI systems.",
+    "url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:21.928593"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

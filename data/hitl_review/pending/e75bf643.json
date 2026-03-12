@@ -1,0 +1,31 @@
+{
+  "review_id": "e75bf643",
+  "created_at": "2026-03-09T22:46:07.642965",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "Partnering with Axios expands OpenAI\u2019s work with the news industry",
+    "abstract": "Publishers representing hundreds of newsrooms and content brands are using OpenAI partnerships and grant programs to adopt AI tools and strengthen the news ecosystem, while ChatGPT users gain access to information from leading, reliable publications.",
+    "url": "https://openai.com/index/partnering-with-axios-expands-openai-work-with-the-news-industry",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:07.642965"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}

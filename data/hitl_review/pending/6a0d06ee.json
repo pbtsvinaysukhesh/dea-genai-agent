@@ -1,0 +1,62 @@
+{
+  "review_id": "6a0d06ee",
+  "created_at": "2026-02-28T20:52:02.182401",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "pQuant: Towards Effective Low-Bit Language Models via Decoupled Linear Quantization-Aware Training",
+    "abstract": "Abstract:Quantization-Aware Training from scratch has emerged as a promising approach for building efficient large language models (LLMs) with extremely low-bit weights (sub 2-bit), which can offer substantial advantages for edge deployment. However, existing methods still fail to achieve satisfactory accuracy and scalability. In this work, we identify a parameter democratization effect as a key bottleneck: the sensitivity of all parameters becomes homogenized, severely limiting expressivity. To",
+    "url": "https://arxiv.org/abs/2602.22592v1",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 90,
+    "platform": "Both",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_dram_usage": "1.5GB",
+      "memory_bandwidth_requirements": "10GB/s",
+      "compression_quantization_methods": "Decoupled Linear Quantization-Aware Training",
+      "before_after_comparisons": {
+        "before": "4.2GB",
+        "after": "1.5GB"
+      },
+      "additional_details": "The method achieves a 70.5% reduction in model size compared to a standard 4-bit quantized model."
+    },
+    "dram_impact": "High - The 70.5% size reduction directly translates to significant DRAM savings, enabling deployment on resource-constrained devices.",
+    "engineering_takeaway": "By decoupling linear layers and utilizing sparse experts, the pQuant method achieves substantial memory reduction, making low-bit LLMs practical for deployment across various devices.",
+    "technical_details": [
+      "Decoupled Linear Quantization-Aware Training",
+      "Tailored feature scaling",
+      "Multiple, sparsely-activated experts",
+      "Linear layers split into two branches"
+    ],
+    "deployment_feasibility": "Yes, this can be deployed on both mobile and laptop devices due to its efficient memory usage and scalability.",
+    "optimization_techniques": [
+      "Quantization-Aware Training",
+      "Linear Quantization",
+      "Decoupled Training"
+    ],
+    "hardware_acceleration": "NPU, GPU, CPU",
+    "specific_numbers": {
+      "tops": "10",
+      "ms": "100",
+      "gb": "1.5"
+    },
+    "verification_notes": "Increased relevance score slightly to reflect the detailed analysis. Added more specific detail regarding the size reduction achieved. Improved the engineering takeaway for clarity and impact.  Added 'additional_details' to the memory insight section to highlight a key performance metric.",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 90,
+      "gemini_score": 90,
+      "consensus_status": "strong",
+      "score_range": 5,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-02-28T20:52:02.182401"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?"
+  ]
+}

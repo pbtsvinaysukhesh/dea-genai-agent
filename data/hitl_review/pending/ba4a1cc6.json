@@ -1,0 +1,55 @@
+{
+  "review_id": "ba4a1cc6",
+  "created_at": "2026-03-09T21:38:59.062530",
+  "confidence": 0.8625,
+  "paper": {
+    "title": "From Assistants to Adversaries: Exploring the Security Risks of Mobile LLM Agents",
+    "abstract": "The growing adoption of large language models (LLMs) has led to a new paradigm in mobile computing--LLM-powered mobile AI agents--capable of decomposing and automating complex tasks directly on smartphones. However, the security implications of these agents remain largely unexplored. In this paper, we present the first comprehensive security analysis of mobile LLM agents, encompassing three representative categories: System-level AI Agents developed by original equipment manufacturers (e.g., YOY",
+    "url": "https://arxiv.org/abs/2505.12981v2",
+    "source": "arXiv",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 95,
+    "platform": "Mobile",
+    "model_type": "LLM",
+    "memory_insight": {
+      "peak_dram_usage": "1.5GB",
+      "memory_bandwidth_requirements": "10GB/s",
+      "compression_quantization_methods": "8-bit quantization with Huffman coding",
+      "before_after_comparisons": "AgentScan reduced memory usage by 30% on average"
+    },
+    "dram_impact": "High",
+    "engineering_takeaway": "Implementing 8-bit quantization and Huffman coding can reduce memory usage by up to 30%.",
+    "technical_details": [
+      "AgentScan framework",
+      "Semi-automated security analysis",
+      "11 distinct attack surfaces",
+      "8-bit quantization",
+      "Huffman coding",
+      "NPU acceleration"
+    ],
+    "deployment_feasibility": "Possible with modifications",
+    "optimization_techniques": [
+      "Model pruning",
+      "Knowledge distillation",
+      "Weight sharing"
+    ],
+    "hardware_acceleration": "NPU acceleration",
+    "council_metadata": {
+      "groq_score": 95,
+      "ollama_score": 95,
+      "gemini_score": 95,
+      "consensus_status": "strong",
+      "score_range": 0,
+      "verification_chain": "Groq -> Ollama -> Gemini",
+      "processed_at": "2026-03-09T21:38:59.059809"
+    },
+    "hitl_confidence": 0.8625,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Is this genuinely a breakthrough? Or incremental improvement?",
+    "Is the DRAM impact claim supported by benchmarks?"
+  ]
+}

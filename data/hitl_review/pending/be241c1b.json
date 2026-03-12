@@ -1,0 +1,31 @@
+{
+  "review_id": "be241c1b",
+  "created_at": "2026-03-09T22:46:12.072531",
+  "confidence": 0.5875,
+  "paper": {
+    "title": "OpenAI welcomes Sarah Friar (CFO) and Kevin Weil (CPO)",
+    "abstract": "OpenAI welcomes Sarah Friar (CFO) and Kevin Weil (CPO)",
+    "url": "https://openai.com/index/openai-welcomes-cfo-cpo",
+    "source": "Openai.com",
+    "full_text_available": false
+  },
+  "analysis": {
+    "relevance_score": 0,
+    "platform": "Unknown",
+    "model_type": "Unknown",
+    "memory_insight": "Rejected: Groq analysis failed",
+    "dram_impact": "Unknown",
+    "engineering_takeaway": "Not analyzed - failed",
+    "status": "rejected",
+    "rejection_reason": "failed",
+    "council_metadata": {
+      "consensus_status": "rejected",
+      "processed_at": "2026-03-09T22:46:12.072531"
+    },
+    "hitl_confidence": 0.5875,
+    "hitl_status": "needs_review"
+  },
+  "review_questions": [
+    "Can you find specific memory numbers in the paper?"
+  ]
+}
