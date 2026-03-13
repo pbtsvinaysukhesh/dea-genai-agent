@@ -90,7 +90,7 @@ def main():
         {
             'file': 'src/ai_council.py',
             'find': "import google.genai as genai",
-            'replace': "import google.generativeai as genai",
+            'replace': "from google import genai as genai",
             'description': "Fix Gemini import (wrong module name)"
         },
         {
@@ -102,7 +102,7 @@ def main():
         {
             'file': 'src/analyzer.py',
             'find': "import google.genai as genai",
-            'replace': "import google.generativeai as genai",
+            'replace': "from google import genai as genai",
             'description': "Fix Gemini import (wrong module name)"
         },
         {
@@ -150,7 +150,7 @@ def main():
     print(f"{Colors.BLUE}🔍 VERIFYING IMPORTS:{Colors.END}")
     
     try:
-        import google.generativeai as genai
+        from google import genai as genai
         print(f"{Colors.GREEN}  ✓ google-generativeai imported OK{Colors.END}")
     except ImportError as e:
         print(f"{Colors.RED}  ✗ google-generativeai import failed: {e}{Colors.END}")

@@ -33,7 +33,7 @@ class SimpleAIProcessor:
             self.groq_models = [
                 "llama3-70b-8192",  # Stable Meta model
                 "llama-3.1-70b-versatile",
-                "gemma2-9b-it",
+                "et2-9b-it",
                 "mixtral-8x7b-32768"
             ]
             self.current_model_idx = 0
@@ -51,7 +51,7 @@ class SimpleAIProcessor:
         self.gemini_key = gemini_api_key or os.getenv("GOOGLE_API_KEY")
         if self.gemini_key:
             try:
-                import google.generativeai as genai
+                from google import genai as genai
                 genai.configure(api_key=self.gemini_key)
                 self.gemini = genai.GenerativeModel("gemini-2.0-flash-exp")
                 logger.info("[OK] Gemini initialized")

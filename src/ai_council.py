@@ -55,7 +55,7 @@ class AICouncil:
         # Gemini FIRST priority
         if self.gemini_key:
             try:
-                import google.generativeai as genai
+                from google import genai as genai
                 genai.configure(api_key=self.gemini_key)
                 self.gemini = genai.GenerativeModel("gemini-2.0-flash-exp")
                 logger.info("[Council] Gemini initialized - PRIORITY 1")

@@ -16,7 +16,7 @@ import hashlib
 import json
 from typing import List, Optional, Dict
 import numpy as np
-import google.generativeai as genai
+from google import genai as genai
 from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
