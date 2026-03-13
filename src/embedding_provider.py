@@ -1,86 +1,159 @@
 """
-Google Embedding Provider (Primary)
-Uses GOOGLE_API_KEY → text-embedding-004 (high quality)
-Fallback to deterministic hash.
-No local models.
+Production Google Embedding Provider
+====================================
+Google text-embedding-004 primary with:
+- Init probe/health check
+- Permanent error disable (401/403/404)
+- Token accounting/quota guard
+- Rich observability metrics
+- Exponential retry/backoff
 """
 
 import os
 import logging
 import time
 import hashlib
-from typing import List, Optional
+import json
+from typing import List, Optional, Dict
 import numpy as np
 import google.generativeai as genai
+from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
 
+@dataclass
+class EmbeddingStats:
+    session_tokens: int = 0
+    total_requests: int = 0
+    failed_requests: int = 0
+    token_budget: int = 1_000_000  # Daily free tier
+    google_available: bool = True
+
+_stats = EmbeddingStats()
+
+
+def _is_permanent_error(exc: Exception) -> bool:
+    msg = str(exc).lower()
+    codes = {400, 401, 403, 404, 422}
+    for code in codes:
+        if f' {code} ' in msg or f'status {code}' in msg:
+            return True
+    if any(kw in msg for kw in ['invalid api key', 'quota exceeded', 'decommissioned']):
+        return True
+    return False
+
 
 def _hash_embedding(text: str, dim: int = 768) -> List[float]:
-    seed = int(hashlib.md5(text.encode()).hexdigest(), 16) % (2 ** 32)
+    seed = int(hashlib.md5(text.encode()).hexdigest(), 16) % (2**32)
     rng = np.random.default_rng(seed)
     vec = rng.standard_normal(dim)
     norm = np.linalg.norm(vec)
-    if norm > 0:
-        vec /= norm
-    return vec.tolist()
+    return (vec / norm if norm > 0 else vec).tolist()
 
 
-class GoogleEmbeddingProvider:
-    def __init__(self, max_retries: int = 3):
+class ProductionEmbeddingProvider:
+    def __init__(self, daily_budget: int = 1_000_000):
         self.google_key = os.getenv("GOOGLE_API_KEY")
-        self.max_retries = max_retries
+        self.daily_budget = daily_budget
         self.embedding_dim = 768
+        self.google_available = False
+        self._backoff_factor = 1.5
         
         if self.google_key:
             genai.configure(api_key=self.google_key)
-            logger.info("✓ Google Embedding API ready (text-embedding-004)")
+            self.google_available = self._health_check()
         else:
-            logger.warning("⚠️ GOOGLE_API_KEY missing → hash only")
+            logger.error("❌ GOOGLE_API_KEY missing → hash only")
+        
+        logger.info(f"[EmbeddingProvider] Ready: Google={'✓' if self.google_available else '✗'} "
+                   f"Budget={_stats.token_budget:,} Probe={_stats.total_requests}")
 
-    def encode(self, text: str, retry_attempt: int = 0) -> List[float]:
-        if not self.google_key:
-            return _hash_embedding(text)
-
+    def _health_check(self) -> bool:
+        """Probe init to fail-fast bad keys."""
         try:
-            response = genai.embed_content(
+            test = genai.embed_content(
                 model="models/text-embedding-004",
-                content=text[:8192],  # Max context
-                task_type="retrieval_document"
+                content="health check"
             )
-            embedding = response['embedding']
-            logger.debug("✓ Google embedding")
-            self.embedding_dim = len(embedding)
-            return embedding
+            emb = test.get('embedding')
+            if emb and len(emb) > 0:
+                self.embedding_dim = len(emb)
+                _stats.session_tokens += len("health check")
+                logger.info(f"✓ Google healthy (dim={self.embedding_dim})")
+                return True
         except Exception as e:
-            logger.warning(f"[Google Embed #{retry_attempt+1}] {str(e)[:80]}")
-            
-            if retry_attempt < self.max_retries - 1:
-                time.sleep(2 ** retry_attempt)
-                return self.encode(text, retry_attempt + 1)
-            
-            logger.info("→ Hash fallback")
-            return _hash_embedding(text, self.embedding_dim)
+            logger.error(f"[Health Check] FAIL: {e}")
+            if _is_permanent_error(e):
+                logger.error("❌ Google permanently disabled")
+        return False
+
+    def _estimate_tokens(self, text: str) -> int:
+        return min(len(text.encode()) * 4 // 3, 8192)  # Conservative UTF-8 estimate
+
+    def encode(self, text: str, quota_check: bool = True) -> List[float]:
+        _stats.total_requests += 1
+        
+        if quota_check:
+            if _stats.session_tokens > self.daily_budget * 0.9:
+                logger.warning("⚠️  90% quota → hash fallback")
+                return _hash_embedding(text, self.embedding_dim)
+        
+        if self.google_available:
+            attempt = 0
+            while attempt < 3:
+                try:
+                    tokens = self._estimate_tokens(text)
+                    _stats.session_tokens += tokens
+                    
+                    resp = genai.embed_content(
+                        model="models/text-embedding-004",
+                        content=text[:8192],
+                        task_type="retrieval_document"
+                    )
+                    emb = resp['embedding']
+                    logger.debug(f"✓ Google ({tokens} tokens)")
+                    return emb
+                except Exception as e:
+                    logger.warning(f"[Google #{attempt+1}] {str(e)[:60]}")
+                    if _is_permanent_error(e):
+                        logger.error("❌ Google permanently disabled")
+                        self.google_available = False
+                        break
+                    attempt += 1
+                    time.sleep(self._backoff_factor ** attempt)
+        
+        logger.debug("→ Hash fallback")
+        return _hash_embedding(text, self.embedding_dim)
 
     def get_dimension(self) -> int:
         return self.embedding_dim
 
-    def get_status(self) -> dict:
+    def get_status(self) -> Dict:
+        quota_pct = min(_stats.session_tokens / _stats.token_budget * 100, 100)
         return {
-            'google_api': bool(os.getenv("GOOGLE_API_KEY")),
+            'google_available': self.google_available,
             'embedding_dim': self.embedding_dim,
-            'provider': 'Google text-embedding-004'
+            'session_tokens': _stats.session_tokens,
+            'quota_used': f"{quota_pct:.1f}% ({_stats.session_tokens:,}/{_stats.token_budget:,})",
+            'requests': _stats.total_requests,
+            'provider': 'Google text-embedding-004 + hash'
         }
 
+    def reset_session(self):
+        """Reset daily counters (call on app restart)."""
+        global _stats
+        _stats = EmbeddingStats()
 
-_embedding_provider = None
 
-def get_embedding_provider():
-    global _embedding_provider
-    if _embedding_provider is None:
-        _embedding_provider = GoogleEmbeddingProvider()
-    return _embedding_provider
+# Singleton
+_provider = None
+
+def get_embedding_provider() -> ProductionEmbeddingProvider:
+    global _provider
+    if _provider is None:
+        _provider = ProductionEmbeddingProvider()
+    return _provider
 
 def reset_embedding_provider():
-    global _embedding_provider
-    _embedding_provider = None
+    global _provider
+    _provider = None
