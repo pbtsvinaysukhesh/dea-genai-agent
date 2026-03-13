@@ -103,22 +103,23 @@ class AICouncil:
             base_analysis = groq_analysis
             logger.info(f"[Council] Groq proposed: Score {groq_analysis.get('relevance_score', 0)} (PRIMARY)")
         else:
-        # Gemini fallback - reuse Groq logic
-        prompt = self._build_deep_analysis_prompt(article, previous_findings, "gemini_fallback")
-        try:
-            response = self.gemini.generate_content(prompt)
-            if response and response.text:
-                text = response.text.strip()
-                if '```json' in text:
-                    text = text.split('```json')[1].split('```')[0].strip()
-                base_analysis = json.loads(text)
-                logger.info(f"[Gemini Fallback] Success: Score {base_analysis.get('relevance_score', 0)}")
-        except Exception as e:
-            logger.error(f"[Gemini Fallback failed: {e}")
-            return self._create_rejection("failed", "All analysis failed")
+            # Gemini fallback - reuse Groq logic
+            prompt = self._build_deep_analysis_prompt(article, previous_findings, "gemini_fallback")
+            try:
+                response = self.gemini.generate_content(prompt)
+                if response and response.text:
+                    text = response.text.strip()
+                    if '```json' in text:
+                        text = text.split('```json')[1].split('```')[0].strip()
+                    base_analysis = json.loads(text)
+                    logger.info(f"[Gemini Fallback] Success: Score {base_analysis.get('relevance_score', 0)}")
+                else:
+                    raise Exception("No response")
+            except Exception as e:
+                logger.error(f"[Gemini Fallback failed: {e}")
+                return self._create_rejection("failed", "All analysis failed")
         
-        if not base_analysis:
-            return self._create_rejection("failed", "All analysis failed")
+        # Fixed duplicate check
         
         if not base_analysis:
             return self._create_rejection("failed", "All analysis failed")
