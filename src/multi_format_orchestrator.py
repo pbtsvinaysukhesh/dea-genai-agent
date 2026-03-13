@@ -32,12 +32,13 @@ class MultiFormatReportOrchestrator:
             self.path_config = PathConfig.get_instance()
             self.output_dir = self.path_config.get_report_dir()
             self.backup_dir = self.path_config.get_backup_dir()
-            self.podcast_dir = self.path_config.get_podcast_dir()
+            # Podcast always in the same folder as other reports so backup
+            # and email attachment lookup work from a single directory.
+            self.podcast_dir = self.output_dir
         except ImportError:
             self.path_config = None
             self.output_dir = Path(output_dir or "results/reports")
             self.backup_dir = Path("results/backup")
-            # CRITICAL FIX: Podcast dir MUST be same as output_dir so files get backed up together with PDF/PPT
             self.podcast_dir = self.output_dir
 
         # Ensure directories exist
@@ -82,22 +83,18 @@ class MultiFormatReportOrchestrator:
 
         try:
             from .podcast_generator import PodcastGenerator, TranscriptGenerator
-            # Get greeting and narration mode from PathConfig
+            # Get greeting from PathConfig if available
             greeting = None
-            narration_mode = "classic"
             if self.path_config:
-                greeting       = self.path_config.get_podcast_greeting()
-                narration_mode = self.path_config.get_narration_mode()
+                greeting = self.path_config.get_podcast_greeting()
 
             self.podcast_gen = PodcastGenerator(
                 output_dir=str(self.podcast_dir),
                 greeting=greeting,
                 intro_music_path=self.path_config.get_podcast_intro_music() if self.path_config else None,
                 outro_music_path=self.path_config.get_podcast_outro_music() if self.path_config else None,
-                narration_mode=narration_mode,
             )
             self.transcript_gen = TranscriptGenerator()
-            logger.info(f"[Orchestrator] Podcast generator ready (mode={narration_mode})")
         except ImportError:
             self.podcast_gen = None
             self.transcript_gen = None
@@ -138,12 +135,14 @@ class MultiFormatReportOrchestrator:
         # BACKUP EXISTING REPORTS (before generating new ones)
         if self.backup_manager:
             files_to_backup = {
-                "pdf": self.output_dir / "report.pdf",
-                "pptx": self.output_dir / "report.pptx",
-                "podcast_mp3": self.podcast_dir / "podcast.mp3",
-                "podcast_wav": self.podcast_dir / "podcast.wav",
+                "pdf":          self.output_dir / "report.pdf",
+                "pptx":         self.output_dir / "report.pptx",
+                "podcast_mp3":  self.output_dir / "podcast.mp3",
+                "podcast_wav":  self.output_dir / "podcast.wav",
+                "transcript":   self.output_dir / "transcript.txt",
                 "summary_json": self.output_dir / "summary.json",
-                "summary_txt": self.output_dir / "summary.txt",
+                "summary_txt":  self.output_dir / "summary.txt",
+                "email_report": self.output_dir / "email_report.html",
             }
             backup_results = self.backup_manager.backup_and_version(files_to_backup)
             logger.info(f"[Orchestrator] Backed up {sum(1 for v in backup_results.values() if v)} existing files")
@@ -193,23 +192,36 @@ class MultiFormatReportOrchestrator:
 
         if self.podcast_gen:
             try:
-                run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
-                mode = getattr(self.podcast_gen, 'narration_mode', 'classic')
-                logger.info(f"[Orchestrator] Generating podcast (mode={mode}, run_id={run_id})...")
+                logger.info("[Orchestrator] Generating podcast...")
                 podcast_results = self.podcast_gen.generate(
                     insights=insights,
                     title="On-Device AI Intelligence Report",
-                    episode_number=run_id,
+                    episode_number=datetime.now().strftime("%Y-%m-%d"),
                     description=f"Intelligence report on {len(insights)} papers",
                     source_links=[p.get('link') for p in insights if p.get('link')]
                 )
+
+                # podcast_generator saves with a timestamp in the filename.
+                # Copy to stable names (podcast.mp3 / podcast.wav) in output_dir
+                # so backup, email attachment and archiving all resolve from one place.
+                import shutil
                 if podcast_results.get("mp3"):
-                    logger.info(f"[Orchestrator] ✅ Podcast MP3: {podcast_results['mp3']}")
+                    src = Path(podcast_results["mp3"])
+                    dst = self.output_dir / "podcast.mp3"
+                    shutil.copy2(str(src), str(dst))
+                    src.unlink(missing_ok=True)   # remove timestamped copy, keep only stable
+                    logger.info(f"[Orchestrator] ✅ Podcast MP3: {dst}")
+                    podcast_success = True
+
                 if podcast_results.get("wav"):
-                    logger.info(f"[Orchestrator] ✅ Podcast WAV: {podcast_results['wav']}")
-                podcast_success = bool(podcast_results.get("mp3"))
+                    src = Path(podcast_results["wav"])
+                    dst = self.output_dir / "podcast.wav"
+                    shutil.copy2(str(src), str(dst))
+                    src.unlink(missing_ok=True)
+                    logger.info(f"[Orchestrator] ✅ Podcast WAV: {dst}")
+
             except Exception as e:
-                logger.error(f"[Orchestrator] ❌ Podcast generation failed: {e}")
+                logger.error(f"[Orchestrator] ❌ Podcast generation failed: {e}", exc_info=True)
                 podcast_success = False
 
         results['podcast'] = podcast_success

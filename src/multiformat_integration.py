@@ -89,22 +89,36 @@ class MultiFormatReportIntegration:
             return ""
 
     def get_attachment_paths(self) -> List[str]:
-        """Get paths of all generated report files (for email attachments)"""
+        """
+        Get paths of all generated report files for email attachments.
+        All files live in the same output_dir — podcast included.
+        Glob fallback finds timestamped podcast files if stable name is missing.
+        """
+        import glob as _glob
         attachments = []
 
-        files_to_attach = [
-            "report.pdf",
-            "report.pptx",
-            "podcast.mp3",
-            "transcript.txt",
-            "summary.txt"
-        ]
-
-        for filename in files_to_attach:
+        # Fixed-name files — always in output_dir
+        for filename in ["report.pdf", "report.pptx", "transcript.txt", "summary.txt"]:
             filepath = os.path.join(self.output_dir, filename)
             if os.path.exists(filepath):
                 attachments.append(filepath)
                 logger.info(f"[MultiFormat] Will attach: {filename}")
+
+        # Podcast MP3 — stable name preferred, fall back to most-recent timestamped
+        stable_mp3 = os.path.join(self.output_dir, "podcast.mp3")
+        if os.path.exists(stable_mp3):
+            attachments.append(stable_mp3)
+            logger.info("[MultiFormat] Will attach: podcast.mp3")
+        else:
+            candidates = sorted(
+                _glob.glob(os.path.join(self.output_dir, "podcast_*.mp3")),
+                reverse=True
+            )
+            if candidates:
+                attachments.append(candidates[0])
+                logger.info(f"[MultiFormat] Will attach: {os.path.basename(candidates[0])} (fallback)")
+            else:
+                logger.warning("[MultiFormat] No podcast MP3 found to attach")
 
         return attachments
 
