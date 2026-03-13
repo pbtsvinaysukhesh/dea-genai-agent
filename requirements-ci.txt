@@ -1,0 +1,63 @@
+# requirements-ci.txt
+# =====================
+# Light dependency set for GitHub Actions CI.
+#
+# INTENTIONALLY EXCLUDES:
+#   - sentence-transformers  (pulls in torch ~2.5 GB — kills cache restore)
+#   - torch / torchvision    (same reason)
+#   - ollama                 (optional, runtime-only)
+#   - playwright             (separate install step when needed)
+#
+# WHY THIS IS SAFE:
+#   The DEA embedding_provider uses Google API (primary) and GROQ (fallback).
+#   sentence-transformers / local models are a tertiary fallback never reached
+#   in CI because GOOGLE_API_KEY and GROQ_API_KEY stubs trigger the mock path.
+#   Tests that require a real local model are marked @pytest.mark.requires_gpu
+#   and skipped in the unit-tests job.
+#
+# APPROXIMATE INSTALL SIZE: ~180 MB  (vs 4.3 GB with torch)
+
+# ── Core AI / LLM ────────────────────────────────────────────────────────────
+groq>=0.9.0
+google-generativeai>=0.3.0
+
+# ── Config & environment ─────────────────────────────────────────────────────
+python-dotenv>=1.0.0
+PyYAML>=6.0.0
+
+# ── Data collection & scraping ───────────────────────────────────────────────
+feedparser>=6.0.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# ── Web framework ────────────────────────────────────────────────────────────
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.0.0
+python-multipart>=0.0.6
+
+# ── Numerics (no torch) ───────────────────────────────────────────────────────
+numpy>=1.24.0
+
+# ── Vector store ─────────────────────────────────────────────────────────────
+qdrant-client>=1.7.0
+
+# ── Report generation ────────────────────────────────────────────────────────
+python-pptx>=0.6.21
+reportlab>=4.0.0
+gTTS>=2.3.0
+pydub>=0.25.1
+mutagen>=1.46.0
+
+# ── Utilities ────────────────────────────────────────────────────────────────
+colorlog>=6.7.0
+python-dateutil>=2.8.0
+
+# ── Testing ──────────────────────────────────────────────────────────────────
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-timeout>=2.1.0
+black>=23.0.0
+flake8>=6.0.0
+isort>=5.12.0
