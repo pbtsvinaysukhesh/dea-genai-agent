@@ -3,7 +3,7 @@ FROM python:3.11-slim
 
 # Set metadata
 LABEL maintainer="Your Name <your.email@example.com>"
-LABEL description="On-Device AI Memory Intelligence Agent - Docker Container"
+LABEL description="DEA PBTSVS - Docker Container"
 LABEL version="0.1.0"
 
 # Set environment variables
@@ -27,7 +27,9 @@ COPY requirements.txt pyproject.toml ./
 
 # Install Python dependencies
 RUN pip install --upgrade pip setuptools wheel && \
-    pip install -r requirements.txt
+    pip install -r requirements.txt && \
+    pip install playwright && \
+    playwright install --with-deps chromium
 
 # Copy project files with exclusions handled by .dockerignore
 COPY . .
