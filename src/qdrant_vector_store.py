@@ -4,7 +4,7 @@ Qdrant Vector Store - Semantic Search & Deduplication
 Version-agnostic: works with qdrant-client 0.x, 1.0-1.6, and 1.7+.
 
 The qdrant-client API changed across versions:
-  v0.x / 1.0-1.6 : client.search(collection_name, query_vector, limit)
+  v0.x / 1.0-1.6 : (collection_name, query_vector, limit)
   v1.7+ local mode: client.query_points(collection_name, query=..., limit)
                     (search() only works against a remote HTTP/gRPC server)
 
@@ -131,13 +131,19 @@ class VectorStore:
             self.dup_threshold = float(os.getenv("DEA_DUP_THRESHOLD", "0.95"))
 
         # ── Init Qdrant client ────────────────────────────────────────────────
-        if mode == "persistent":
+        qdrant_url = os.getenv("QDRANT_URL")
+        qdrant_key = os.getenv("QDRANT_API_KEY")
+        
+        if qdrant_url and qdrant_key:
+            self.client = QdrantClient(url=qdrant_url, api_key=qdrant_key, timeout=60)
+            logger.info(f"[Qdrant] Cloud ✓ {qdrant_url[:30]}...")
+        elif mode == "persistent":
             os.makedirs(db_path, exist_ok=True)
             self.client = QdrantClient(path=db_path)
-            logger.info(f"[Qdrant] Persistent mode → {db_path}")
+            logger.info(f"[Qdrant] Local → {db_path}")
         else:
             self.client = QdrantClient(":memory:")
-            logger.info("[Qdrant] In-memory mode")
+            logger.info("[Qdrant] Memory")
 
         # Log which search API is available
         if hasattr(self.client, "query_points"):

@@ -140,13 +140,13 @@ sources:
     - "https://developer.qualcomm.com/rss/blog"
 
     # Meta AI (Research)
-    - "https://ai.meta.com/blog/feed"
+    - "https://ai.meta.com/research/#projects"
 
     # OpenAI Blog
     - "https://openai.com/blog/rss.xml"
 
     # DeepMind
-    - "https://deepmind.com/blog/feed.xml"
+    - "https://deepmind.google/research/publications/"
 
   # --------------------------------------------------------------------------
   # GitHub Search (NEW – High-Signal Engineering Content)

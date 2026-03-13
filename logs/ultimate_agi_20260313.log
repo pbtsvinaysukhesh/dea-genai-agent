@@ -1,0 +1,60 @@
+2026-03-13 23:04:45,909 - INFO - ======================================================================
+2026-03-13 23:04:45,911 - INFO - PATH CONFIGURATION INITIALIZED
+2026-03-13 23:04:45,911 - INFO - ======================================================================
+2026-03-13 23:04:45,911 - INFO - Report Output Directory:  C:\Users\PBTSVS\Desktop\GenerativeAI-agent\results\reports
+2026-03-13 23:04:45,911 - INFO - Backup Directory:         C:\Users\PBTSVS\Desktop\GenerativeAI-agent\results\backup
+2026-03-13 23:04:45,911 - INFO - Podcast Directory:        C:\Users\PBTSVS\Desktop\GenerativeAI-agent\results\reports
+2026-03-13 23:04:45,911 - INFO - Vector DB Mode:           persistent
+2026-03-13 23:04:45,920 - INFO - Vector DB Path:           C:\Users\PBTSVS\Desktop\GenerativeAI-agent\results\vector_db
+2026-03-13 23:04:45,922 - INFO - Podcast Greeting:         Hello Every One Good Evening & Good morning Welcom...
+2026-03-13 23:04:45,922 - INFO - ======================================================================
+2026-03-13 23:04:45,926 - INFO - Path configuration initialized
+2026-03-13 23:04:45,926 - INFO - ================================================================================
+2026-03-13 23:04:45,928 - INFO - ULTIMATE AGI RESEARCH SYSTEM
+2026-03-13 23:04:45,928 - INFO - Playwright + CrewAI + AI Council
+2026-03-13 23:04:45,930 - INFO - ================================================================================
+2026-03-13 23:04:46,052 - INFO - 
+Configuration:
+2026-03-13 23:04:46,054 - INFO -   Threshold: 60
+2026-03-13 23:04:46,054 - INFO -   Playwright: True
+2026-03-13 23:04:46,054 - INFO -   CrewAI: True
+2026-03-13 23:04:46,434 - INFO - [HITL] Initialized (auto-approve: 0.85, review threshold: 90)
+2026-03-13 23:04:46,434 - INFO - [EmailTracker] Loaded 4 previously sent papers
+2026-03-13 23:04:46,445 - INFO - [Archiver] Results directory: results
+2026-03-13 23:04:46,445 - WARNING - Email credentials not configured - emails will not be sent
+2026-03-13 23:04:46,445 - INFO - 
+================================================================================
+2026-03-13 23:04:46,445 - INFO - STAGE 1: DEEP WEB SCRAPING
+2026-03-13 23:04:46,449 - INFO - ================================================================================
+2026-03-13 23:04:48,250 - INFO - Fetching 13 arXiv queries...
+2026-03-13 23:05:24,915 - INFO - Processing 5 web sources...
+2026-03-13 23:05:28,563 - INFO - [RSS] Found 10 items in https://machinelearning.apple.com/rss.xml
+2026-03-13 23:05:32,061 - INFO - [HTML] RSS empty, attempting scrape: https://developer.qualcomm.com/rss/blog
+2026-03-13 23:05:32,072 - WARNING - [-] Could not extract content from: https://developer.qualcomm.com/rss/blog
+2026-03-13 23:05:34,735 - WARNING - Dead Link (400): https://ai.meta.com/blog/feed
+2026-03-13 23:05:40,452 - INFO - [RSS] Found 885 items in https://openai.com/blog/rss.xml
+2026-03-13 23:05:46,806 - WARNING - Dead Link (404): https://deepmind.com/blog/feed.xml
+2026-03-13 23:05:46,822 - INFO - Collected 1128 articles via RSS/API
+2026-03-13 23:05:46,822 - INFO - Enhancing articles with deep content extraction...
+2026-03-13 23:05:46,822 - INFO - [1/20] Deep scraping: BiGain: Un...
+2026-03-13 23:06:22,239 - INFO - [Playwright] Scraping: BiGain: Unified Token Compression for Joint Genera...
+2026-03-13 23:06:58,066 - INFO -   [OK] Extracted 1929 chars
+2026-03-13 23:06:58,066 - INFO - [2/20] Deep scraping: HiAP: A Mu...
+2026-03-13 23:07:00,471 - INFO - [Playwright] Scraping: HiAP: A Multi-Granular Stochastic Auto-Pruning Fra...
+2026-03-13 23:07:34,806 - INFO -   [OK] Extracted 1479 chars
+2026-03-13 23:07:34,806 - INFO - [3/20] Deep scraping: Resource-E...
+2026-03-13 23:07:36,961 - INFO - [Playwright] Scraping: Resource-Efficient Iterative LLM-Based NAS with Fe...
+2026-03-13 23:08:10,819 - INFO -   [OK] Extracted 1784 chars
+2026-03-13 23:08:10,819 - INFO - [4/20] Deep scraping: Decentrali...
+2026-03-13 23:08:12,824 - INFO - [Playwright] Scraping: Decentralized Orchestration Architecture for Fluid...
+2026-03-13 23:08:45,573 - INFO -   [OK] Extracted 1548 chars
+2026-03-13 23:08:45,573 - INFO - [5/20] Deep scraping: Effective ...
+2026-03-13 23:08:48,237 - INFO - [Playwright] Scraping: Effective Resistance Rewiring: A Simple Topologica...
+2026-03-13 23:09:21,020 - INFO -   [OK] Extracted 1906 chars
+2026-03-13 23:09:21,020 - INFO - [6/20] Deep scraping: Exhaustive...
+2026-03-13 23:09:23,104 - INFO - [Playwright] Scraping: Exhaustive Circuit Mapping of a Single-Cell Founda...
+2026-03-13 23:09:55,899 - INFO -   [OK] Extracted 1669 chars
+2026-03-13 23:09:55,899 - INFO - [7/20] Deep scraping: MobileKern...
+2026-03-13 23:09:57,865 - INFO - [Playwright] Scraping: MobileKernelBench: Can LLMs Write Efficient Kernel...
+2026-03-13 23:09:59,347 - WARNING - 
+[INTERRUPTED]
