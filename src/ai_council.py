@@ -47,19 +47,18 @@ class AICouncil:
             self.groq = None
 
         # Ollama (optional - disabled in GitHub Actions)
-        self.enable_ollama = os.getenv("ENABLE_OLLAMA", "true").lower() == "true"
+        # Ollama DISABLED (user request)
         self.ollama_model = "gemma3:4b"
-        self.ollama_available = self._check_ollama() if self.enable_ollama else False
-        if self.ollama_available:
-            logger.info("[Council] Ollama initialized")
+        self.ollama_available = False
+        logger.info("[Council] Ollama disabled (user request)")
         
-        # Gemini
+        # Gemini FIRST priority
         if self.gemini_key:
             try:
                 import google.generativeai as genai
                 genai.configure(api_key=self.gemini_key)
-                self.gemini = genai.GenerativeModel("gemini-1.5-flash")
-                logger.info("[Council] Gemini initialized")
+                self.gemini = genai.GenerativeModel("gemini-2.0-flash-exp")
+                logger.info("[Council] Gemini initialized - PRIORITY 1")
             except:
                 self.gemini = None
         else:
@@ -98,22 +97,28 @@ class AICouncil:
             logger.info("[Council] DUPLICATE detected - rejecting")
             return self._create_rejection("duplicate", "Already analyzed in recent history")
         
-        # STAGE 1: Groq Proposal
+        # Groq PRIMARY → Gemini fallback (user request)
         groq_analysis = self._groq_propose(article, previous_findings)
-        if not groq_analysis:
-            return self._create_rejection("failed", "Groq analysis failed")
+        if groq_analysis:
+            base_analysis = groq_analysis
+            logger.info(f"[Council] Groq proposed: Score {groq_analysis.get('relevance_score', 0)} (PRIMARY)")
+        else:
+            logger.info("[Council] Groq failed → Gemini fallback")
+            base_analysis = self._gemini_propose(article, previous_findings)
+            if not base_analysis:
+                logger.error("[Council] Both Groq & Gemini failed")
+                return self._create_rejection("failed", "All analysis failed")
         
-        self.stats['groq_proposals'] += 1
-        logger.info(f"[Council] Groq proposed: Score {groq_analysis.get('relevance_score', 0)}")
+        if not base_analysis:
+            return self._create_rejection("failed", "All analysis failed")
+        
+        self.stats['groq_proposals'] += 1 if not self.gemini or not gemini_analysis else 0
+        logger.info(f"[Council] Primary proposed: Score {base_analysis.get('relevance_score', 0)}")
         
         # STAGE 2: Ollama Verification
-        ollama_verification = self._ollama_verify(article, groq_analysis)
-        if not ollama_verification:
-            logger.warning("[Council] Ollama verification failed - using Groq only")
-            ollama_verification = groq_analysis
-        
-        self.stats['ollama_verifications'] += 1
-        logger.info(f"[Council] Ollama verified: Score {ollama_verification.get('relevance_score', 0)}")
+        # Skip Ollama (disabled)
+        logger.info(f"[Council] Ollama skipped - using base analysis")
+        ollama_verification = base_analysis
         
         # STAGE 3: Gemini Finalization
         final_consensus = self._gemini_finalize(article, groq_analysis, ollama_verification)
