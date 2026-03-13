@@ -33,7 +33,7 @@ system:
     ollama_model: "gemma3:4b"
 
     # Groq (fast cloud inference)
-    groq_model: "llama-3.1-8b-instant"
+    groq_model: "llama-3.3-70b-versatile"
 
     # Provider priority
     priority:

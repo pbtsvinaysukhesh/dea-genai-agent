@@ -36,7 +36,7 @@ class AICouncil:
         if self.groq_key:
             self.groq = Groq(api_key=self.groq_key)
             self.groq_models = [
-                "llama-3.1-8b-instant",
+                "llama-3.3-70b-versatile",
                 "llama-3.3-70b-versatile",
                 "gemma2-9b-it"
             ]
