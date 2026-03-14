@@ -19,7 +19,7 @@
 
 # ── Core AI / LLM ────────────────────────────────────────────────────────────
 groq>=0.9.0
-google-genai>=0.1.0  # New Gemini package
+google-genai # New Gemini package
 playwright
 # ── Config & environment ─────────────────────────────────────────────────────
 python-dotenv>=1.0.0
