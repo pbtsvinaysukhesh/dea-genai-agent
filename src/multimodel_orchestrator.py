@@ -132,7 +132,7 @@ class GeminiClient:
         if not GEMINI_AVAILABLE:
             raise ImportError("google-genai not installed: pip install google-genai")
         self.api_key = api_key
-        self.default_model = "gemini-1.5-flash"
+        self.default_model = "gemini-2.5-flash"
         self._client = genai_sdk.Client(api_key=api_key)   # new SDK: Client(api_key=)
 
     def generate(self, prompt: str, model: str = None, temperature: float = 0.1,

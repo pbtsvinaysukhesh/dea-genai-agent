@@ -61,11 +61,11 @@ class AICouncil:
                 self._gemini_client = genai.Client(api_key=self.gemini_key)
                 # Quick probe
                 test = self._gemini_client.models.generate_content(
-                    model="gemini-1.5-flash", contents="ping"
+                    model="gemini-2.5-flash", contents="ping"
                 )
                 if test and test.text:
                     self.gemini = True   # flag: client is ready
-                    logger.info("[Council] Gemini initialized (gemini-1.5-flash)")
+                    logger.info("[Council] Gemini initialized (gemini-2.5-flash)")
                 else:
                     logger.warning("[Council] Gemini probe returned empty")
             except Exception as e:
@@ -116,7 +116,7 @@ class AICouncil:
             prompt = self._build_deep_analysis_prompt(article, previous_findings, "gemini_fallback")
             try:
                 response = self._gemini_client.models.generate_content(
-                    model="gemini-1.5-flash",
+                    model="gemini-2.5-flash",
                     contents=prompt,
                 )
                 if response and response.text:
@@ -325,7 +325,7 @@ JSON:"""
 
         try:
             response = self._gemini_client.models.generate_content(
-                model="gemini-1.5-flash",
+                model="gemini-2.5-flash",
                 contents=prompt,
             )
             if response and response.text:

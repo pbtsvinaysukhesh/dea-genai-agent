@@ -96,7 +96,7 @@ def main():
         {
             'file': 'src/ai_council.py',
             'find': 'self.gemini = genai.GenerativeModel("gemini-2.5-flash")',
-            'replace': 'self.gemini = genai.GenerativeModel("gemini-1.5-flash")',
+            'replace': 'self.gemini = genai.GenerativeModel("gemini-2.5-flash")',
             'description': "Fix Gemini model version (2.5 doesn't exist)"
         },
         {
