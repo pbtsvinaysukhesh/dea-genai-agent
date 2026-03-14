@@ -12,12 +12,12 @@ from datetime import datetime
 import requests
 from groq import Groq
 
-# CORRECT Gemini import
+# google-genai SDK (new, >=1.0)
 try:
-    import google.genai as genai  # NOT google.genai
+    from google import genai as genai_sdk
     GEMINI_AVAILABLE = True
 except ImportError:
-    genai = None
+    genai_sdk = None
     GEMINI_AVAILABLE = False
 
 logger = logging.getLogger(__name__)
@@ -41,7 +41,7 @@ class GroqClient:
         self.api_key = api_key
         self.client = Groq(api_key=api_key)
         self.model_pool = [
-            "llama-3.3-70b-versatile",
+            "llama-3.1-8b-instant",
             "llama-3.1-70b-versatile",  # Updated from mixtral-8x7b-32768 (decommissioned)
             "llama-3.3-70b-versatile",
             "gemma2-9b-it"
@@ -130,33 +130,40 @@ class OllamaClient:
 class GeminiClient:
     def __init__(self, api_key: str):
         if not GEMINI_AVAILABLE:
-            raise ImportError("google.genai not available")
+            raise ImportError("google-genai not installed: pip install google-genai")
         self.api_key = api_key
-        genai.configure(api_key=api_key)  # CORRECT: genai.configure
-        self.default_model = "gemini-2.5-flash"
-        self.model = None
-    
-    def generate(self, prompt: str, model: str = None, temperature: float = 0.1, system_instruction: str = None) -> Optional[str]:
+        self.default_model = "gemini-1.5-flash"
+        self._client = genai_sdk.Client(api_key=api_key)   # new SDK: Client(api_key=)
+
+    def generate(self, prompt: str, model: str = None, temperature: float = 0.1,
+                 system_instruction: str = None) -> Optional[str]:
         model_name = model or self.default_model
         try:
-            if self.model is None or self.model.model_name != model_name:
-                self.model = genai.GenerativeModel(
-                    model_name=model_name,
-                    generation_config={"response_mime_type": "application/json", "temperature": temperature},
-                    system_instruction=system_instruction
-                )
-            response = self.model.generate_content(prompt)
+            # New SDK: client.models.generate_content(model, contents, config)
+            from google.genai import types
+            config = types.GenerateContentConfig(
+                temperature=temperature,
+                response_mime_type="application/json",
+                system_instruction=system_instruction,
+            )
+            response = self._client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config=config,
+            )
             return response.text if response else None
         except Exception as e:
             logger.error(f"Gemini error: {e}")
             return None
-    
+
     def check_health(self) -> ModelStatus:
         try:
-            test_model = genai.GenerativeModel("gemini-2.5-flash")
-            response = test_model.generate_content("Say OK")
+            response = self._client.models.generate_content(
+                model=self.default_model,
+                contents="Say OK",
+            )
             return ModelStatus.HEALTHY if response else ModelStatus.FAILED
-        except:
+        except Exception:
             return ModelStatus.FAILED
 
 

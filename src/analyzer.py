@@ -31,10 +31,9 @@ class SimpleAIProcessor:
         if self.groq_key:
             self.groq_client = Groq(api_key=self.groq_key)
             self.groq_models = [
-                "llama3-70b-8192",  # Stable Meta model
-                "llama-3.1-70b-versatile",
-                "et2-9b-it",
-                "mixtral-8x7b-32768"
+                "llama-3.1-8b-instant",
+                "llama-3.3-70b-versatile",
+                "gemma2-9b-it"
             ]
             self.current_model_idx = 0
             logger.info("[OK] Groq initialized")
@@ -47,18 +46,18 @@ class SimpleAIProcessor:
         self.ollama_model = "gemma3:4b"
         self.ollama_available = self._check_ollama() if self.enable_ollama else False
         
-        # Gemini setup
+        # Gemini setup — new google-genai SDK
         self.gemini_key = gemini_api_key or os.getenv("GOOGLE_API_KEY")
+        self.gemini = None
+        self._gemini_client = None
         if self.gemini_key:
             try:
-                from google import genai as genai
-                genai.configure(api_key=self.gemini_key)
-                self.gemini = genai.GenerativeModel("gemini-2.0-flash-exp")
-                logger.info("[OK] Gemini initialized")
-            except:
-                self.gemini = None
-        else:
-            self.gemini = None
+                from google import genai
+                self._gemini_client = genai.Client(api_key=self.gemini_key)
+                self.gemini = True   # flag: client is ready
+                logger.info("[OK] Gemini initialized (google-genai SDK)")
+            except Exception as e:
+                logger.warning(f"Gemini init failed: {e}")
         
         self.stats = {
             'total': 0,
@@ -219,14 +218,20 @@ JSON output:"""
         return None
     
     def _try_gemini(self, prompt: str) -> Optional[Dict]:
-        """Try Gemini API"""
+        """Try Gemini API using new google-genai SDK"""
+        if not self._gemini_client:
+            return None
         try:
-            response = self.gemini.generate_content(prompt)
-            if response and response.text:
-                text = response.text.strip()
-                if "```json" in text:
-                    text = text.split("```json")[1].split("```")[0]
-                return json.loads(text)
+            response = self._gemini_client.models.generate_content(
+                model="gemini-1.5-flash",
+                contents=prompt,
+            )
+            text = response.text.strip() if response and response.text else None
+            if not text:
+                return None
+            if "```json" in text:
+                text = text.split("```json")[1].split("```")[0]
+            return json.loads(text)
         except Exception as e:
             logger.debug(f"Gemini error: {e}")
         return None

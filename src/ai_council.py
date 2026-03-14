@@ -36,10 +36,9 @@ class AICouncil:
         if self.groq_key:
             self.groq = Groq(api_key=self.groq_key)
             self.groq_models = [
-                "llama3-70b-8192",  # Meta Llama 3
-                "llama-3.1-70b-versatile",
-                "gemma2-9b-it",
-                "mixtral-8x7b-32768"
+                "llama-3.1-8b-instant",
+                "llama-3.3-70b-versatile",
+                "gemma2-9b-it"
             ]
             self.groq_idx = 0
             logger.info("[Council] Groq initialized")
@@ -47,22 +46,32 @@ class AICouncil:
             self.groq = None
 
         # Ollama (optional - disabled in GitHub Actions)
-        # Ollama DISABLED (user request)
+        self.enable_ollama = os.getenv("ENABLE_OLLAMA", "true").lower() == "true"
         self.ollama_model = "gemma3:4b"
-        self.ollama_available = False
-        logger.info("[Council] Ollama disabled (user request)")
+        self.ollama_available = self._check_ollama() if self.enable_ollama else False
+        if self.ollama_available:
+            logger.info("[Council] Ollama initialized")
         
-        # Gemini FIRST priority
+        # Gemini — new google-genai SDK
+        self.gemini = None
+        self._gemini_client = None
         if self.gemini_key:
             try:
-                from google import genai as genai
-                genai.configure(api_key=self.gemini_key)
-                self.gemini = genai.GenerativeModel("gemini-2.0-flash-exp")
-                logger.info("[Council] Gemini initialized - PRIORITY 1")
-            except:
-                self.gemini = None
+                from google import genai
+                self._gemini_client = genai.Client(api_key=self.gemini_key)
+                # Quick probe
+                test = self._gemini_client.models.generate_content(
+                    model="gemini-1.5-flash", contents="ping"
+                )
+                if test and test.text:
+                    self.gemini = True   # flag: client is ready
+                    logger.info("[Council] Gemini initialized (gemini-1.5-flash)")
+                else:
+                    logger.warning("[Council] Gemini probe returned empty")
+            except Exception as e:
+                logger.warning(f"[Council] Gemini init failed: {e}")
         else:
-            self.gemini = None
+            logger.warning("[Council] GOOGLE_API_KEY not set — Gemini unavailable")
         
         self.stats = {
             'total': 0,
@@ -97,16 +106,19 @@ class AICouncil:
             logger.info("[Council] DUPLICATE detected - rejecting")
             return self._create_rejection("duplicate", "Already analyzed in recent history")
         
-        # Groq PRIMARY → Gemini fallback (user request)
+        # STAGE 1: Groq PRIMARY → Gemini fallback
         groq_analysis = self._groq_propose(article, previous_findings)
         if groq_analysis:
             base_analysis = groq_analysis
-            logger.info(f"[Council] Groq proposed: Score {groq_analysis.get('relevance_score', 0)} (PRIMARY)")
-        else:
-            # Gemini fallback - reuse Groq logic
+            logger.info(f"[Council] Groq proposed: Score {groq_analysis.get('relevance_score', 0)}")
+        elif self._gemini_client:
+            # Gemini fallback when Groq fails
             prompt = self._build_deep_analysis_prompt(article, previous_findings, "gemini_fallback")
             try:
-                response = self.gemini.generate_content(prompt)
+                response = self._gemini_client.models.generate_content(
+                    model="gemini-1.5-flash",
+                    contents=prompt,
+                )
                 if response and response.text:
                     text = response.text.strip()
                     if '```json' in text:
@@ -114,26 +126,29 @@ class AICouncil:
                     base_analysis = json.loads(text)
                     logger.info(f"[Gemini Fallback] Success: Score {base_analysis.get('relevance_score', 0)}")
                 else:
-                    raise Exception("No response")
+                    return self._create_rejection("failed", "All analysis failed")
             except Exception as e:
-                logger.error(f"[Gemini Fallback failed: {e}")
+                logger.error(f"[Gemini Fallback] failed: {e}")
                 return self._create_rejection("failed", "All analysis failed")
-        
-        # Fixed duplicate check
-        
-        if not base_analysis:
+        else:
             return self._create_rejection("failed", "All analysis failed")
-        
-        self.stats['groq_proposals'] += 1 if not self.gemini or not gemini_analysis else 0
+
+        self.stats['groq_proposals'] += 1 if groq_analysis else 0
         logger.info(f"[Council] Primary proposed: Score {base_analysis.get('relevance_score', 0)}")
         
-        # STAGE 2: Ollama Verification
-        # Skip Ollama (disabled)
-        logger.info(f"[Council] Ollama skipped - using base analysis")
-        ollama_verification = base_analysis
-        
+        # STAGE 2: Ollama Verification (skipped if unavailable)
+        ollama_verification = None
+        if self.ollama_available:
+            ollama_verification = self._ollama_verify(article, base_analysis)
+        if not ollama_verification:
+            logger.info("[Council] Ollama skipped/failed — using base analysis")
+            ollama_verification = base_analysis
+        else:
+            self.stats['ollama_verifications'] += 1
+        logger.info(f"[Council] Ollama verified: Score {ollama_verification.get('relevance_score', 0)}")
+
         # STAGE 3: Gemini Finalization
-        final_consensus = self._gemini_finalize(article, groq_analysis, ollama_verification)
+        final_consensus = self._gemini_finalize(article, base_analysis, ollama_verification)
         if not final_consensus:
             logger.warning("[Council] Gemini failed - using Ollama result")
             final_consensus = ollama_verification
@@ -278,8 +293,10 @@ JSON:"""
         return None
     
     def _gemini_finalize(self, article: Dict, groq_analysis: Dict, ollama_analysis: Dict) -> Optional[Dict]:
-        """STAGE 3: Gemini creates final consensus"""
-        
+        """STAGE 3: Gemini creates final consensus — new google-genai SDK"""
+        if not self._gemini_client:
+            return None
+
         prompt = f"""CONSENSUS & FINALIZATION:
 You are the final arbiter. Two AIs analyzed this paper:
 
@@ -305,9 +322,12 @@ YOUR TASK:
 Return JSON with final consensus analysis.
 
 JSON:"""
-        
+
         try:
-            response = self.gemini.generate_content(prompt)
+            response = self._gemini_client.models.generate_content(
+                model="gemini-1.5-flash",
+                contents=prompt,
+            )
             if response and response.text:
                 text = response.text.strip()
                 if "```json" in text:
@@ -315,7 +335,7 @@ JSON:"""
                 return json.loads(text)
         except Exception as e:
             logger.debug(f"Gemini finalize error: {e}")
-        
+
         return None
     
     def _build_deep_analysis_prompt(self, article: Dict, context: List[Dict], stage: str) -> str:
