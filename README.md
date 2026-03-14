@@ -1,4 +1,4 @@
-# README - On-Device AI Research Intelligence Agent
+# README - DEA  AI Research Intelligence 
 
 **A comprehensive AI research pipeline for discovering, analyzing, and delivering insights on on-device AI, memory optimization, and edge computing.**
 
