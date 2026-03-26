@@ -295,7 +295,8 @@ def run_ultimate_agi():
             archive_file = archiver.archive_session_results(
                 new_findings,
                 session_stats,
-                session_id
+                session_id,
+                all_sources=articles,
             )
             logger.info(f"[OK] Complete analysis archived: {archive_file}")
             
@@ -318,7 +319,10 @@ def run_ultimate_agi():
                     from src.multiformat_integration import generate_multiformat_email_report
 
                     # Generate all formats (email, PDF, PowerPoint, Podcast, Transcript, Summary)
-                    html_report, attachments, gen_results = generate_multiformat_email_report(unsent_papers)
+                    html_report, attachments, gen_results = generate_multiformat_email_report(
+                        unsent_papers,
+                        all_sources=articles,
+                    )
 
                     logger.info(f"\n[MultiFormat] Generated {len(attachments)} attachments:")
                     for att in attachments:
@@ -326,7 +330,7 @@ def run_ultimate_agi():
 
                 except Exception as e:
                     logger.warning(f"[MultiFormat] Generation failed, falling back to basic formatter: {e}")
-                    html_report = formatter.build_html(unsent_papers)
+                    html_report = formatter.build_html(unsent_papers, all_sources=articles)
                     attachments = []
 
                 # Generate text summary for logging

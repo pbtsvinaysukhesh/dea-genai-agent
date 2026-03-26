@@ -71,16 +71,17 @@ Playwright → arXiv PDFs → 1K chars/paper
 OpenReview → reviews/comments
 ```
 
-### 5. **RAG Search** (`src/hybrid_search.py`)
+### 5. **Vector Relevance & Ranking** (`src/qdrant_vector_store.py`)
 ```
-α=0.6·Semantic + 0.4·BM25 + MMR(λ=0.5)
-Top-K=10 diverse results
+Qdrant semantic matching
+Duplicate detection + shortlist support
+Source traceability preserved in report bundle
 ```
 
 ### 6. **Reports** (`src/multi_format_orchestrator.py`)
 ```
 Email → PDF → PPTX → Podcast → Transcript → Summary
-Single analysis → 6 formats simultaneously
+Single analysis → shared report bundle → 6 formats simultaneously
 ```
 
 ## 🔧 **Data Flow**
@@ -88,12 +89,12 @@ Single analysis → 6 formats simultaneously
 ```
 1. Collector: RSS/arXiv/GitHub → JSON articles
 2. Filter: Vector dedup + title match → 50 new
-3. Judge: LLM preliminary score → threshold 60
+3. Rank: Vector/context scoring → shortlist
 4. Council: 3-LLM analysis → consensus score
 5. HITL: Auto-approve 85%+ confidence
-6. Archive: JSON + metadata
-7. Generate: 6 formats parallel
-8. Email: Only unsent papers
+6. Archive: JSON + metadata + source inventory
+7. Generate: email/PDF/PPTX/podcast/transcript/summary
+8. Email: Only unsent papers with clickable source links
 ```
 
 ## 🛡️ **Error Handling**

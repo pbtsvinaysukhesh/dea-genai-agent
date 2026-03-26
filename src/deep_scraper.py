@@ -131,13 +131,17 @@ class DeepWebScraper:
             return {
                 'title': title,
                 'url': url,
+                'link': url,
                 'pdf_url': pdf_url,
                 'abstract': abstract.strip(),
                 'full_text': full_text.strip(),
                 'authors': authors.strip(),
                 'source_type': 'arxiv',
                 'has_full_text': len(full_text) > len(abstract),
-                'scraped_at': datetime.now().isoformat()
+                'scraped_at': datetime.now().isoformat(),
+                'crawl_confidence': 0.95,
+                'author': authors.strip(),
+                'tags': [],
             }
             
         except Exception as e:
@@ -179,13 +183,17 @@ class DeepWebScraper:
             return {
                 'title': title,
                 'url': url,
+                'link': url,
                 'pdf_url': pdf_url,
                 'abstract': abstract.strip(),
                 'full_text': full_text.strip(),
                 'reviews': reviews,
                 'source_type': 'openreview',
                 'has_full_text': True,
-                'scraped_at': datetime.now().isoformat()
+                'scraped_at': datetime.now().isoformat(),
+                'crawl_confidence': 0.9,
+                'author': "",
+                'tags': [],
             }
             
         except Exception as e:
@@ -227,12 +235,16 @@ class DeepWebScraper:
             return {
                 'title': title,
                 'url': url,
+                'link': url,
                 'pdf_url': pdf_url,
                 'abstract': abstract.strip(),
                 'full_text': full_text.strip(),
                 'source_type': 'mlr',
                 'has_full_text': len(full_text) > len(abstract),
-                'scraped_at': datetime.now().isoformat()
+                'scraped_at': datetime.now().isoformat(),
+                'crawl_confidence': 0.9,
+                'author': "",
+                'tags': [],
             }
             
         except Exception as e:
@@ -271,10 +283,14 @@ class DeepWebScraper:
             return {
                 'title': title,
                 'url': url,
+                'link': url,
                 'full_text': content.strip(),
                 'source_type': 'generic',
                 'has_full_text': True,
-                'scraped_at': datetime.now().isoformat()
+                'scraped_at': datetime.now().isoformat(),
+                'crawl_confidence': 0.8,
+                'author': "",
+                'tags': [],
             }
             
         except Exception as e:

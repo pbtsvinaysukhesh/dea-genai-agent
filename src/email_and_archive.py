@@ -135,7 +135,8 @@ class ResultsArchiver:
         self,
         papers: List[Dict],
         session_stats: Dict,
-        session_id: str = None
+        session_id: str = None,
+        all_sources: List[Dict] = None,
     ) -> str:
         """
         Archive complete session results
@@ -150,6 +151,7 @@ class ResultsArchiver:
             'timestamp': datetime.now().isoformat(),
             'total_papers': len(papers),
             'papers': papers,
+            'all_sources': all_sources or papers,
             'statistics': session_stats,
             'metadata': {
                 'archive_version': '1.0',

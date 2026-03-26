@@ -47,7 +47,12 @@ class PowerPointGenerator:
         if not self.has_pptx:
             logger.error("[PPT] python-pptx required. Install: pip install python-pptx")
 
-    def generate(self, insights: List[Dict]) -> bool:
+    def generate(
+        self,
+        insights: List[Dict],
+        all_sources: List[Dict] = None,
+        report_bundle: Dict = None,
+    ) -> bool:
         """
         Generate comprehensive PowerPoint presentation
         Returns: True if successful
@@ -84,7 +89,12 @@ class PowerPointGenerator:
             self._add_trends_slide(prs, insights)
 
             # Add paginated sources slides (ALL sources with hyperlinks)
-            self._add_paginated_sources_slides(prs, insights)
+            self._add_paginated_sources_slides(
+                prs,
+                insights,
+                all_sources=all_sources,
+                report_bundle=report_bundle,
+            )
 
             self._add_cta_slide(prs)
 
@@ -311,20 +321,36 @@ class PowerPointGenerator:
             p.font.color.rgb = self.colors['text']
             p.space_before = Pt(6)
 
-    def _add_paginated_sources_slides(self, prs: Presentation, insights: List[Dict]):
+    def _add_paginated_sources_slides(
+        self,
+        prs: Presentation,
+        insights: List[Dict],
+        all_sources: List[Dict] = None,
+        report_bundle: Dict = None,
+    ):
         """
         Add paginated sources slides with ALL unique sources and clickable hyperlinks.
         Creates multiple slides if needed (2-column layout, ~20 sources per slide).
         Uses SourceLinkProcessor for URL normalization and deduplication.
         """
-        # Try to use SourceLinkProcessor if available
+        if report_bundle is None:
+            from .report_bundle import build_report_bundle
+
+            report_bundle = build_report_bundle(
+                insights,
+                all_sources=all_sources,
+            ).to_dict()
+
         try:
             from .source_link_processor import SourceLinkProcessor
             processor = SourceLinkProcessor()
-            sources = processor.build_source_list(insights, sort_by='relevance')
+            sources = processor.build_source_list(
+                report_bundle.get("source_appendix", []),
+                sort_by='relevance',
+            )
         except ImportError:
             logger.warning("[PPT] SourceLinkProcessor not available, using fallback")
-            sources = self._build_fallback_sources(insights)
+            sources = self._build_fallback_sources(report_bundle.get("source_appendix", []))
 
         if not sources:
             logger.warning("[PPT] No sources to display")

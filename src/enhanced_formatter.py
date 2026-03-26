@@ -4,6 +4,7 @@ Generates beautiful emails with 6+ papers, detailed insights, and embedded resou
 """
 
 import logging
+from html import escape
 from typing import List, Dict
 from datetime import datetime
 
@@ -21,10 +22,23 @@ class EnhancedReportFormatter:
     - Call-to-action buttons
     """
 
-    def build_html(self, insights: List[Dict]) -> str:
+    def build_html(
+        self,
+        insights: List[Dict],
+        all_sources: List[Dict] = None,
+        report_bundle: Dict = None,
+    ) -> str:
         """Build comprehensive HTML report with 6+ papers"""
         if not insights:
             return self._build_empty_report()
+
+        if report_bundle is None:
+            from .report_bundle import build_report_bundle
+
+            report_bundle = build_report_bundle(
+                insights,
+                all_sources=all_sources,
+            ).to_dict()
 
         # Sort by relevance score
         sorted_insights = sorted(
@@ -42,9 +56,12 @@ class EnhancedReportFormatter:
         html += self._build_key_findings(sorted_insights)
         html += self._build_trend_analysis(sorted_insights)
         html += self._build_papers_section(top_papers)
-        html += self._build_resources_section(top_papers)
+        html += self._build_resources_section(top_papers, report_bundle)
         html += self._build_cta_section()
-        html += self._build_footer(len(sorted_insights))
+        html += self._build_footer(
+            len(sorted_insights),
+            len(report_bundle.get("source_appendix", [])),
+        )
 
         return html
 
@@ -401,6 +418,7 @@ class EnhancedReportFormatter:
         source = paper.get('source', 'Unknown')
         summary = paper.get('summary', '')[:200]
         quantization = paper.get('quantization_method', 'N/A')
+        fetched_excerpt = self._get_content_excerpt(paper)
 
         # Score badge color
         if score >= 90:
@@ -434,6 +452,11 @@ class EnhancedReportFormatter:
                     {memory_insight}
                 </div>
 
+                <div class="card" style="margin-top: 12px;">
+                    <strong>Fetched Content Excerpt:</strong><br>
+                    <span style="color: #4a5568;">{fetched_excerpt}</span>
+                </div>
+
                 <div class="insight-box">
                     <strong style="color: #ed8936;">⚙️ Engineering Takeaway:</strong><br>
                     {takeaway}
@@ -445,7 +468,7 @@ class EnhancedReportFormatter:
             </div>
 """
 
-    def _build_resources_section(self, top_papers: List[Dict]) -> str:
+    def _build_resources_section(self, top_papers: List[Dict], report_bundle: Dict) -> str:
         """Build clickable resources section"""
         html = """
             <!-- Resources -->
@@ -466,6 +489,26 @@ class EnhancedReportFormatter:
                         <a href="{link}" target="_blank" class="resource-link">
                             {idx}. {title}... ({source})
                         </a>
+                    </div>
+"""
+
+        html += """
+                </div>
+
+                <div class="card">
+                    <h3 style="margin: 0 0 15px 0; color: #2d3748;">Captured Source Appendix</h3>
+"""
+
+        for idx, source in enumerate(report_bundle.get("source_appendix", []), 1):
+            title = escape(source.get("title", "Source"))
+            link = source.get("url", "#")
+            platform = escape(source.get("source_platform", "Unknown"))
+            excerpt = escape(source.get("content_excerpt", ""))
+            html += f"""
+                    <div style="margin: 14px 0; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0;">
+                        <a href="{link}" target="_blank" class="resource-link">{idx}. {title}</a>
+                        <div style="font-size: 12px; color: #718096; margin-top: 4px;">{platform}</div>
+                        <div style="font-size: 13px; color: #4a5568; margin-top: 6px;">{excerpt}</div>
                     </div>
 """
 
@@ -493,12 +536,13 @@ class EnhancedReportFormatter:
             </div>
 """
 
-    def _build_footer(self, total_count: int) -> str:
+    def _build_footer(self, total_count: int, source_count: int) -> str:
         """Footer"""
         return f"""
             <!-- Footer -->
             <div class="footer">
                 <p style="margin: 0;">Showing top 6 of {total_count} papers analyzed</p>
+                <p style="margin: 10px 0 0 0;">Captured source URLs in appendix: {source_count}</p>
                 <p style="margin: 10px 0 0 0;">🤖 Powered by Hybrid RAG + Multi-Model AI (Groq, Ollama, Gemini)</p>
                 <p style="margin: 5px 0 0 0;">On-Device AI Memory Intelligence Agent</p>
             </div>
@@ -562,6 +606,18 @@ class EnhancedReportFormatter:
         summary += "=" * 80 + "\n"
 
         return summary
+
+    def _get_content_excerpt(self, paper: Dict) -> str:
+        excerpt = (
+            paper.get("full_text")
+            or paper.get("abstract")
+            or paper.get("summary")
+            or "No fetched content available."
+        )
+        excerpt = " ".join(str(excerpt).split())
+        if len(excerpt) > 220:
+            return excerpt[:217] + "..."
+        return excerpt
 
 # Backward compatibility alias
 ReportFormatter = EnhancedReportFormatter

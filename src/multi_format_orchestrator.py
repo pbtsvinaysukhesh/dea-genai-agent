@@ -6,6 +6,7 @@ Includes automatic backup and versioning of existing reports.
 
 import logging
 import os
+import json
 from pathlib import Path
 from typing import List, Dict, Optional
 from datetime import datetime
@@ -119,7 +120,11 @@ class MultiFormatReportOrchestrator:
             self.source_processor = None
             logger.warning("[Orchestrator] source_link_processor not available")
 
-    def generate_all(self, insights: List[Dict]) -> Dict[str, bool]:
+    def generate_all(
+        self,
+        insights: List[Dict],
+        all_sources: Optional[List[Dict]] = None,
+    ) -> Dict[str, bool]:
         """
         Generate all report formats with automatic backup and versioning
         Returns: Dict with format -> success status
@@ -129,6 +134,11 @@ class MultiFormatReportOrchestrator:
             return {}
 
         results = {}
+
+        from .report_bundle import build_report_bundle
+
+        report_bundle = build_report_bundle(insights, all_sources=all_sources)
+        bundle_dict = report_bundle.to_dict()
 
         logger.info(f"[Orchestrator] Starting multi-format report generation for {len(insights)} papers...")
 
@@ -143,6 +153,7 @@ class MultiFormatReportOrchestrator:
                 "summary_json": self.output_dir / "summary.json",
                 "summary_txt":  self.output_dir / "summary.txt",
                 "email_report": self.output_dir / "email_report.html",
+                "source_index": self.output_dir / "source_index.json",
             }
             backup_results = self.backup_manager.backup_and_version(files_to_backup)
             logger.info(f"[Orchestrator] Backed up {sum(1 for v in backup_results.values() if v)} existing files")
@@ -150,7 +161,11 @@ class MultiFormatReportOrchestrator:
         # 1. Enhanced Email
         if self.email_formatter:
             try:
-                html = self.email_formatter.build_html(insights)
+                html = self.email_formatter.build_html(
+                    insights,
+                    all_sources=all_sources,
+                    report_bundle=bundle_dict,
+                )
                 email_path = self.output_dir / "email_report.html"
                 email_path.write_text(html, encoding='utf-8')
                 logger.info(f"[Orchestrator] ✅ Email report: {email_path}")
@@ -164,7 +179,11 @@ class MultiFormatReportOrchestrator:
         # 2. PDF Report
         if self.pdf_gen:
             try:
-                success = self.pdf_gen.generate(insights)
+                success = self.pdf_gen.generate(
+                    insights,
+                    all_sources=all_sources,
+                    report_bundle=bundle_dict,
+                )
                 if success:
                     logger.info(f"[Orchestrator] ✅ PDF report: {self.output_dir / 'report.pdf'}")
                 results['pdf'] = success
@@ -177,7 +196,11 @@ class MultiFormatReportOrchestrator:
         # 3. PowerPoint Presentation
         if self.pptx_gen:
             try:
-                success = self.pptx_gen.generate(insights)
+                success = self.pptx_gen.generate(
+                    insights,
+                    all_sources=all_sources,
+                    report_bundle=bundle_dict,
+                )
                 if success:
                     logger.info(f"[Orchestrator] ✅ PowerPoint: {self.output_dir / 'report.pptx'}")
                 results['pptx'] = success
@@ -198,7 +221,11 @@ class MultiFormatReportOrchestrator:
                     title="On-Device AI Intelligence Report",
                     episode_number=datetime.now().strftime("%Y-%m-%d"),
                     description=f"Intelligence report on {len(insights)} papers",
-                    source_links=[p.get('link') for p in insights if p.get('link')]
+                    source_links=[
+                        source.get("url")
+                        for source in bundle_dict.get("source_appendix", [])
+                        if source.get("url")
+                    ]
                 )
 
                 # podcast_generator saves with a timestamp in the filename.
@@ -247,13 +274,33 @@ class MultiFormatReportOrchestrator:
             summary_txt_path = self.output_dir / "summary.txt"
             summary_json_path = self.output_dir / "summary.json"
 
-            self._generate_summary(insights, str(summary_txt_path), str(summary_json_path))
+            self._generate_summary(
+                insights,
+                str(summary_txt_path),
+                str(summary_json_path),
+                report_bundle=bundle_dict,
+            )
             logger.info(f"[Orchestrator] ✅ Text Summary: {summary_txt_path}")
             logger.info(f"[Orchestrator] ✅ JSON Summary: {summary_json_path}")
             results['summary'] = True
         except Exception as e:
             logger.error(f"[Orchestrator] ❌ Summary generation failed: {e}")
             results['summary'] = False
+
+        try:
+            source_index_path = self.output_dir / "source_index.json"
+            with open(source_index_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    bundle_dict.get("source_appendix", []),
+                    f,
+                    indent=2,
+                    ensure_ascii=False,
+                )
+            logger.info(f"[Orchestrator] ✅ Source index: {source_index_path}")
+            results["source_index"] = True
+        except Exception as e:
+            logger.error(f"[Orchestrator] ❌ Source index generation failed: {e}")
+            results["source_index"] = False
 
         # Print overview
         logger.info("[Orchestrator] ==================== REPORT GENERATION COMPLETE ====================")
@@ -265,10 +312,14 @@ class MultiFormatReportOrchestrator:
 
         return results
 
-    def _generate_summary(self, insights: List[Dict], txt_path: str, json_path: str = None):
+    def _generate_summary(
+        self,
+        insights: List[Dict],
+        txt_path: str,
+        json_path: str = None,
+        report_bundle: Optional[Dict] = None,
+    ):
         """Generate text and JSON summaries"""
-        import json
-
         # Generate text summary
         with open(txt_path, 'w', encoding='utf-8') as f:
             f.write("=" * 80 + "\n")
@@ -348,6 +399,18 @@ class MultiFormatReportOrchestrator:
                 f.write(f"  • {tech}: {count} papers\n")
             f.write("\n")
 
+            sources = (report_bundle or {}).get("source_appendix", [])
+            f.write("SOURCE APPENDIX\n")
+            f.write("-" * 80 + "\n")
+            f.write(f"Total captured URLs: {len(sources)}\n\n")
+            for idx, source in enumerate(sources, 1):
+                f.write(f"{idx}. {source.get('title', 'Unknown Source')}\n")
+                f.write(f"   URL: {source.get('url', '')}\n")
+                excerpt = source.get('content_excerpt', '')
+                if excerpt:
+                    f.write(f"   Excerpt: {excerpt}\n")
+                f.write("\n")
+
             f.write("=" * 80 + "\n")
             f.write("For more details, see the full reports in other formats.\n")
             f.write("=" * 80 + "\n")
@@ -383,7 +446,10 @@ class MultiFormatReportOrchestrator:
                     papers=insights,
                     executive_summary=executive_summary,
                     takeaways=takeaways,
-                    confidence="primary"
+                    confidence="primary",
+                    metadata={
+                        "report_bundle": report_bundle or {},
+                    },
                 )
 
                 with open(json_path, 'w', encoding='utf-8') as f:

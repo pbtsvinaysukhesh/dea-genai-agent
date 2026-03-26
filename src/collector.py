@@ -65,10 +65,15 @@ class Collector:
                     articles.append({
                         "title": entry.title.replace('\n', ' ').strip(),
                         "link": entry.link,
+                        "url": entry.link,
                         "summary": entry.summary.replace('\n', ' ').strip(),
                         "source": "arXiv",
+                        "source_type": "arxiv",
                         "published": entry.published[:10] if hasattr(entry, 'published') else str(datetime.date.today()),
-                        "collected_at": datetime.datetime.now().isoformat()
+                        "collected_at": datetime.datetime.now().isoformat(),
+                        "crawl_confidence": 0.85,
+                        "author": "",
+                        "tags": [],
                     })
                 time.sleep(self.config.RATE_LIMIT_DELAY)
             except Exception as e:
@@ -154,10 +159,15 @@ class Collector:
                     results.append({
                         "title": title_tag.get_text(strip=True),
                         "link": link or url,
+                        "url": link or url,
                         "summary": art.get_text(strip=True)[:500],
                         "source": f"{source_name} (Scraped)",
+                        "source_type": "html_scrape",
                         "published": str(datetime.date.today()),
-                        "collected_at": datetime.datetime.now().isoformat()
+                        "collected_at": datetime.datetime.now().isoformat(),
+                        "crawl_confidence": 0.75,
+                        "author": "",
+                        "tags": [],
                     })
                 return results
 
@@ -170,10 +180,15 @@ class Collector:
                 return {
                     "title": title.get_text(strip=True),
                     "link": url,
+                    "url": url,
                     "summary": summary,
                     "source": f"{source_name} (Scraped)",
+                    "source_type": "html_scrape",
                     "published": str(datetime.date.today()),
-                    "collected_at": datetime.datetime.now().isoformat()
+                    "collected_at": datetime.datetime.now().isoformat(),
+                    "crawl_confidence": 0.7,
+                    "author": "",
+                    "tags": [],
                 }
             return None
         except Exception as e:
@@ -214,10 +229,15 @@ class Collector:
             return {
                 "title": title,
                 "link": entry.link,
+                "url": entry.link,
                 "summary": summary,
                 "source": source,
+                "source_type": "rss",
                 "published": getattr(entry, 'published', getattr(entry, 'updated', str(datetime.date.today()))),
-                "collected_at": datetime.datetime.now().isoformat()
+                "collected_at": datetime.datetime.now().isoformat(),
+                "crawl_confidence": 0.65,
+                "author": "",
+                "tags": [],
             }
         except AttributeError as e:
             logger.debug(f"Missing attribute in RSS entry: {e}")
