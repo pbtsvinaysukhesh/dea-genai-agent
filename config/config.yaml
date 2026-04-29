@@ -382,6 +382,39 @@ podcast:
   # Voice and speech settings
   language: "en"
   speech_speed: "normal"  # normal or slow
+  conversation_mode: "two_speaker"
+  provider_priority:
+    - "edge"
+    - "google"
+    - "gtts"
+  target_duration_minutes: 10
+  max_turns: 24
+  papers_to_cover: 4
+  include_source_mentions: false
+  include_scores_in_audio: false
+
+  voices:
+    edge:
+      male:
+        - "en-US-AndrewMultilingualNeural"
+        - "en-US-GuyNeural"
+      female:
+        - "en-US-AvaMultilingualNeural"
+        - "en-US-JennyNeural"
+      host_rate: "+0%"
+      analyst_rate: "+6%"
+      pause_ms: 425
+    google:
+      male:
+        - "en-US-Neural2-J"
+        - "en-US-Neural2-D"
+        - "en-US-Neural2-C"
+      female:
+        - "en-US-Neural2-F"
+        - "en-US-Neural2-E"
+      host_rate: 1.0
+      analyst_rate: 1.06
+      pause_ms: 425
 
   # Optional audio assets (comment out or leave empty to disable)
   # intro_music_path: "/path/to/intro.mp3"

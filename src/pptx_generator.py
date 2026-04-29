@@ -11,9 +11,10 @@ logger = logging.getLogger(__name__)
 
 try:
     from pptx import Presentation
-    from pptx.util import Inches, Pt
+    from pptx.util import Inches, Pt, Emu
     from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
     from pptx.dml.color import RGBColor
+    from pptx.oxml.ns import qn
     HAS_PPTX = True
 except ImportError:
     HAS_PPTX = False
@@ -46,6 +47,30 @@ class PowerPointGenerator:
 
         if not self.has_pptx:
             logger.error("[PPT] python-pptx required. Install: pip install python-pptx")
+
+    def _add_hyperlink_run(self, paragraph, text: str, url: str,
+                           font_size=Pt(11), color=None, bold=False, underline=True):
+        """
+        Add a clickable hyperlink run to a paragraph.
+        Uses python-pptx's proper hyperlink API for real clickable links in PowerPoint.
+        """
+        if color is None:
+            color = RGBColor(0x33, 0x6B, 0xB4)  # Professional blue
+
+        run = paragraph.add_run()
+        run.text = text
+        run.font.size = font_size
+        run.font.color.rgb = color
+        run.font.bold = bold
+        run.font.underline = underline
+
+        if url:
+            # Normalize URL
+            if not url.startswith(('http://', 'https://')):
+                url = 'https://' + url
+            run.hyperlink.address = url
+
+        return run
 
     def generate(
         self,
@@ -85,13 +110,8 @@ class PowerPointGenerator:
 
             self._add_trends_slide(prs, insights)
 
-            # Add paginated sources slides (ALL sources with hyperlinks)
-            self._add_paginated_sources_slides(
-                prs,
-                insights,
-                all_sources=all_sources,
-                report_bundle=report_bundle,
-            )
+            # Add selected sources slide (only harness-selected, with clickable links)
+            self._add_selected_sources_slide(prs, harness_insights)
 
             self._add_cta_slide(prs)
 
@@ -330,16 +350,33 @@ class PowerPointGenerator:
         model_type = paper.get('model_type', 'Unknown')
         dram_impact = paper.get('dram_impact', 'Unknown')
         source = paper.get('source', 'Unknown')
+        paper_url = paper.get('link', '') or paper.get('url', '')
 
         ribbon_box = slide.shapes.add_textbox(Inches(0.5), Inches(1.3), Inches(9), Inches(0.4))
         ribbon_frame = ribbon_box.text_frame
-        ribbon_frame.text = (
+        p = ribbon_frame.paragraphs[0]
+        # Add metadata as plain text run
+        meta_run = p.add_run()
+        meta_run.text = (
             f"Score: {score}/100  •  {platform}  •  {model_type}  •  "
-            f"DRAM: {dram_impact}  •  Source: {source}"
+            f"DRAM: {dram_impact}  •  "
         )
-        ribbon_frame.paragraphs[0].font.size = Pt(11)
-        ribbon_frame.paragraphs[0].font.color.rgb = RGBColor(0x88, 0x88, 0xAA)
-        ribbon_frame.paragraphs[0].font.bold = True
+        meta_run.font.size = Pt(11)
+        meta_run.font.color.rgb = RGBColor(0x88, 0x88, 0xAA)
+        meta_run.font.bold = True
+
+        # Add source as clickable hyperlink
+        if paper_url:
+            self._add_hyperlink_run(
+                p, f"📎 {source}", paper_url,
+                font_size=Pt(11), color=RGBColor(0x33, 0x6B, 0xB4), bold=True
+            )
+        else:
+            src_run = p.add_run()
+            src_run.text = f"Source: {source}"
+            src_run.font.size = Pt(11)
+            src_run.font.color.rgb = RGBColor(0x88, 0x88, 0xAA)
+            src_run.font.bold = True
 
         # ── Main content area ────────────────────────────────────────────
         text_box = slide.shapes.add_textbox(Inches(0.5), Inches(1.85), Inches(9), Inches(5.2))
@@ -453,114 +490,69 @@ class PowerPointGenerator:
             p.font.color.rgb = self.colors['text']
             p.space_before = Pt(6)
 
-    def _add_paginated_sources_slides(
-        self,
-        prs: Presentation,
-        insights: List[Dict],
-        all_sources: List[Dict] = None,
-        report_bundle: Dict = None,
-    ):
+    def _add_selected_sources_slide(self, prs: Presentation, selected_papers: List[Dict]):
         """
-        Add paginated sources slides with ALL unique sources and clickable hyperlinks.
-        Creates multiple slides if needed (2-column layout, ~20 sources per slide).
-        Uses SourceLinkProcessor for URL normalization and deduplication.
+        Add a clean 'Selected Sources' slide showing ONLY the harness-selected
+        papers with clickable hyperlinks. No bloat — just the curated picks.
         """
-        if report_bundle is None:
-            from .report_bundle import build_report_bundle
+        slide = prs.slides.add_slide(prs.slide_layouts[1])
+        title = slide.shapes.title
+        title.text = f"Selected Sources ({len(selected_papers)} papers)"
+        title.text_frame.paragraphs[0].font.size = Pt(36)
+        title.text_frame.paragraphs[0].font.color.rgb = self.colors['primary']
 
-            report_bundle = build_report_bundle(
-                insights,
-                all_sources=all_sources,
-            ).to_dict()
+        # Subtitle
+        sub_box = slide.shapes.add_textbox(Inches(0.5), Inches(1.3), Inches(9), Inches(0.4))
+        sub_frame = sub_box.text_frame
+        sub_frame.text = "Click any title to open the original paper"
+        sub_frame.paragraphs[0].font.size = Pt(12)
+        sub_frame.paragraphs[0].font.color.rgb = RGBColor(0x88, 0x88, 0xAA)
+        sub_frame.paragraphs[0].font.italic = True
 
-        try:
-            from .source_link_processor import SourceLinkProcessor
-            processor = SourceLinkProcessor()
-            sources = processor.build_source_list(
-                report_bundle.get("source_appendix", []),
-                sort_by='relevance',
-            )
-        except ImportError:
-            logger.warning("[PPT] SourceLinkProcessor not available, using fallback")
-            sources = self._build_fallback_sources(report_bundle.get("source_appendix", []))
+        # Sources list
+        sources_box = slide.shapes.add_textbox(Inches(0.5), Inches(1.9), Inches(9), Inches(5.2))
+        sources_frame = sources_box.text_frame
+        sources_frame.word_wrap = True
 
-        if not sources:
-            logger.warning("[PPT] No sources to display")
-            return
+        for idx, paper in enumerate(selected_papers):
+            if idx > 0:
+                sources_frame.add_paragraph()
 
-        # Paginate sources (20 per slide)
-        sources_per_slide = 20
-        pages = []
-        for i in range(0, len(sources), sources_per_slide):
-            pages.append(sources[i:i + sources_per_slide])
+            p = sources_frame.paragraphs[idx]
+            paper_title = paper.get('title', 'Unknown')[:65]
+            paper_url = paper.get('link', '') or paper.get('url', '')
+            score = paper.get('relevance_score', 0)
+            source = paper.get('source', 'Unknown')
+            platform = paper.get('platform', 'Unknown')
 
-        # Create a slide for each page of sources
-        for page_num, page_sources in enumerate(pages, 1):
-            slide = prs.slides.add_slide(prs.slide_layouts[1])
-            title = slide.shapes.title
+            # Number prefix
+            num_run = p.add_run()
+            num_run.text = f"{idx + 1}. "
+            num_run.font.size = Pt(12)
+            num_run.font.bold = True
+            num_run.font.color.rgb = self.colors['accent']
 
-            # Set title
-            if page_num == 1:
-                title.text = f"Sources ({len(sources)} total)"
+            # Paper title as clickable hyperlink
+            if paper_url:
+                self._add_hyperlink_run(
+                    p, paper_title, paper_url,
+                    font_size=Pt(12), bold=False
+                )
             else:
-                title.text = f"Sources (Page {page_num} of {len(pages)})"
-            title.text_frame.paragraphs[0].font.size = Pt(44)
-            title.text_frame.paragraphs[0].font.color.rgb = self.colors['primary']
+                title_run = p.add_run()
+                title_run.text = paper_title
+                title_run.font.size = Pt(12)
+                title_run.font.color.rgb = self.colors['text']
 
-            # Create 2-column layout
-            col_width = Inches(4.5)
-            col_height = Inches(5.5)
-            left_col_x = Inches(0.5)
-            right_col_x = Inches(5.2)
-            top_y = Inches(1.5)
+            # Metadata suffix
+            meta_run = p.add_run()
+            meta_run.text = f"  ({source} • {platform} • Score: {score}/100)"
+            meta_run.font.size = Pt(10)
+            meta_run.font.color.rgb = RGBColor(0x99, 0x99, 0x99)
 
-            # Split sources into 2 columns
-            mid = (len(page_sources) + 1) // 2
-            left_sources = page_sources[:mid]
-            right_sources = page_sources[mid:]
+            p.space_before = Pt(6)
 
-            # Add left column
-            left_box = slide.shapes.add_textbox(left_col_x, top_y, col_width, col_height)
-            left_frame = left_box.text_frame
-            left_frame.word_wrap = True
-
-            for idx, source in enumerate(left_sources):
-                if idx > 0:
-                    left_frame.add_paragraph()
-                p = left_frame.paragraphs[idx]
-                title_text = source.get('title', 'Unknown')[:45]
-                url = source.get('url', '')
-                score = source.get('relevance_score', 0)
-
-                # Format: number. title (source) | score
-                source_info = source.get('source_platform', 'Unknown')
-                p.text = f"{idx + 1}. {title_text} ({source_info}) - {score:.0f}"
-                p.font.size = Pt(11)
-                p.font.color.rgb = self.colors['text']
-                p.space_before = Pt(4)
-
-                # Note: python-pptx has limited hyperlink support, would need:
-                # from pptx.oxml import parse_xml
-                # and custom XML manipulation for full hyperlink support
-
-            # Add right column
-            right_box = slide.shapes.add_textbox(right_col_x, top_y, col_width, col_height)
-            right_frame = right_box.text_frame
-            right_frame.word_wrap = True
-
-            for idx, source in enumerate(right_sources):
-                if idx > 0:
-                    right_frame.add_paragraph()
-                p = right_frame.paragraphs[idx]
-                title_text = source.get('title', 'Unknown')[:45]
-                url = source.get('url', '')
-                score = source.get('relevance_score', 0)
-
-                source_info = source.get('source_platform', 'Unknown')
-                p.text = f"{mid + idx + 1}. {title_text} ({source_info}) - {score:.0f}"
-                p.font.size = Pt(11)
-                p.font.color.rgb = self.colors['text']
-                p.space_before = Pt(4)
+        logger.info(f"[PPT] Selected sources slide: {len(selected_papers)} clickable links")
 
     def _build_fallback_sources(self, insights: List[Dict]) -> List[Dict]:
         """

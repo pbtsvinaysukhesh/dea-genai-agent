@@ -170,6 +170,7 @@ class MultiFormatReportOrchestrator:
                 email_path.write_text(html, encoding='utf-8')
                 logger.info(f"[Orchestrator] ✅ Email report: {email_path}")
                 results['email'] = True
+
             except Exception as e:
                 logger.error(f"[Orchestrator] ❌ Email generation failed: {e}")
                 results['email'] = False
@@ -212,6 +213,7 @@ class MultiFormatReportOrchestrator:
 
         # 4. Podcast Audio
         podcast_success = False
+        transcript_success = False
 
         if self.podcast_gen:
             try:
@@ -247,6 +249,14 @@ class MultiFormatReportOrchestrator:
                     src.unlink(missing_ok=True)
                     logger.info(f"[Orchestrator] ✅ Podcast WAV: {dst}")
 
+                if podcast_results.get("transcript"):
+                    transcript_src = Path(podcast_results["transcript"])
+                    transcript_dst = self.output_dir / "transcript.txt"
+                    if transcript_src.resolve() != transcript_dst.resolve():
+                        shutil.copy2(str(transcript_src), str(transcript_dst))
+                    logger.info(f"[Orchestrator] Transcript: {transcript_dst}")
+                    transcript_success = True
+
             except Exception as e:
                 logger.error(f"[Orchestrator] ❌ Podcast generation failed: {e}", exc_info=True)
                 podcast_success = False
@@ -254,7 +264,9 @@ class MultiFormatReportOrchestrator:
         results['podcast'] = podcast_success
 
         # 5. Transcript
-        if self.transcript_gen:
+        if transcript_success:
+            results['transcript'] = True
+        elif self.transcript_gen:
             try:
                 success = self.transcript_gen.generate_transcript(
                     insights,
