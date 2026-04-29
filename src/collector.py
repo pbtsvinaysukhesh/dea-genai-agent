@@ -13,6 +13,12 @@ from typing import List, Dict
 from urllib.parse import quote
 from bs4 import BeautifulSoup
 
+try:
+    from src.retry import retry_with_backoff, CircuitBreaker
+    HAS_RETRY = True
+except ImportError:
+    HAS_RETRY = False
+
 logger = logging.getLogger(__name__)
 
 class CollectorConfig:
@@ -34,6 +40,8 @@ class Collector:
     def __init__(self, config: CollectorConfig = None):
         self.config = config or CollectorConfig()
         self.stats = {'total': 0, 'rss': 0, 'scraped': 0, 'failed': 0}
+        # Circuit breaker per-source to avoid hammering dead endpoints
+        self._breakers = {}
     
     def fetch_all(self, config: Dict) -> List[Dict]:
         """Main entry point to fetch from all configured sources"""
@@ -209,7 +217,7 @@ class Collector:
                 if response.status_code in [400, 401, 403, 404]:
                     logger.warning(f"Dead Link ({response.status_code}): {url}")
                     return None
-            except: pass
+            except Exception: pass
             time.sleep(self.config.RETRY_DELAY)
         return None
 
@@ -252,7 +260,7 @@ class Collector:
             if len(parts) >= 5: return f"GitHub ({parts[4]})"
             return "GitHub"
         try: return url.split('/')[2].replace('www.', '').capitalize()
-        except: return "Web"
+        except Exception: return "Web"
 
     def get_statistics(self) -> Dict:
         return {**self.stats}

@@ -148,6 +148,9 @@ sources:
     # DeepMind
     - "https://deepmind.google/research/publications/"
 
+    # Future Memory and Storage (FMS) - Hardware & Memory Architecture
+    - "https://futurememorystorage.com/rss"
+
   # --------------------------------------------------------------------------
   # GitHub Search (NEW – High-Signal Engineering Content)
   # --------------------------------------------------------------------------
@@ -405,6 +408,12 @@ report:
     include_text: true      # Generate text summary.txt
     takeaways_count: 5      # Number of takeaways (3-5)
 
+  # Presentation (PPT/PPTX) configuration
+  presentation:
+    enabled: true
+    top_items_per_source: 1 # Exactly 1 top suitable content from each source
+    include_clickable_links: true
+
 # ============================================================================
 # Feature Toggles
 # ============================================================================
@@ -416,3 +425,5 @@ features:
   use_backup_versioning: true  # Enable automatic backup and versioning
   use_clickable_source_links: true  # Enable clickable links in PDF/PPTX
   use_json_summaries: true  # Enable JSON summary output
+  use_async_pipeline: false  # Enable async analysis for 2-3x throughput
+  use_graceful_shutdown: true  # Flush vector store & history on exit

@@ -158,9 +158,9 @@ class HistoryManager:
                                 try:
                                     size = float(words[-1])
                                     memory_sizes.append(size)
-                                except:
+                                except Exception:
                                     pass
-                    except:
+                    except Exception:
                         pass
             
             if len(memory_sizes) >= 3:

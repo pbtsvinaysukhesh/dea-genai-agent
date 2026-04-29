@@ -254,7 +254,7 @@ class ResultsArchiver:
                 session_time = datetime.fromisoformat(meta['timestamp'])
                 if session_time > cutoff:
                     sessions.append(meta)
-            except:
+            except Exception:
                 continue
         
         return sorted(sessions, key=lambda x: x['timestamp'], reverse=True)

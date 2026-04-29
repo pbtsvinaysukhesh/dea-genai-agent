@@ -64,7 +64,7 @@ def load_recent_findings(days: int = 7):
         logger.info(f"[History] Loaded {len(recent)} papers from last {days} days")
         return recent
         
-    except:
+    except Exception:
         return []
 
 
@@ -85,7 +85,7 @@ def run_ultimate_agi():
         threshold = config['system']['relevance_threshold']
         
         # Check what's available
-        use_playwright = config['system'].get('use_playwright', True)
+        use_playwright = config.get('features', {}).get('use_playwright', True)
         use_crewai = config['features'].get('use_crewai', True)  # Slower, optional
         
         logger.info(f"\nConfiguration:")
@@ -118,7 +118,7 @@ def run_ultimate_agi():
         
         try:
             mailer = Mailer(config.get('email', {}))
-        except:
+        except Exception:
             mailer = None
         
         # STAGE 1: Deep Collection with Playwright
@@ -178,87 +178,103 @@ def run_ultimate_agi():
             use_council=True
         )
         
-        new_findings = []
-        rejected = {'duplicate': 0, 'low_score': 0, 'failed': 0}
+        # ── ASYNC MODE ────────────────────────────────────────────────
+        use_async = config.get('features', {}).get('use_async_pipeline', False)
         
-        for idx, article in enumerate(articles, 1):
-            # Safe title
-            title = article.get('title', 'Unknown')
-            try:
-                title_short = title[:60] + "..." if len(title) > 60 else title
-            except:
-                title_short = "Paper with special chars"
-            
-            logger.info(f"\n[{idx}/{len(articles)}] {title_short}")
-            
-            # Show if we have full text
-            has_full = article.get('has_full_text', False)
-            full_text_len = len(article.get('full_text', ''))
-            if has_full:
-                logger.info(f"  [Full Text] {full_text_len} chars extracted")
-            
-            try:
-                # SEMANTIC DUPLICATE CHECK with Qdrant
-                should_process, reason = vector_manager.check_and_add(article)
-                
-                if not should_process and reason == "duplicate":
-                    rejected['duplicate'] += 1
-                    logger.info(f"  [SEMANTIC DUPLICATE] Vector similarity >95%")
-                    continue
-                
-                # Get vector context for better analysis
-                vector_context = vector_manager.get_context(article)
-                
-                # Check for duplicate first
+        if use_async:
+            import asyncio
+            from src.async_pipeline import AsyncPipelineEngine
+            engine = AsyncPipelineEngine(
+                agi, vector_manager, hitl, threshold=threshold
+            )
+            logger.info("[ASYNC] Running analysis with async pipeline engine")
+            new_findings, rejected = asyncio.run(
+                engine.analyze_batch(articles, recent_findings)
+            )
+            engine.shutdown()
+        else:
+            # Original synchronous loop
+            new_findings = []
+            rejected = {'duplicate': 0, 'low_score': 0, 'failed': 0}
+        
+            for idx, article in enumerate(articles, 1):
+                # Safe title
+                title = article.get('title', 'Unknown')
                 try:
-                    duplicate_found = any(
-                        str(title).lower() == str(p.get('title', '')).lower()
-                        for p in recent_findings
-                    )
-                    if duplicate_found:
-                        rejected['duplicate'] += 1
-                        logger.info(f"  [DUPLICATE] Already in history")
-                        continue
-                except:
-                    pass
+                    title_short = title[:60] + "..." if len(title) > 60 else title
+                except Exception:
+                    title_short = "Paper with special chars"
                 
-                # Analyze with AGI
-                analysis = agi.analyze_paper(article, recent_findings)
+                logger.info(f"\n[{idx}/{len(articles)}] {title_short}")
                 
-                if not analysis:
-                    rejected['failed'] += 1
-                    logger.warning(f"  [FAILED] Analysis error")
-                    continue
+                # Show if we have full text
+                has_full = article.get('has_full_text', False)
+                full_text_len = len(article.get('full_text', ''))
+                if has_full:
+                    logger.info(f"  [Full Text] {full_text_len} chars extracted")
                 
-                # HITL VALIDATION
-                hitl_status, hitl_reason, validated_analysis = hitl.validate_paper(article, analysis)
-                
-                if hitl_status == 'needs_review':
-                    # Paper needs human review - skip for now
-                    logger.info(f"  [HITL] {hitl_reason}")
-                    continue
-                
-                analysis = validated_analysis  # Use validated version
-                score = analysis.get('relevance_score', 0)
-                
-                # Check if from CrewAI
-                if 'crew_metadata' in analysis:
-                    logger.info(f"  [CrewAI] Multi-agent analysis")
-                elif 'council_metadata' in analysis:
-                    meta = analysis.get('council_metadata', {})
-                    logger.info(f"  [Council] {meta.get('consensus_status', 'unknown')} consensus")
-                
-                if score >= threshold:
-                    merged = {**article, **analysis}
-                    new_findings.append(merged)
-                    logger.info(f"  [ACCEPTED] Score: {score}")
-                else:
-                    rejected['low_score'] += 1
-                    logger.info(f"  [REJECTED] Score: {score} (below {threshold})")
+                try:
+                    # SEMANTIC DUPLICATE CHECK with Qdrant
+                    should_process, reason = vector_manager.check_and_add(article)
                     
-            except Exception as e:
-                logger.error(f"  [ERROR] {str(e)[:100]}")
-                rejected['failed'] += 1
+                    if not should_process and reason == "duplicate":
+                        rejected['duplicate'] += 1
+                        logger.info(f"  [SEMANTIC DUPLICATE] Vector similarity >95%")
+                        continue
+                    
+                    # Get vector context for better analysis
+                    vector_context = vector_manager.get_context(article)
+                    
+                    # Check for duplicate first
+                    try:
+                        duplicate_found = any(
+                            str(title).lower() == str(p.get('title', '')).lower()
+                            for p in recent_findings
+                        )
+                        if duplicate_found:
+                            rejected['duplicate'] += 1
+                            logger.info(f"  [DUPLICATE] Already in history")
+                            continue
+                    except Exception:
+                        pass
+                    
+                    # Analyze with AGI
+                    analysis = agi.analyze_paper(article, recent_findings)
+                    
+                    if not analysis:
+                        rejected['failed'] += 1
+                        logger.warning(f"  [FAILED] Analysis error")
+                        continue
+                    
+                    # HITL VALIDATION
+                    hitl_status, hitl_reason, validated_analysis = hitl.validate_paper(article, analysis)
+                    
+                    if hitl_status == 'needs_review':
+                        # Paper needs human review - skip for now
+                        logger.info(f"  [HITL] {hitl_reason}")
+                        continue
+                    
+                    analysis = validated_analysis  # Use validated version
+                    score = analysis.get('relevance_score', 0)
+                    
+                    # Check if from CrewAI
+                    if 'crew_metadata' in analysis:
+                        logger.info(f"  [CrewAI] Multi-agent analysis")
+                    elif 'council_metadata' in analysis:
+                        meta = analysis.get('council_metadata', {})
+                        logger.info(f"  [Council] {meta.get('consensus_status', 'unknown')} consensus")
+                    
+                    if score >= threshold:
+                        merged = {**article, **analysis}
+                        new_findings.append(merged)
+                        logger.info(f"  [ACCEPTED] Score: {score}")
+                    else:
+                        rejected['low_score'] += 1
+                        logger.info(f"  [REJECTED] Score: {score} (below {threshold})")
+                        
+                except Exception as e:
+                    logger.error(f"  [ERROR] {str(e)[:100]}")
+                    rejected['failed'] += 1
         
         # STAGE 4: Results & Report
         logger.info("\n" + "="*80)
@@ -414,12 +430,40 @@ def run_ultimate_agi():
         logger.info("="*80)
         
     except KeyboardInterrupt:
-        logger.warning("\n[INTERRUPTED]")
+        logger.warning("\n[INTERRUPTED] Performing graceful shutdown...")
+        _graceful_shutdown(locals())
         sys.exit(1)
     
     except Exception as e:
         logger.error(f"\n[CRITICAL ERROR] {e}", exc_info=True)
+        _graceful_shutdown(locals())
         sys.exit(1)
+
+
+def _graceful_shutdown(local_vars: dict):
+    """
+    Flush vector store, save pending history, and close connections
+    before exiting. Prevents data loss / Qdrant DB corruption.
+    """
+    try:
+        history = local_vars.get('history')
+        if history and hasattr(history, 'save_insights'):
+            findings = local_vars.get('new_findings', [])
+            if findings:
+                history.save_insights(findings)
+                logger.info(f"[Shutdown] Saved {len(findings)} partial findings")
+
+        vector_manager = local_vars.get('vector_manager')
+        if vector_manager and hasattr(vector_manager, 'store') and vector_manager.store:
+            try:
+                vector_manager.store.client.close()
+                logger.info("[Shutdown] Qdrant connection closed")
+            except Exception:
+                pass
+
+        logger.info("[Shutdown] Graceful shutdown complete")
+    except Exception as e:
+        logger.error(f"[Shutdown] Error during cleanup: {e}")
 
 
 if __name__ == "__main__":

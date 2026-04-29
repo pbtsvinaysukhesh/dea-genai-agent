@@ -12,6 +12,14 @@ from datetime import datetime
 from groq import Groq
 import requests
 
+try:
+    from src.retry import retry_with_backoff, CircuitBreaker
+    _groq_breaker = CircuitBreaker(failure_threshold=3, recovery_timeout=120, name="groq")
+    _ollama_breaker = CircuitBreaker(failure_threshold=5, recovery_timeout=60, name="ollama")
+    _gemini_breaker = CircuitBreaker(failure_threshold=3, recovery_timeout=120, name="gemini")
+except ImportError:
+    _groq_breaker = _ollama_breaker = _gemini_breaker = None
+
 logger = logging.getLogger(__name__)
 
 
@@ -87,7 +95,7 @@ class AICouncil:
         try:
             response = requests.get(f"{self.ollama_url}/api/tags", timeout=2)
             return response.status_code == 200
-        except:
+        except Exception:
             return False
     
     def council_analysis(self, article: Dict, previous_findings: List[Dict]) -> Dict:
@@ -157,7 +165,7 @@ class AICouncil:
         
         # Calculate consensus
         scores = [
-            groq_analysis.get('relevance_score', 0),
+            base_analysis.get('relevance_score', 0),
             ollama_verification.get('relevance_score', 0),
             final_consensus.get('relevance_score', 0)
         ]

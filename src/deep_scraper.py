@@ -123,7 +123,7 @@ class DeepWebScraper:
                     content_div = page.locator('article, .ltx_document, main').first
                     if await content_div.count() > 0:
                         full_text = await content_div.text_content()
-            except:
+            except Exception:
                 pass
             
             self.stats['pdfs_extracted'] += 1

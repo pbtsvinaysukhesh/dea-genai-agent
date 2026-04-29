@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HITL Review Console — Research Intelligence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --bg-glass: rgba(22, 33, 62, 0.85);
+            --text-primary: #e0e0ff;
+            --text-secondary: #a0a0c0;
+            --text-muted: #6a6a8a;
+            --accent-blue: #667eea;
+            --accent-purple: #764ba2;
+            --accent-green: #48bb78;
+            --accent-red: #fc5c65;
+            --accent-orange: #ed8936;
+            --border: rgba(102, 126, 234, 0.15);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background orbs */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::before {
+            width: 500px; height: 500px;
+            background: var(--accent-blue);
+            top: -100px; right: -100px;
+        }
+        body::after {
+            width: 400px; height: 400px;
+            background: var(--accent-purple);
+            bottom: -80px; left: -80px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(102, 126, 234, 0.15);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            color: var(--accent-blue);
+            font-weight: 500;
+        }
+        .badge .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+        .tab {
+            padding: 10px 22px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .tab:hover { background: rgba(102, 126, 234, 0.1); }
+        .tab.active {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            border-color: transparent;
+        }
+        .tab .count {
+            display: inline-block;
+            margin-left: 6px;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        /* Cards */
+        .cards { display: flex; flex-direction: column; gap: 20px; }
+
+        .card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(102, 126, 234, 0.35);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+        .card-title {
+            font-size: 1.08rem;
+            font-weight: 600;
+            line-height: 1.4;
+            max-width: 70%;
+        }
+        .card-id {
+            font-size: 0.72rem;
+            font-family: 'Courier New', monospace;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.05);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .meta-item {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+        .meta-item strong { color: var(--text-primary); font-weight: 500; }
+
+        .card-insight {
+            background: rgba(102, 126, 234, 0.08);
+            border-left: 3px solid var(--accent-blue);
+            padding: 14px 18px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin-bottom: 16px;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .card-questions {
+            margin-bottom: 20px;
+        }
+        .card-questions h4 {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--accent-orange);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .card-questions ul {
+            list-style: none;
+            padding: 0;
+        }
+        .card-questions li {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            padding: 4px 0;
+        }
+        .card-questions li::before {
+            content: '❓ ';
+        }
+
+        /* Actions */
+        .card-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .btn {
+            padding: 10px 24px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-approve {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+        .btn-approve:hover { transform: scale(1.03); box-shadow: 0 4px 16px rgba(72, 187, 120, 0.3); }
+
+        .btn-reject {
+            background: linear-gradient(135deg, #fc5c65, #eb3b5a);
+            color: white;
+        }
+        .btn-reject:hover { transform: scale(1.03); box-shadow: 0 4px 16px rgba(252, 92, 101, 0.3); }
+
+        .btn-link {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--accent-blue);
+        }
+        .btn-link:hover { background: rgba(102, 126, 234, 0.1); }
+
+        .notes-input {
+            flex: 1;
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .notes-input:focus { border-color: var(--accent-blue); }
+        .notes-input::placeholder { color: var(--text-muted); }
+
+        /* Confidence bar */
+        .confidence-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+        .confidence-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        /* Empty state */
+        .empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+        }
+        .empty .icon { font-size: 3rem; margin-bottom: 16px; }
+        .empty h3 { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 8px; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 14px 24px;
+            border-radius: var(--radius-sm);
+            color: white;
+            font-weight: 500;
+            font-size: 0.9rem;
+            z-index: 999;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .toast.success { background: linear-gradient(135deg, #48bb78, #38a169); }
+        .toast.error { background: linear-gradient(135deg, #fc5c65, #eb3b5a); }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .header { flex-direction: column; gap: 12px; }
+            .card-header { flex-direction: column; gap: 8px; }
+            .card-title { max-width: 100%; }
+            .card-actions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔬 HITL Review Console</h1>
+            <div class="badge">
+                <span class="dot"></span>
+                <span id="status-text">Loading...</span>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="pending" onclick="switchTab('pending')">
+                ⏳ Pending <span class="count" id="pending-count">0</span>
+            </button>
+            <button class="tab" data-tab="approved" onclick="switchTab('approved')">
+                ✅ Approved <span class="count" id="approved-count">0</span>
+            </button>
+            <button class="tab" data-tab="rejected" onclick="switchTab('rejected')">
+                ❌ Rejected <span class="count" id="rejected-count">0</span>
+            </button>
+        </div>
+
+        <div class="cards" id="cards-container">
+            <div class="empty">
+                <div class="icon">⏳</div>
+                <h3>Loading reviews...</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const API_BASE = window.location.origin + '/api/hitl';
+        let currentTab = 'pending';
+
+        async function fetchReviews(tab) {
+            try {
+                const res = await fetch(`${API_BASE}/${tab}`);
+                const data = await res.json();
+                return data.reviews || [];
+            } catch (e) {
+                console.error('Fetch failed:', e);
+                return [];
+            }
+        }
+
+        async function loadAllCounts() {
+            const [pending, approved, rejected] = await Promise.all([
+                fetchReviews('pending'),
+                fetchReviews('approved'),
+                fetchReviews('rejected'),
+            ]);
+            document.getElementById('pending-count').textContent = pending.length;
+            document.getElementById('approved-count').textContent = approved.length;
+            document.getElementById('rejected-count').textContent = rejected.length;
+            document.getElementById('status-text').textContent =
+                pending.length > 0 ? `${pending.length} reviews pending` : 'All clear';
+            return { pending, approved, rejected };
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab').forEach(t => {
+                t.classList.toggle('active', t.dataset.tab === tab);
+            });
+            renderTab(tab);
+        }
+
+        async function renderTab(tab) {
+            const reviews = await fetchReviews(tab);
+            const container = document.getElementById('cards-container');
+
+            if (reviews.length === 0) {
+                const msgs = {
+                    pending: ['📭', 'No pending reviews', 'All papers have been processed.'],
+                    approved: ['✅', 'No approved reviews yet', 'Approve papers from the Pending tab.'],
+                    rejected: ['🚫', 'No rejected reviews', 'No papers have been rejected.'],
+                };
+                const [icon, title, subtitle] = msgs[tab];
+                container.innerHTML = `
+                    <div class="empty">
+                        <div class="icon">${icon}</div>
+                        <h3>${title}</h3>
+                        <p>${subtitle}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = reviews.map(r => renderCard(r, tab)).join('');
+        }
+
+        function renderCard(review, tab) {
+            const paper = review.paper || {};
+            const analysis = review.analysis || {};
+            const confidence = (review.confidence || 0);
+            const confPct = Math.round(confidence * 100);
+            const confColor = confPct >= 85 ? '#48bb78' : confPct >= 60 ? '#ed8936' : '#fc5c65';
+            const questions = review.review_questions || [];
+
+            const questionsHtml = questions.length > 0
+                ? `<div class="card-questions">
+                       <h4>Review Questions</h4>
+                       <ul>${questions.map(q => `<li>${q}</li>`).join('')}</ul>
+                   </div>`
+                : '';
+
+            const actionsHtml = tab === 'pending'
+                ? `<div class="card-actions">
+                       <input type="text" class="notes-input"
+                              id="notes-${review.review_id}"
+                              placeholder="Add review notes...">
+                       <button class="btn btn-approve"
+                               onclick="doAction('approve', '${review.review_id}')">
+                           ✅ Approve
+                       </button>
+                       <button class="btn btn-reject"
+                               onclick="doAction('reject', '${review.review_id}')">
+                           ❌ Reject
+                       </button>
+                   </div>`
+                : tab === 'approved'
+                    ? `<div class="card-actions">
+                           <span style="color: var(--accent-green); font-weight: 500;">
+                               ✅ Approved ${review.human_review?.notes ? '— ' + review.human_review.notes : ''}
+                           </span>
+                       </div>`
+                    : `<div class="card-actions">
+                           <span style="color: var(--accent-red); font-weight: 500;">
+                               ❌ Rejected ${review.human_review?.reason ? '— ' + review.human_review.reason : ''}
+                           </span>
+                       </div>`;
+
+            const urlBtn = paper.url
+                ? `<a href="${paper.url}" target="_blank" class="btn btn-link">🔗 View Paper</a>`
+                : '';
+
+            return `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">${paper.title || 'Untitled'}</div>
+                        <div class="card-id">${review.review_id || '—'}</div>
+                    </div>
+                    <div class="card-meta">
+                        <span class="meta-item">
+                            <strong>Score:</strong> ${analysis.relevance_score || 0}/100
+                        </span>
+                        <span class="meta-item">
+                            <strong>Confidence:</strong> ${confPct}%
+                        </span>
+                        <span class="meta-item">
+                            <strong>Source:</strong> ${paper.source || 'Unknown'}
+                        </span>
+                        <span class="meta-item">
+                            <strong>Platform:</strong> ${analysis.platform || 'Unknown'}
+                        </span>
+                        <span class="meta-item">
+                            <strong>DRAM:</strong> ${analysis.dram_impact || 'Unknown'}
+                        </span>
+                    </div>
+                    <div class="card-insight">
+                        💡 ${analysis.memory_insight || analysis.engineering_takeaway || 'No insight available'}
+                    </div>
+                    ${questionsHtml}
+                    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                        ${actionsHtml}
+                        ${urlBtn}
+                    </div>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill"
+                             style="width: ${confPct}%; background: ${confColor};"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function doAction(action, reviewId) {
+            const notesEl = document.getElementById(`notes-${reviewId}`);
+            const notes = notesEl ? notesEl.value : '';
+
+            try {
+                const res = await fetch(`${API_BASE}/${action}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ review_id: reviewId, notes }),
+                });
+                if (res.ok) {
+                    showToast(`Paper ${action}d successfully`, 'success');
+                    await loadAllCounts();
+                    renderTab(currentTab);
+                } else {
+                    const data = await res.json();
+                    showToast(data.detail || 'Action failed', 'error');
+                }
+            } catch (e) {
+                showToast('Network error', 'error');
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+
+        // Initial load
+        (async () => {
+            await loadAllCounts();
+            renderTab('pending');
+        })();
+
+        // Auto-refresh every 30 seconds
+        setInterval(async () => {
+            await loadAllCounts();
+            if (currentTab === 'pending') renderTab('pending');
+        }, 30000);
+    </script>
+</body>
+</html>

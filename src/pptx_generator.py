@@ -75,15 +75,12 @@ class PowerPointGenerator:
             self._add_executive_summary_slide(prs, insights)
             self._add_key_findings_slide(prs, insights)
 
-            # Sort by relevance
-            sorted_insights = sorted(
-                insights,
-                key=lambda x: x.get('relevance_score', 0),
-                reverse=True
-            )
+            # ── HARNESS PRINCIPLE: Source-Grouped Selection ──────────────
+            # Group by source, pick #1 from each, then fill remaining slots.
+            harness_insights = self._harness_select(insights)
 
-            # Add paper slides (top 6)
-            for idx, paper in enumerate(sorted_insights[:6], 1):
+            # Add paper slides (1 top per source)
+            for idx, paper in enumerate(harness_insights, 1):
                 self._add_paper_slide(prs, paper, idx)
 
             self._add_trends_slide(prs, insights)
@@ -106,6 +103,73 @@ class PowerPointGenerator:
         except Exception as e:
             logger.error(f"[PPT] Generation failed: {e}")
             return False
+
+    # ── Harness Principle ─────────────────────────────────────────────────
+
+    def _harness_select(
+        self, insights: List[Dict], top_per_source: int = 1, max_slides: int = 8
+    ) -> List[Dict]:
+        """
+        Source-grouped selection: pick the #1 item from each distinct source,
+        then fill remaining slots with the next-best globally.
+
+        This ensures balanced coverage across Apple, DeepMind, arXiv, Meta, etc.
+        instead of all slides coming from a single dominant source.
+        """
+        from collections import defaultdict
+
+        # Group by normalised source name
+        by_source = defaultdict(list)
+        for item in insights:
+            src = (
+                item.get('source', '')
+                or item.get('source_platform', '')
+                or 'Unknown'
+            ).strip().lower()
+            by_source[src].append(item)
+
+        # Sort each group by score (descending)
+        for src in by_source:
+            by_source[src].sort(
+                key=lambda x: float(x.get('relevance_score', 0)), reverse=True
+            )
+
+        selected = []
+        used_titles = set()
+
+        # Pass 1: top N from each source
+        for src, items in by_source.items():
+            for item in items[:top_per_source]:
+                title = item.get('title', '')
+                if title not in used_titles:
+                    selected.append(item)
+                    used_titles.add(title)
+
+        # Pass 2: fill remaining slots from globally sorted leftovers
+        if len(selected) < max_slides:
+            all_sorted = sorted(
+                insights,
+                key=lambda x: float(x.get('relevance_score', 0)),
+                reverse=True,
+            )
+            for item in all_sorted:
+                if len(selected) >= max_slides:
+                    break
+                title = item.get('title', '')
+                if title not in used_titles:
+                    selected.append(item)
+                    used_titles.add(title)
+
+        # Final sort so slides appear in score order
+        selected.sort(
+            key=lambda x: float(x.get('relevance_score', 0)), reverse=True
+        )
+
+        logger.info(
+            f"[PPT] Harness selected {len(selected)} papers from "
+            f"{len(by_source)} sources (max {max_slides})"
+        )
+        return selected
 
     def _add_title_slide(self, prs: Presentation, insights: List[Dict]):
         """Add title slide"""
