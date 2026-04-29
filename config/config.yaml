@@ -392,15 +392,16 @@ podcast:
     - "mp3"      # Always generate MP3
     - "wav"      # Also generate WAV
 
+
 # ============================================================================
 # Report Output Configuration
 # ============================================================================
 
 report:
   # Output directories (can be overridden by environment variables)
-  output_dir: "results/reports"
-  backup_dir: "results/backup"
-  podcast_dir: "results/podcasts"
+  output_dir: 'results/reports'
+  backup_dir: 'results/backup'
+  podcast_dir: 'results/podcasts'
 
   # Summary configuration
   summary:
@@ -427,3 +428,11 @@ features:
   use_json_summaries: true  # Enable JSON summary output
   use_async_pipeline: false  # Enable async analysis for 2-3x throughput
   use_graceful_shutdown: true  # Flush vector store & history on exit
+
+# NVIDIA NIM - Kimi-K2 Thinking (Stage 4: Deep Synthesis)
+# Set NVIDIA_NIM_API_KEY env var to enable. Get free key: https://build.nvidia.com
+nim:
+  model: 'moonshotai/kimi-k2-thinking'
+  min_score_for_synthesis: 50  # TurboQuant: only synthesize papers scoring >= this
+  max_tokens: 4096
+  temperature: 0.2

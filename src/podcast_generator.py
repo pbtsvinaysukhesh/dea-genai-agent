@@ -36,6 +36,14 @@ except ImportError:
     logger.warning("[Audio] gtts not installed. Install with: pip install gtts")
 
 try:
+    import edge_tts
+    import asyncio
+    HAS_EDGE_TTS = True
+except ImportError:
+    HAS_EDGE_TTS = False
+    logger.info("[Audio] edge-tts not installed. Install for neural voices: pip install edge-tts")
+
+try:
     from pydub import AudioSegment
     HAS_PYDUB = True
 except ImportError:
@@ -110,20 +118,34 @@ class PodcastGenerator:
         self.has_gtts = HAS_GTTS
         self.has_pydub = HAS_PYDUB
         self.has_google_tts = HAS_GOOGLE_TTS
+        self.has_edge_tts = HAS_EDGE_TTS
+
+        # Edge-TTS voice mapping (Microsoft Neural voices — free, high quality)
+        self.edge_voices = {
+            "Explainer": "en-US-GuyNeural",       # Male, professional
+            "Questioner": "en-US-JennyNeural",     # Female, conversational
+            "Anchor": "en-US-DavisNeural",         # Male, authoritative
+            "Analyst": "en-US-TonyNeural",         # Male, analytical
+            "Skeptic": "en-GB-RyanNeural",         # Male, British skeptical
+            "Futurist": "en-US-AriaNeural",        # Female, visionary
+        }
+
+        if self.has_edge_tts:
+            logger.info("[Audio] ✓ edge-tts available (neural voices, free)")
 
         if self.has_google_tts:
             try:
                 self.google_client = texttospeech.TextToSpeechClient()
                 logger.info("[Audio] Google Cloud TTS initialized")
             except Exception as e:
-                logger.warning(f"[Audio] Google Cloud TTS auth failed: {e}. Will use gTTS fallback.")
+                logger.warning(f"[Audio] Google Cloud TTS auth failed: {e}. Will use edge-tts/gTTS fallback.")
                 self.has_google_tts = False
                 self.google_client = None
         else:
             self.google_client = None
 
-        if not self.has_gtts:
-            logger.warning("[Audio] gTTS required as fallback. Install: pip install gtts")
+        if not self.has_gtts and not self.has_edge_tts:
+            logger.warning("[Audio] Install edge-tts or gtts: pip install edge-tts")
 
     def generate(
         self,
@@ -164,7 +186,9 @@ class PodcastGenerator:
 
         try:
             mp3_path = None
-            if self.has_google_tts and self.google_client:
+            if self.has_edge_tts and self.has_pydub:
+                mp3_path = self._generate_with_edge_tts(insights)
+            elif self.has_google_tts and self.google_client:
                 mp3_path = self._generate_with_google_tts(insights)
             elif self.has_gtts:
                 mp3_path = self._generate_with_gtts_fallback(insights)
@@ -218,6 +242,70 @@ class PodcastGenerator:
         )
         result = engine.generate(insights, run_id=run_id)
         return {"mp3": result.get("mp3"), "wav": result.get("wav")}
+
+    def _generate_with_edge_tts(self, insights: List[Dict]) -> Optional[Path]:
+        """
+        Generate podcast using Microsoft Edge Neural TTS (free, high quality).
+        Each speaker gets a distinct neural voice for natural conversation feel.
+        """
+        try:
+            timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            mp3_path = self.output_dir / f"podcast_{timestamp}.mp3"
+
+            dialog = self._build_dialog_script(insights)
+            logger.info(
+                f"[Audio] Synthesizing {len(dialog)} segments with edge-tts "
+                f"({len(set(s for s, _ in dialog))} distinct voices)..."
+            )
+
+            async def _synthesize_all():
+                segments = []
+                for speaker, text in dialog:
+                    voice = self.edge_voices.get(speaker, "en-US-GuyNeural")
+                    # Create temp file for each segment
+                    seg_path = self.output_dir / f"_seg_{len(segments)}.mp3"
+                    communicate = edge_tts.Communicate(text, voice, rate="+5%")
+                    await communicate.save(str(seg_path))
+
+                    audio_seg = AudioSegment.from_mp3(str(seg_path))
+                    segments.append(audio_seg)
+                    # Natural pause between speakers (600ms)
+                    segments.append(AudioSegment.silent(duration=600))
+
+                    # Cleanup temp file
+                    try:
+                        seg_path.unlink()
+                    except Exception:
+                        pass
+                return segments
+
+            # Run async synthesis
+            loop = asyncio.new_event_loop()
+            try:
+                audio_segments = loop.run_until_complete(_synthesize_all())
+            finally:
+                loop.close()
+
+            if not audio_segments:
+                logger.error("[Audio] No edge-tts segments generated")
+                return None
+
+            # Concatenate
+            combined = audio_segments[0]
+            for seg in audio_segments[1:]:
+                combined += seg
+
+            combined.export(str(mp3_path), format="mp3", bitrate="192k")
+            logger.info(f"[Audio] ✓ edge-tts podcast generated: {mp3_path}")
+            return mp3_path
+
+        except Exception as e:
+            logger.error(f"[Audio] edge-tts generation failed: {e}")
+            # Fallback to gTTS
+            if self.has_gtts:
+                logger.info("[Audio] Falling back to gTTS...")
+                return self._generate_with_gtts_fallback(insights)
+            return None
 
     def _generate_with_google_tts(self, insights: List[Dict]) -> Optional[Path]:
         """Generate podcast using Google Cloud Text-to-Speech with multiple voices"""
@@ -337,8 +425,154 @@ class PodcastGenerator:
 
     def _build_dialog_script(self, insights: List[Dict]) -> List[Tuple[str, str]]:
         """
-        Build natural, story-driven podcast script like professional news/tech speakers.
-        NOT keyword reading - actual engaging narrative discussion.
+        Build natural, two-expert podcast conversation.
+
+        Strategy:
+        1. Extract structured talking points from data
+        2. Send to Kimi-K2 (NIM) for natural conversation rewrite
+        3. Fall back to template if NIM unavailable
+        """
+        # Try AI-rewritten dialog first (sounds natural)
+        nim_key = os.getenv("NVIDIA_NIM_API_KEY")
+        if nim_key:
+            ai_dialog = self._ai_rewrite_dialog(insights)
+            if ai_dialog:
+                return ai_dialog
+
+        # Fallback: template-based dialog
+        return self._build_template_dialog(insights)
+
+    def _ai_rewrite_dialog(self, insights: List[Dict]) -> Optional[List[Tuple[str, str]]]:
+        """
+        Use Kimi-K2 to rewrite research data into natural two-expert conversation.
+        Returns list of (speaker, text) tuples ready for TTS.
+        """
+        try:
+            from langchain_nvidia_ai_endpoints import ChatNVIDIA
+
+            nim_key = os.getenv("NVIDIA_NIM_API_KEY")
+            client = ChatNVIDIA(
+                model="moonshotai/kimi-k2-thinking",
+                api_key=nim_key,
+                temperature=0.7,
+                max_tokens=8192,
+            )
+
+            # Build structured talking points
+            today = datetime.now().strftime("%B %d, %Y")
+            total = len(insights)
+            avg_score = sum(i.get('relevance_score', 0) for i in insights) / total if total > 0 else 0
+            sorted_papers = sorted(insights, key=lambda x: x.get('relevance_score', 0), reverse=True)
+
+            # Top 5 paper summaries
+            paper_briefs = []
+            for i, p in enumerate(sorted_papers[:5], 1):
+                exec_sum = p.get('executive_summary', '') or p.get('memory_insight', 'N/A')
+                why = p.get('why_it_matters', '') or p.get('engineering_takeaway', 'N/A')
+                metrics = p.get('key_metrics', [])
+                brief = p.get('research_brief', {})
+
+                paper_briefs.append(f"""
+Paper {i}: "{p.get('title', 'Unknown')}" (Score: {p.get('relevance_score', 0)}/100)
+Source: {p.get('source', 'Unknown')} | Platform: {p.get('platform', 'Unknown')}
+Summary: {exec_sum[:300]}
+Why it matters: {why[:200]}
+Key metrics: {', '.join(str(m) for m in metrics[:3]) if metrics else 'N/A'}
+Problem: {brief.get('problem', 'N/A') if isinstance(brief, dict) else 'N/A'}
+Result: {brief.get('result', 'N/A') if isinstance(brief, dict) else 'N/A'}
+""".strip())
+
+            papers_block = "\n\n".join(paper_briefs)
+
+            # Platform & DRAM stats
+            high_dram = len([i for i in insights if i.get('dram_impact') == 'High'])
+            platforms = {}
+            for item in insights:
+                p = item.get('platform', 'Unknown')
+                platforms[p] = platforms.get(p, 0) + 1
+
+            prompt = f"""You are a podcast scriptwriter for a 10-minute AI research podcast.
+
+Write a natural conversation between TWO experts:
+- **Explainer** (Vinay): Senior memory & storage research analyst. Authoritative but approachable. Uses analogies. Gets excited about breakthroughs.
+- **Questioner** (Priya): Hands-on ML engineer. Asks sharp follow-up questions. Skeptical of hype. Wants to know "can I actually use this Monday morning?"
+
+DATE: {today}
+PAPERS ANALYZED: {total} (avg relevance: {avg_score:.0f}/100)
+HIGH DRAM-IMPACT PAPERS: {high_dram}
+PLATFORM DISTRIBUTION: {dict(sorted(platforms.items(), key=lambda x: x[1], reverse=True))}
+
+TOP RESEARCH:
+{papers_block}
+
+RULES FOR THE SCRIPT:
+1. Start with a warm greeting: "Hello everyone, welcome to Vinay's DEA podcast"
+2. Sound like two real experts talking over coffee — NOT reading a report
+3. Use natural speech patterns: "So here's the thing...", "Wait, really?", "That's actually huge because...", "OK but here's what I'd push back on..."
+4. Include genuine reactions: surprise, skepticism, excitement
+5. When discussing a paper, don't just recite — tell the STORY. Why did the researchers do this? What problem were they frustrated by?
+6. Have Priya challenge Vinay at least twice: "Hold on, that sounds too good to be true" or "But what about the latency tradeoff?"
+7. Include at least one moment where they agree on something important
+8. End with practical advice: "If you're an engineer and you only take one thing from today..."
+9. Keep each speaking turn to 2-4 sentences max (TTS sounds unnatural with long monologues)
+10. Cover 3-4 papers in depth, mention the rest briefly
+11. Total script should be 40-60 speaking turns
+12. Do NOT use markdown formatting, asterisks, or special characters — this goes directly to text-to-speech
+
+FORMAT — Return ONLY lines in this exact format, no other text:
+Explainer: Hello everyone, welcome to Vinay's DEA podcast.
+Questioner: Great to be here. What are we looking at today?
+Explainer: So this week we analyzed...
+
+Every line must start with either "Explainer:" or "Questioner:" followed by their spoken text.
+No stage directions, no parentheses, no asterisks."""
+
+            logger.info("[Audio] Sending to Kimi-K2 for natural dialog rewrite...")
+            response = client.invoke(prompt)
+
+            if not response or not response.content:
+                logger.warning("[Audio] NIM returned empty response for dialog rewrite")
+                return None
+
+            text = response.content.strip()
+
+            # Handle thinking tokens
+            if '<think>' in text and '</think>' in text:
+                text = text.split('</think>')[-1].strip()
+
+            # Parse the response into (speaker, text) tuples
+            dialog = []
+            for line in text.split('\n'):
+                line = line.strip()
+                if not line:
+                    continue
+                if line.startswith('Explainer:'):
+                    spoken = line[len('Explainer:'):].strip()
+                    if spoken:
+                        dialog.append(("Explainer", spoken))
+                elif line.startswith('Questioner:'):
+                    spoken = line[len('Questioner:'):].strip()
+                    if spoken:
+                        dialog.append(("Questioner", spoken))
+
+            if len(dialog) < 10:
+                logger.warning(f"[Audio] AI dialog too short ({len(dialog)} turns), falling back to template")
+                return None
+
+            logger.info(f"[Audio] ✓ Kimi-K2 generated natural dialog: {len(dialog)} turns")
+            return dialog
+
+        except ImportError:
+            logger.info("[Audio] langchain-nvidia-ai-endpoints not available for dialog rewrite")
+            return None
+        except Exception as e:
+            logger.warning(f"[Audio] AI dialog rewrite failed: {e}")
+            return None
+
+    def _build_template_dialog(self, insights: List[Dict]) -> List[Tuple[str, str]]:
+        """
+        Fallback template-based dialog when NIM is unavailable.
+        Still better than raw data reading — uses structured fields.
         """
         today = datetime.now().strftime("%B %d, %Y")
         dialog = []
@@ -352,110 +586,69 @@ and joining me today is a research specialist who helps us break down what's rea
 in the world of efficient AI on mobile and edge devices.
         """.strip()))
 
-        # HOOK - Why this matters
+        # HOOK
         total_papers = len(insights)
-        dialog.append(("Questioner", "So we've been tracking AI research for on-device deployment. What kind of momentum are we seeing?"))
-
         avg_score = sum(i.get('relevance_score', 0) for i in insights) / total_papers if total_papers > 0 else 0
+
+        dialog.append(("Questioner", "What are we looking at today? Give me the headline."))
+
         dialog.append(("Explainer", f"""
-This week is actually fascinating. We've gone through {total_papers} distinct research papers and projects,
-and the quality is remarkable. On average, these are scoring {avg_score:.1f} out of 100 for relevance to practical on-device AI.
-What that tells me is that we're not looking at academic papers that live in journals. We're seeing real work
-that engineers can actually use to deploy AI in the real world. That's the sweet spot where research meets practice.
+We analyzed {total_papers} research papers this week, averaging {avg_score:.0f} out of 100
+on our relevance scale. There are some genuinely exciting findings here that engineers
+can start using right away.
         """.strip()))
 
-        # KEY TRENDS
-        platforms = {}
-        model_types = {}
-        for item in insights:
-            platform = item.get('platform', 'Unknown')
-            platforms[platform] = platforms.get(platform, 0) + 1
-            model_type = item.get ('model_type', 'Unknown')
-            model_types[model_type] = model_types.get(model_type, 0) + 1
-
-        dialog.append(("Questioner", "What platforms are all these papers focused on?"))
-
-        platforms_desc = ", ".join([f"{count} focused on {platform}" for platform, count in sorted(platforms.items(), key=lambda x: x[1], reverse=True)])
-        dialog.append(("Explainer", f"""
-We're seeing really broad platform coverage this week. {platforms_desc}.
-The diversity is actually important because it tells us the industry is serious about making AI work everywhere.
-You can't just optimize for one platform anymore. Mobile, laptop, embedded systems - they all have different constraints.
-        """.strip()))
-
-        # DEEP DIVE INTO TOP PAPERS
+        # TOP PAPERS
         sorted_insights = sorted(insights, key=lambda x: x.get('relevance_score', 0), reverse=True)
 
-        dialog.append(("Questioner", f"Alright, let's dig into the actual findings. What are the top {min(5, total_papers)} most impactful papers?"))
+        dialog.append(("Questioner", "Alright, walk me through the highlights."))
 
-        dialog.append(("Explainer", f"Great, let's tell the story of what these researchers are actually discovering."))
-
-        for idx, paper in enumerate(sorted_insights[:min(6, len(sorted_insights))], 1):
+        for idx, paper in enumerate(sorted_insights[:min(5, len(sorted_insights))], 1):
             title = paper.get('title', 'Unknown')
             score = paper.get('relevance_score', 0)
             platform = paper.get('platform', 'Unknown')
-            memory_insight = paper.get('memory_insight', 'N/A')
-            dram_impact = paper.get('dram_impact', 'Unknown')
-            takeaway = paper.get('engineering_takeaway', 'N/A')
-            model_type = paper.get('model_type', 'Unknown')
             source = paper.get('source', 'Unknown')
 
-            # Tell the story of this paper
+            exec_summary = paper.get('executive_summary', '') or paper.get('memory_insight', 'N/A')
+            why_matters = paper.get('why_it_matters', '') or paper.get('engineering_takeaway', 'N/A')
+
+            metrics = paper.get('key_metrics', [])
+            metrics_str = ""
+            if metrics and isinstance(metrics, list):
+                metrics_str = f" Key numbers: {', '.join(str(m) for m in metrics[:3])}."
+
             dialog.append(("Explainer", f"""
-Let me tell you about research number {idx}: "{title}" from {source}.
-This scored a {score}, which means this is serious, implementable work. The paper focuses on {model_type} models
-and how to deploy them on {platform} devices. Here's what makes it valuable: {memory_insight}.
+Number {idx}: "{title}" from {source}, scoring {score} out of 100.
+{exec_summary[:250]}{metrics_str}
             """.strip()))
 
-            # Have questioner ask a natural follow-up
-            dialog.append(("Questioner", f"That's really interesting. Why does that matter? What's the real-world impact?"))
+            questions = [
+                "OK so what does that actually mean for someone shipping a product?",
+                "Interesting. Would you bet on this approach or is it still too early?",
+                "How does this compare to what we saw last week?",
+                "That's a strong claim. Where's the catch?",
+                "Can I use this on a phone today or is this still lab-only?",
+            ]
+            dialog.append(("Questioner", questions[(idx - 1) % len(questions)]))
 
-            # Answer with practical implications
             dialog.append(("Explainer", f"""
-This matters because {takeaway}. The DRAM impact is rated as {dram_impact}, which tells you how serious
-this constraint is. On {platform}, memory is often the limiting factor that determines whether you can even run the model.
-This research shows a genuine path forward that practitioners are using right now.
+{why_matters[:200]} This is targeting {platform} deployment specifically.
             """.strip()))
-
-        # MEMORY ENGINEERING ANGLE
-        high_impact = len([i for i in insights if i.get('dram_impact') == 'High'])
-        medium_impact = len([i for i in insights if i.get('dram_impact') == 'Medium'])
-
-        dialog.append(("Questioner", "You keep mentioning DRAM as a constraint. Are papers really that focused on memory?"))
-
-        dialog.append(("Explainer", f"""
-Absolutely. This week we saw {high_impact} papers directly addressing high DRAM constraints,
-and {medium_impact} more dealing with medium-tier memory challenges. Think about it: if you're trying to run
-an AI model on a phone or edge device, you can't just add more RAM like you would with a server.
-You have to work with what's there. That forces fascinating engineering solutions.
-Different quantization strategies, clever activation swapping, architectural changes.
-It's making the entire field think about efficiency, not just raw power.
-        """.strip()))
-
-        # TRENDS AND WRAP-UP
-        dialog.append(("Questioner", "What's the big picture? Where is this all heading?"))
-
-        dialog.append(("Explainer", f"""
-We're at an inflection point. For years, AI was about making bigger models with more compute.
-Now we're asking: how do we make this work everywhere? In pockets, in cars, in edge devices,
-in situations where you can't phone home to a data center. The papers this week show
-that the industry has answers. Not perfect answers yet, but real, working solutions.
-That shift from "can we?" to "how do we do it efficiently?" - that's the story of the research right now.
-        """.strip()))
-
-        # CALL TO ACTION
-        dialog.append(("Explainer", """
-All these findings, all these papers with their source links and technical details,
-they're in your full intelligence report. Check out the PDFs, the slide deck,
-the comprehensive resource list. Everything is there for you to go deeper.
-        """.strip()))
 
         # CLOSING
-        dialog.append(("Questioner", "Thanks for that perspective. Really valuable for everyone building AI systems."))
+        dialog.append(("Questioner", "If someone only remembers one thing from today, what should it be?"))
 
         dialog.append(("Explainer", """
-Thanks for being here. This is the kind of analysis that matters - taking all the noise
-from the research community and distilling it into what you actually need to know to build better AI systems.
-That's what we do here. Same time next week with fresh insights.
+The gap between research and deployment is closing fast. The techniques we covered today
+are not five-year-out ideas. They're things you can prototype this month.
+Check the full report for implementation details and source links.
+        """.strip()))
+
+        dialog.append(("Questioner", "Great insights. Thanks for breaking it down."))
+
+        dialog.append(("Explainer", """
+Thanks for listening everyone. Same time next week with fresh research.
+This has been Vinay's DEA podcast.
         """.strip()))
 
         return dialog

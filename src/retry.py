@@ -213,8 +213,121 @@ class CircuitBreaker:
         }
 
 
+# ── 429 Rate-Limit Utilities ─────────────────────────────────────────────────
+
+class RateLimitError(Exception):
+    """Raised when a 429 Too Many Requests is detected from any API."""
+
+    def __init__(self, message: str = "Rate limit exceeded", retry_after: float = 0):
+        super().__init__(message)
+        self.retry_after = retry_after   # seconds the server asked us to wait
+
+
+def is_rate_limit_error(exc: Exception) -> bool:
+    """
+    Detect whether *any* exception is a 429 / rate-limit error.
+
+    Works across:
+      - ``requests.Response`` (status_code == 429)
+      - ``groq.RateLimitError``
+      - ``google.api_core.exceptions.ResourceExhausted``
+      - Generic exception messages containing 'rate limit' or '429'
+    """
+    exc_str = str(exc).lower()
+
+    # Keyword match (catches Groq, Gemini, OpenAI, and generic HTTP libs)
+    if any(kw in exc_str for kw in ("rate limit", "429", "too many requests",
+                                     "resource exhausted", "quota exceeded",
+                                     "ratelimiterror")):
+        return True
+
+    # Groq SDK raises groq.RateLimitError
+    if type(exc).__name__ == "RateLimitError":
+        return True
+
+    # google-genai raises google.api_core.exceptions.ResourceExhausted
+    if type(exc).__name__ == "ResourceExhausted":
+        return True
+
+    return False
+
+
+def parse_retry_after(exc: Exception) -> float:
+    """
+    Extract the Retry-After value (in seconds) from an exception.
+
+    Checks:
+      1. ``exc.response.headers['Retry-After']``  (requests / httpx)
+      2. ``exc.retry_after``                       (Groq SDK)
+      3. Regex for "try again in X.Xs" in the message (Groq error body)
+
+    Returns a sensible default (30s) if nothing is parseable.
+    """
+    import re
+
+    # 1. requests-style: exc.response.headers
+    resp = getattr(exc, "response", None)
+    if resp is not None:
+        hdr = None
+        if hasattr(resp, "headers"):
+            hdr = resp.headers.get("Retry-After") or resp.headers.get("retry-after")
+        if hdr:
+            try:
+                return float(hdr)
+            except ValueError:
+                pass
+
+    # 2. Groq SDK: exc.retry_after (float seconds)
+    retry_attr = getattr(exc, "retry_after", None)
+    if retry_attr is not None:
+        try:
+            return float(retry_attr)
+        except (ValueError, TypeError):
+            pass
+
+    # 3. Parse from message: "try again in 42.5s" or "Please retry after 60 seconds"
+    msg = str(exc)
+    match = re.search(r"(?:try again in|retry after)\s*(\d+\.?\d*)\s*s", msg, re.I)
+    if match:
+        return float(match.group(1))
+
+    # Fallback
+    return 30.0
+
+
+def smart_rate_limit_sleep(exc: Exception, attempt: int = 0,
+                           max_wait: float = 120.0) -> float:
+    """
+    Sleep for the appropriate duration after a 429 error.
+
+    Strategy:
+      1. Parse Retry-After from the exception
+      2. Add jitter (+0-5s random) to avoid thundering herd
+      3. Cap at max_wait
+      4. Log clearly so the operator knows what's happening
+
+    Returns: actual seconds slept.
+    """
+    import random
+
+    base = parse_retry_after(exc)
+    jitter = random.uniform(0, min(5.0, base * 0.1))
+    wait = min(base + jitter, max_wait)
+
+    logger.warning(
+        f"[RateLimit] 429 detected (attempt {attempt + 1}). "
+        f"Retry-After={base:.1f}s + jitter={jitter:.1f}s → sleeping {wait:.1f}s"
+    )
+    time.sleep(wait)
+    return wait
+
+
 __all__ = [
     "retry_with_backoff",
     "async_retry_with_backoff",
     "CircuitBreaker",
+    "RateLimitError",
+    "is_rate_limit_error",
+    "parse_retry_after",
+    "smart_rate_limit_sleep",
 ]

@@ -279,66 +279,134 @@ class PowerPointGenerator:
             findings.append(f"   • {tech}: {count} papers")
 
         findings.append("")
-        findings.append("💡 Key Insights:")
-        findings.append("   • Strong focus on DRAM bandwidth optimization")
-        findings.append("   • Quantization methods are trending across platforms")
-        findings.append("   • Mobile inference optimization is a primary concern")
+
+        # Data-driven insights instead of hardcoded generic text
+        dram_dist = {}
+        platform_dist = {}
+        for item in insights:
+            d = item.get('dram_impact', 'Unknown')
+            dram_dist[d] = dram_dist.get(d, 0) + 1
+            p = item.get('platform', 'Unknown')
+            platform_dist[p] = platform_dist.get(p, 0) + 1
+
+        findings.append("📊 DRAM Impact Distribution:")
+        for impact, count in sorted(dram_dist.items(), key=lambda x: x[1], reverse=True):
+            findings.append(f"   • {impact}: {count} papers")
+
+        findings.append("")
+        findings.append("🖥️ Platform Coverage:")
+        for plat, count in sorted(platform_dist.items(), key=lambda x: x[1], reverse=True)[:4]:
+            findings.append(f"   • {plat}: {count} papers")
+
+        # Top paper highlight
+        top = sorted(insights, key=lambda x: x.get('relevance_score', 0), reverse=True)
+        if top:
+            top_title = top[0].get('title', 'Unknown')[:60]
+            top_score = top[0].get('relevance_score', 0)
+            findings.append("")
+            findings.append(f"⭐ Top Paper: \"{top_title}\" (Score: {top_score}/100)")
 
         for idx, finding in enumerate(findings):
             if idx > 0:
                 text_frame.add_paragraph()
             p = text_frame.paragraphs[idx]
             p.text = finding
-            p.font.size = Pt(18)
+            p.font.size = Pt(16)
             p.font.color.rgb = self.colors['text']
-            p.space_before = Pt(6)
+            p.space_before = Pt(4)
 
     def _add_paper_slide(self, prs: Presentation, paper: Dict, rank: int):
-        """Add paper detail slide"""
+        """Add structured research brief slide"""
         slide = prs.slides.add_slide(prs.slide_layouts[1])
         title = slide.shapes.title
-        title.text = f"#{rank}: {paper.get('title', 'Unknown')[:50]}"
-        title.text_frame.paragraphs[0].font.size = Pt(32)
+        paper_title = paper.get('title', 'Unknown')
+        title.text = f"#{rank}: {paper_title[:55]}"
+        title.text_frame.paragraphs[0].font.size = Pt(28)
         title.text_frame.paragraphs[0].font.color.rgb = self.colors['primary']
 
-        # Content
-        left = Inches(0.5)
-        top = Inches(1.5)
-        width = Inches(9)
-        height = Inches(5.5)
-
-        text_box = slide.shapes.add_textbox(left, top, width, height)
-        text_frame = text_box.text_frame
-        text_frame.word_wrap = True
-
+        # ── Metadata ribbon ──────────────────────────────────────────────
         score = paper.get('relevance_score', 0)
         platform = paper.get('platform', 'Unknown')
         model_type = paper.get('model_type', 'Unknown')
         dram_impact = paper.get('dram_impact', 'Unknown')
-        memory_insight = paper.get('memory_insight', 'N/A')
-        takeaway = paper.get('engineering_takeaway', 'N/A')
+        source = paper.get('source', 'Unknown')
 
-        content = [
-            f"Score: {score}/100 | Platform: {platform} | Model: {model_type}",
-            f"DRAM Impact: {dram_impact}",
-            "",
-            "💾 Memory Insight:",
-            str(memory_insight)[:200],
-            "",
-            "⚙️ Engineering Takeaway:",
-            str(takeaway)[:200],
-        ]
+        ribbon_box = slide.shapes.add_textbox(Inches(0.5), Inches(1.3), Inches(9), Inches(0.4))
+        ribbon_frame = ribbon_box.text_frame
+        ribbon_frame.text = (
+            f"Score: {score}/100  •  {platform}  •  {model_type}  •  "
+            f"DRAM: {dram_impact}  •  Source: {source}"
+        )
+        ribbon_frame.paragraphs[0].font.size = Pt(11)
+        ribbon_frame.paragraphs[0].font.color.rgb = RGBColor(0x88, 0x88, 0xAA)
+        ribbon_frame.paragraphs[0].font.bold = True
 
-        for idx, line in enumerate(content):
+        # ── Main content area ────────────────────────────────────────────
+        text_box = slide.shapes.add_textbox(Inches(0.5), Inches(1.85), Inches(9), Inches(5.2))
+        text_frame = text_box.text_frame
+        text_frame.word_wrap = True
+
+        # Try new structured fields first, fall back to legacy
+        exec_summary = paper.get('executive_summary', '')
+        research_brief = paper.get('research_brief', {})
+        key_metrics = paper.get('key_metrics', [])
+        why_matters = paper.get('why_it_matters', '')
+        impl_guide = paper.get('implementation_guidance', '')
+
+        # Legacy fallback
+        if not exec_summary:
+            memory_insight = str(paper.get('memory_insight', 'N/A'))
+            takeaway = str(paper.get('engineering_takeaway', 'N/A'))
+            exec_summary = f"{memory_insight} {takeaway}"
+
+        content_blocks = []
+
+        # Executive Summary
+        content_blocks.append(("📋 Executive Summary", True, Pt(13), self.colors['accent']))
+        content_blocks.append((exec_summary[:400], False, Pt(12), self.colors['text']))
+        content_blocks.append(("", False, Pt(6), self.colors['text']))
+
+        # Research Brief (Problem → Method → Result)
+        if isinstance(research_brief, dict) and research_brief:
+            content_blocks.append(("🔬 Research Brief", True, Pt(13), self.colors['accent']))
+            problem = research_brief.get('problem', '')
+            method = research_brief.get('method', '')
+            result = research_brief.get('result', '')
+            if problem:
+                content_blocks.append((f"Problem: {problem[:150]}", False, Pt(11), self.colors['text']))
+            if method:
+                content_blocks.append((f"Method: {method[:150]}", False, Pt(11), self.colors['text']))
+            if result:
+                content_blocks.append((f"Result: {result[:150]}", False, Pt(11), self.colors['text']))
+            content_blocks.append(("", False, Pt(6), self.colors['text']))
+
+        # Key Metrics
+        if key_metrics and isinstance(key_metrics, list):
+            content_blocks.append(("📊 Key Metrics", True, Pt(13), self.colors['accent']))
+            metrics_text = "  •  ".join(str(m)[:60] for m in key_metrics[:5])
+            content_blocks.append((metrics_text, False, Pt(11), self.colors['text']))
+            content_blocks.append(("", False, Pt(6), self.colors['text']))
+
+        # Why It Matters
+        if why_matters:
+            content_blocks.append(("💡 Why It Matters", True, Pt(13), self.colors['accent']))
+            content_blocks.append((str(why_matters)[:250], False, Pt(11), self.colors['text']))
+
+        # Implementation Guidance
+        if impl_guide:
+            content_blocks.append(("⚙️ Implementation", True, Pt(12), self.colors['accent']))
+            content_blocks.append((str(impl_guide)[:200], False, Pt(11), self.colors['text']))
+
+        # Render all blocks
+        for idx, (text, bold, size, color) in enumerate(content_blocks):
             if idx > 0:
                 text_frame.add_paragraph()
             p = text_frame.paragraphs[idx]
-            p.text = line
-            p.font.size = Pt(16)
-            p.font.color.rgb = self.colors['text']
-            if idx in [0, 2, 4, 6]:  # Headers
-                p.font.bold = True
-            p.space_before = Pt(4)
+            p.text = text
+            p.font.size = size
+            p.font.color.rgb = color
+            p.font.bold = bold
+            p.space_before = Pt(2)
 
     def _add_trends_slide(self, prs: Presentation, insights: List[Dict]):
         """Add trends slide"""

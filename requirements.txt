@@ -56,3 +56,4 @@ crewai
 crewai-tools  # Only for high-value papers
 
 # NOTE: Ollama support optional via ENABLE_OLLAMA env var
+langchain-nvidia-ai-endpoints

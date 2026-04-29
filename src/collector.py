@@ -212,7 +212,26 @@ class Collector:
                     headers={'User-Agent': self.config.USER_AGENT}
                 )
                 if response.status_code == 200: return response
-                
+
+                # 429 Too Many Requests — honour Retry-After
+                if response.status_code == 429:
+                    if HAS_RETRY:
+                        from src.retry import smart_rate_limit_sleep
+                        smart_rate_limit_sleep(
+                            Exception(f"HTTP 429 from {url}"), attempt
+                        )
+                    else:
+                        retry_after = response.headers.get('Retry-After', '30')
+                        try:
+                            wait = min(float(retry_after), 120)
+                        except ValueError:
+                            wait = 30
+                        logger.warning(
+                            f"[Collector] 429 from {url} — sleeping {wait}s"
+                        )
+                        time.sleep(wait)
+                    continue
+
                 # Do not retry 400/403/404
                 if response.status_code in [400, 401, 403, 404]:
                     logger.warning(f"Dead Link ({response.status_code}): {url}")
