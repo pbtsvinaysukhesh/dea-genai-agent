@@ -12,7 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 
-from app.routers import papers_improved as papers, chat, pipeline, stats, hitl
+from app.routers import papers_improved as papers, chat, pipeline, stats, hitl, dashboard
 from app.services.connection_manager import ConnectionManager
 from app.services.chat_service import ChatService
 
@@ -54,11 +54,26 @@ app.include_router(chat.router,     prefix="/api/chat",     tags=["Chat"])
 app.include_router(pipeline.router, prefix="/api/pipeline", tags=["Pipeline"])
 app.include_router(stats.router,    prefix="/api/stats",    tags=["Stats"])
 app.include_router(hitl.router,     prefix="/api/hitl",     tags=["HITL"])
+app.include_router(dashboard.router, prefix="/api/dashboard", tags=["Dashboard"])
 
 
 @app.get("/health")
 async def health():
     return {"status": "ok", "timestamp": datetime.now().isoformat(), "version": "2.0.0"}
+
+
+# ── HITL Review Web UI ────────────────────────────────────────────────────────
+@app.get("/hitl-review", response_class=HTMLResponse)
+async def hitl_review_page():
+    """Serve the standalone HITL Review Console."""
+    html_path = os.path.join(
+        os.path.dirname(__file__), "..", "..", "frontend", "hitl_review.html"
+    )
+    html_path = os.path.normpath(html_path)
+    if os.path.exists(html_path):
+        with open(html_path, encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    return HTMLResponse(content="<h1>HITL Review page not found</h1>", status_code=404)
 
 
 # ── WebSocket real-time chat ──────────────────────────────────────────────────

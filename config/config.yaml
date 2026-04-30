@@ -148,6 +148,9 @@ sources:
     # DeepMind
     - "https://deepmind.google/research/publications/"
 
+    # Future Memory and Storage (FMS) - Hardware & Memory Architecture
+    - "https://futurememorystorage.com/rss"
+
   # --------------------------------------------------------------------------
   # GitHub Search (NEW – High-Signal Engineering Content)
   # --------------------------------------------------------------------------
@@ -379,6 +382,39 @@ podcast:
   # Voice and speech settings
   language: "en"
   speech_speed: "normal"  # normal or slow
+  conversation_mode: "two_speaker"
+  provider_priority:
+    - "google"
+    - "edge"
+    - "gtts"
+  target_duration_minutes: 10
+  max_turns: 24
+  papers_to_cover: 4
+  include_source_mentions: false
+  include_scores_in_audio: false
+
+  voices:
+    edge:
+      male:
+        - "en-US-AndrewMultilingualNeural"
+        - "en-US-GuyNeural"
+      female:
+        - "en-US-AvaMultilingualNeural"
+        - "en-US-JennyNeural"
+      host_rate: "+0%"
+      analyst_rate: "+6%"
+      pause_ms: 425
+    google:
+      male:
+        - "en-US-Neural2-J"
+        - "en-US-Neural2-D"
+        - "en-US-Neural2-C"
+      female:
+        - "en-US-Neural2-F"
+        - "en-US-Neural2-E"
+      host_rate: 0.97
+      analyst_rate: 1.02
+      pause_ms: 475
 
   # Optional audio assets (comment out or leave empty to disable)
   # intro_music_path: "/path/to/intro.mp3"
@@ -389,21 +425,28 @@ podcast:
     - "mp3"      # Always generate MP3
     - "wav"      # Also generate WAV
 
+
 # ============================================================================
 # Report Output Configuration
 # ============================================================================
 
 report:
   # Output directories (can be overridden by environment variables)
-  output_dir: "results/reports"
-  backup_dir: "results/backup"
-  podcast_dir: "results/podcasts"
+  output_dir: 'results/reports'
+  backup_dir: 'results/backup'
+  podcast_dir: 'results/podcasts'
 
   # Summary configuration
   summary:
     include_json: true      # Generate JSON summary.json
     include_text: true      # Generate text summary.txt
     takeaways_count: 5      # Number of takeaways (3-5)
+
+  # Presentation (PPT/PPTX) configuration
+  presentation:
+    enabled: true
+    top_items_per_source: 1 # Exactly 1 top suitable content from each source
+    include_clickable_links: true
 
 # ============================================================================
 # Feature Toggles
@@ -416,3 +459,13 @@ features:
   use_backup_versioning: true  # Enable automatic backup and versioning
   use_clickable_source_links: true  # Enable clickable links in PDF/PPTX
   use_json_summaries: true  # Enable JSON summary output
+  use_async_pipeline: false  # Enable async analysis for 2-3x throughput
+  use_graceful_shutdown: true  # Flush vector store & history on exit
+
+# NVIDIA NIM - Kimi-K2 Thinking (Stage 4: Deep Synthesis)
+# Set NVIDIA_NIM_API_KEY env var to enable. Get free key: https://build.nvidia.com
+nim:
+  model: 'moonshotai/kimi-k2-thinking'
+  min_score_for_synthesis: 50  # TurboQuant: only synthesize papers scoring >= this
+  max_tokens: 4096
+  temperature: 0.2

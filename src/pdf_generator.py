@@ -43,7 +43,12 @@ class PDFReportGenerator:
         if not self.has_reportlab:
             logger.error("[PDF] reportlab required. Install: pip install reportlab")
 
-    def generate(self, insights: List[Dict]) -> bool:
+    def generate(
+        self,
+        insights: List[Dict],
+        all_sources: List[Dict] = None,
+        report_bundle: Dict = None,
+    ) -> bool:
         """
         Generate comprehensive PDF report
         Returns: True if successful
@@ -77,7 +82,13 @@ class PDFReportGenerator:
             story.extend(self._build_trends_section(insights))
             story.append(PageBreak())
 
-            story.extend(self._build_resources_section(insights))
+            story.extend(
+                self._build_resources_section(
+                    insights,
+                    all_sources=all_sources,
+                    report_bundle=report_bundle,
+                )
+            )
 
             # Build PDF
             doc.build(story)
@@ -328,6 +339,19 @@ class PDFReportGenerator:
             takeaway = paper.get('engineering_takeaway', 'N/A')
             story.append(Paragraph("<b>Engineering Takeaway:</b>", styles['Normal']))
             story.append(Paragraph(str(takeaway), styles['Normal']))
+            story.append(Spacer(letter[0], 0.08 * inch))
+
+            source_url = paper.get('link') or paper.get('url', '')
+            if source_url:
+                story.append(Paragraph("<b>Source URL:</b>", styles['Normal']))
+                story.append(Paragraph(f"<a href='{source_url}'>{source_url}</a>", styles['Normal']))
+                story.append(Spacer(letter[0], 0.08 * inch))
+
+            excerpt = paper.get('full_text') or paper.get('abstract') or paper.get('summary', '')
+            excerpt = " ".join(str(excerpt).split())
+            if excerpt:
+                story.append(Paragraph("<b>Fetched Content Excerpt:</b>", styles['Normal']))
+                story.append(Paragraph(excerpt[:500] + ("..." if len(excerpt) > 500 else ""), styles['Normal']))
             story.append(Spacer(letter[0], 0.2 * inch))
 
         return story
@@ -445,7 +469,12 @@ class PDFReportGenerator:
 
         return story
 
-    def _build_resources_section(self, insights: List[Dict]) -> List:
+    def _build_resources_section(
+        self,
+        insights: List[Dict],
+        all_sources: List[Dict] = None,
+        report_bundle: Dict = None,
+    ) -> List:
         """
         Build comprehensive resources section with ALL sources and clickable hyperlinks
         Uses SourceLinkProcessor for URL normalization, deduplication, and pagination
@@ -453,14 +482,25 @@ class PDFReportGenerator:
         story = []
         styles = getSampleStyleSheet()
 
-        # Try to use SourceLinkProcessor if available
+        if report_bundle is None:
+            from .report_bundle import build_report_bundle
+
+            report_bundle = build_report_bundle(
+                insights,
+                all_sources=all_sources,
+            ).to_dict()
+
         try:
             from .source_link_processor import SourceLinkProcessor
             processor = SourceLinkProcessor()
-            sources = processor.build_source_list(insights, sort_by='relevance')
+            sources = processor.build_source_list(
+                report_bundle.get("source_appendix", []),
+                sort_by='relevance',
+                deduplicate=True,
+            )
         except ImportError:
             logger.warning("[PDF] SourceLinkProcessor not available, using fallback")
-            sources = self._build_fallback_sources(insights)
+            sources = self._build_fallback_sources(report_bundle.get("source_appendix", []))
 
         # Add header with source count
         header_text = f"Reference Resources and Sources ({len(sources)} total)"
@@ -469,7 +509,7 @@ class PDFReportGenerator:
 
         story.append(Paragraph(
             f"This report references <b>{len(sources)} unique sources</b> from the research analysis. "
-            "All sources are listed below as clickable hyperlinks.",
+            "All sources are listed below as clickable hyperlinks with fetched content excerpts.",
             styles['Normal']
         ))
         story.append(Spacer(letter[0], 0.2 * inch))
@@ -498,14 +538,17 @@ class PDFReportGenerator:
                 platform = source.get('source_platform', 'Unknown')
                 score = source.get('relevance_score', 0)
 
-                # Build entry with hyperlink if URL available
+                excerpt = source.get('content_excerpt', '')
                 if url:
-                    # Use anchor tag syntax for ReportLab hyperlinks
                     sources_text += f"{idx}. <a href='{url}'><b>{title}</b></a><br/>"
-                    sources_text += f"   Platform: {platform} | Score: {score:.1f}<br/><br/>"
+                    sources_text += f"   Platform: {platform} | Score: {score:.1f}<br/>"
                 else:
                     sources_text += f"{idx}. <b>{title}</b><br/>"
-                    sources_text += f"   Platform: {platform} | Score: {score:.1f}<br/><br/>"
+                    sources_text += f"   Platform: {platform} | Score: {score:.1f}<br/>"
+                if excerpt:
+                    sources_text += f"   Excerpt: {excerpt}<br/><br/>"
+                else:
+                    sources_text += "   Excerpt: Not available<br/><br/>"
 
             if sources_text:
                 story.append(Paragraph(sources_text, styles['Normal']))

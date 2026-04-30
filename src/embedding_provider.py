@@ -114,6 +114,15 @@ class DualEmbeddingProvider:
                 return list(emb)
             return None
         except Exception as e:
+            # 429 / rate-limit: use smart sleep if available
+            try:
+                from src.retry import is_rate_limit_error, smart_rate_limit_sleep
+                if is_rate_limit_error(e):
+                    logger.warning(f"[Google] Embedding rate-limited: {e}")
+                    smart_rate_limit_sleep(e)
+                    return None   # caller will retry via encode()
+            except ImportError:
+                pass
             logger.warning(f"[Google] Embedding failed: {e}")
             if _is_permanent_error(e):
                 logger.warning("[Google] Permanent error — disabling for this run")

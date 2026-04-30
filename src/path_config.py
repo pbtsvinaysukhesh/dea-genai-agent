@@ -11,7 +11,11 @@ import logging
 from pathlib import Path
 from typing import Optional
 
+import yaml
+
 logger = logging.getLogger(__name__)
+
+_CONFIG_CACHE = None
 
 
 class PathConfig:
@@ -157,3 +161,27 @@ class PathConfig:
     def get_duplicate_threshold(self) -> float:
         """Return semantic duplicate threshold (default 0.95)."""
         return self.duplicate_threshold
+
+
+def get_config(force_reload: bool = False) -> dict:
+    """Load the shared YAML config used across report generators."""
+    global _CONFIG_CACHE
+
+    if _CONFIG_CACHE is not None and not force_reload:
+        return _CONFIG_CACHE
+
+    config_path = Path(__file__).parent.parent / "config" / "config.yaml"
+    try:
+        with open(config_path, "r", encoding="utf-8") as handle:
+            _CONFIG_CACHE = yaml.safe_load(handle) or {}
+    except FileNotFoundError:
+        logger.warning("Config file not found at %s", config_path)
+        _CONFIG_CACHE = {}
+    except Exception as exc:
+        logger.warning("Failed to load config file %s: %s", config_path, exc)
+        _CONFIG_CACHE = {}
+
+    return _CONFIG_CACHE
+
+
+DEA_CONFIG = get_config()

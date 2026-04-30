@@ -1,181 +1,116 @@
-<<<<<<< HEAD
-# README - DEA  AI Research Intelligence 
-=======
-# DEA AI Research Intelligence 🚀
->>>>>>> f650ea3 (fix)
+# DEA AI Research Intelligence
 
 [![GitHub Actions Status](https://github.com/pbtsvinaysukhesh/dea-genai-agent/workflows/Tests/badge.svg)](https://github.com/pbtsvinaysukhesh/dea-genai-agent/actions)
 [![CodeQL](https://github.com/pbtsvinaysukhesh/dea-genai-agent/workflows/CodeQL/badge.svg)](https://github.com/pbtsvinaysukhesh/dea-genai-agent/actions)
 
-**Daily AI Research Pipeline** that discovers, analyzes, and delivers insights on **on-device AI, memory optimization, and edge computing** research papers.
+Daily AI research automation that collects sources, scores relevance, stores source context in Qdrant, and generates email, PDF, PPTX, podcast, transcript, and summary outputs.
 
-**100% FREE TIER** - GitHub Actions + local embeddings. **No servers required**.
+## What It Does
 
-## 🎯 **What It Does (Daily)**
+1. Collects research sources from arXiv, RSS feeds, GitHub, and crawled pages
+2. Deep-fetches content with Playwright when available
+3. Removes duplicates with vector similarity and history tracking
+4. Scores and shortlists the top findings
+5. Generates multi-format reports from one shared report bundle
+6. Emails the deliverables with clickable source links and attachments
 
-1. **Collects** 1K+ papers (arXiv, RSS, GitHub, Scholar)
-2. **Filters** duplicates (vector store + title matching)
-3. **Analyzes** with multi-LLM council (Groq → Gemini fallback)
-4. **Generates** 6 formats: **Email + PDF + PPTX + Podcast + Transcript + Summary**
-5. **Emails** report (6+ new papers only)
-6. **Archives** to GitHub Artifacts (30-day retention)
+## Active Pipeline
 
+The current runtime path is centered on:
+
+- `main.py`
+- `src/collector.py`
+- `src/deep_scraper.py`
+- `src/qdrant_vector_store.py`
+- `src/multi_format_orchestrator.py`
+- `src/multiformat_integration.py`
+- `src/report_bundle.py`
+
+## Technology Stack
+
+```text
+LLMs: Groq, Gemini, Ollama fallback
+Search: Qdrant semantic similarity + metadata scoring
+Scraping: Playwright
+Reports: ReportLab, python-pptx, gTTS/pydub
+Backend: FastAPI + WebSocket
+Frontend: HTML/JS SPA
+CI/CD: GitHub Actions
 ```
-1129 papers → 50 new → AI Council → 6 reports → 📧 Email → 📦 Artifact
-```
 
-## 🚀 **1-Minute Setup**
+## Local Run
 
-### GitHub Actions (Recommended - Free)
-```bash
-1. Fork/Star repo
-2. Settings → Secrets → Add:
-   - `GROQ_API_KEY` (groq.com)
-   - `GOOGLE_API_KEY` (ai.google.dev)
-   - `SMTP_*` (Gmail/Outlook)
-3. Actions → "Scheduled AI Pipeline" → Run
-```
-
-### Local Run
 ```bash
 git clone https://github.com/pbtsvinaysukhesh/dea-genai-agent
 cd dea-genai-agent
 pip install -r requirements.txt
-python main.py  # <- Generates everything!
+python main.py
 ```
 
-## 📊 **Live Results**
+## Configuration
 
-**Daily Reports:** [GitHub Artifacts](https://github.com/pbtsvinaysukhesh/dea-genai-agent/actions)
-**Vector DB:** `results/vector_db/` (persistent, ~1K papers)
+Main config lives in `config/config.yaml`.
 
-## 🛠 **Technology Stack**
-
-```
-LLMs: Groq (free), Gemini (fallback), Ollama (local)
-Search: Qdrant + BM25 + MMR
-Scraping: Playwright (PDFs)
-Reports: ReportLab(PDF), python-pptx(PPT), gTTS(audio)
-Backend: FastAPI + WebSocket
-Frontend: HTML/JS SPA
-CI/CD: GitHub Actions (free)
-```
-
-## 🎛️ **Configuration** (`config/config.yaml`)
+Example:
 
 ```yaml
 system:
-  relevance_threshold: 60  # Only score ≥60
-  use_vectors: true        # Qdrant dedup
+  relevance_threshold: 60
+  use_vectors: true
 
 sources:
-  arxiv_queries: [...]     # 15+ specialized queries
-  rss_feeds: [...]         # Apple ML, Qualcomm, Meta AI
-  github.enabled: true     # Code repos (50+ stars)
+  arxiv_queries: [...]
+  rss_feeds: [...]
+  github:
+    enabled: true
 
 email:
   recipients: ["you@email.com"]
 ```
 
-## 📈 **Performance**
+## Outputs
 
-```
-Time: 15-20 min daily
-Papers: 1K collected → 50 analyzed → 6+ emailed
-Formats: Email, PDF, PPTX, Podcast, Transcript, Summary
-Cost: $0 (free tier)
-```
+The pipeline generates:
 
-## 🔍 **Vector Store Query Example**
+- Email HTML digest
+- PDF report with clickable source appendix
+- PowerPoint deck with source slides
+- Podcast audio with transcript and embedded source metadata
+- Summary text and JSON
+- Source index JSON for full fetched URL traceability
 
-```python
-from src.qdrant_vector_store import VectorStore
-vs = VectorStore()
-print(vs.get_stats())  # {'total_papers': 1247, 'added': 1247}
-similar = vs.find_similar({'title': 'Quantized LLM Mobile'})
-```
+## Source Traceability
 
-## 🕷️ **Playwright Scraping**
+Every fetched URL is preserved in the shared report bundle with:
 
-```
-RSS/arXiv → 1K titles
-↓
-DeepScraper → Playwright
-  ↓
-arxiv.org → Click PDF → Extract 1K+ chars
-openreview.net → Scrape reviews
-↓
-"Extracted 1356 chars" ✓
-```
+- original source URL
+- source platform/type
+- fetch timestamp
+- content excerpt
+- metadata needed for PDF/email appendix rendering
 
-## 📧 **Email Delivery**
+This data powers clickable links in the email and PDF outputs.
 
-```
-Only NEW papers (email tracker prevents duplicates)
-Subject: "On-Device AI Research - 6 New Papers"
-Attachments: PDF, PPTX, MP3 podcast
-```
+## Repository Cleanup
 
-## 🎯 **Dashboard** (`localhost:3000`)
+Legacy and debug-only assets have been archived instead of deleted:
 
-```
-• Semantic paper search
-• RAG chat with papers
-• Pipeline progress (live)
-• HITL approval queue
-• Statistics dashboard
-```
+- `dump/unused_code/`
+- `dump/unused_tests/`
 
-## 🛠 **Extending**
+This keeps the active repo surface smaller while preserving older experiments and compatibility code for reference.
 
-**New Report Format:**
+## Testing
 
+Current focused tests include:
 
-### ✅ Multi-Format Report Generation
+- `tests/test_backup_system.py`
+- `tests/test_report_bundle.py`
 
-Generate 6 formats simultaneously from single analysis:
-- **Email HTML** - Beautiful template with styling
-- **PDF** - Print-ready with metrics
-- **PowerPoint** - 8-slide branded presentation
-- **Podcast** - MP3 audio narration (NotebookLM style)
-- **Transcript** - Full text version
-- **Summary** - Quick reference (1-2 pages)
+## Dashboard
 
+Dashboard app remains under `Dashboard/` with FastAPI backend and frontend assets.
 
-```python
-class NewReportGenerator:
-    def generate(self, insights):
-        # Your logic
-        return True
+## Status
 
-# Register in multi_format_orchestrator.py
-```
-
-## 🧹 **Cleanup Complete**
-
-**Removed Unused:**
-```
-✂️  On-device...docx (old spec)
-✂️  podcast_*.mp3 (test files)
-✂️  transcript.txt (temp)
-✂️  summary.txt/json (superseded)
-✂️  test_embedding*.py (redundant)
-```
-
-**.gitignore:** `results/`, `__pycache__/`, `.venv/`, `*.log`
-
-**README:** Updated (this file) - concise + actionable
-
-## 📋 **Next Steps**
-
-```
-1. [✓] pip install -r requirements.txt
-2. [✓] python main.py (local test)
-3. [✓] Add GitHub Secrets
-4. [ ] Actions → Run "Scheduled AI Pipeline"
-5. [ ] Check email + Artifacts
-```
-
-**PRODUCTION READY!** 🎉
-
-**Questions?** Open issue or comment here.
+Production-oriented active pipeline with archived legacy modules kept under `dump/`.
