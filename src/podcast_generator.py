@@ -58,7 +58,7 @@ DialogTurn = Tuple[str, str]
 
 DEFAULT_PODCAST_CONFIG = {
     "conversation_mode": "two_speaker",
-    "provider_priority": ["edge", "google", "gtts"],
+    "provider_priority": ["google", "edge", "gtts"],
     "target_duration_minutes": 10,
     "max_turns": 24,
     "papers_to_cover": 4,
@@ -75,9 +75,9 @@ DEFAULT_PODCAST_CONFIG = {
         "google": {
             "male": ["en-US-Neural2-J", "en-US-Neural2-D", "en-US-Neural2-C"],
             "female": ["en-US-Neural2-F", "en-US-Neural2-E"],
-            "host_rate": 1.0,
-            "analyst_rate": 1.06,
-            "pause_ms": 425,
+            "host_rate": 0.97,
+            "analyst_rate": 1.02,
+            "pause_ms": 475,
         },
         "gtts": {"pause_ms": 350},
     },

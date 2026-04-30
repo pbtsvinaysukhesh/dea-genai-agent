@@ -384,8 +384,8 @@ podcast:
   speech_speed: "normal"  # normal or slow
   conversation_mode: "two_speaker"
   provider_priority:
-    - "edge"
     - "google"
+    - "edge"
     - "gtts"
   target_duration_minutes: 10
   max_turns: 24
@@ -412,9 +412,9 @@ podcast:
       female:
         - "en-US-Neural2-F"
         - "en-US-Neural2-E"
-      host_rate: 1.0
-      analyst_rate: 1.06
-      pause_ms: 425
+      host_rate: 0.97
+      analyst_rate: 1.02
+      pause_ms: 475
 
   # Optional audio assets (comment out or leave empty to disable)
   # intro_music_path: "/path/to/intro.mp3"

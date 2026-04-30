@@ -94,3 +94,20 @@ def test_multiformat_integration_attachment_list_includes_source_index():
 
     assert str(Path(output_dir) / "report.pdf") in attachments
     assert str(Path(output_dir) / "source_index.json") in attachments
+
+
+def test_enhanced_formatter_uses_dea_news_heading():
+    from src.enhanced_formatter import EnhancedReportFormatter
+    from src.report_bundle import build_report_bundle
+
+    bundle = build_report_bundle(_sample_insights(), all_sources=_sample_sources()).to_dict()
+    formatter = EnhancedReportFormatter()
+
+    html = formatter.build_html(
+        _sample_insights(),
+        all_sources=_sample_sources(),
+        report_bundle=bundle,
+    )
+
+    assert "<title>DEA News</title>" in html
+    assert "<h1>DEA News</h1>" in html

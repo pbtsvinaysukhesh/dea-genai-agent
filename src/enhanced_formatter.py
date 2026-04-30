@@ -74,7 +74,7 @@ class EnhancedReportFormatter:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEA by PBTSVS Weekly Systems Edge AI News letter</title>
+    <title>DEA News</title>
     <style>
         body {{
             margin: 0;
@@ -260,7 +260,7 @@ class EnhancedReportFormatter:
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>🚀 On-Device AI Intelligence Report</h1>
+            <h1>DEA News</h1>
             <p>{today}</p>
         </div>
 

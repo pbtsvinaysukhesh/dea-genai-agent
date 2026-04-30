@@ -73,7 +73,7 @@ def test_provider_priority_prefers_best_available():
     generator.google_client = object()
     generator.has_gtts = True
 
-    assert generator._iter_available_providers() == ["edge", "google", "gtts"]
+    assert generator._iter_available_providers() == ["google", "edge", "gtts"]
 
 
 def test_provider_priority_falls_back_cleanly():
