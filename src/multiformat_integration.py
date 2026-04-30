@@ -33,7 +33,11 @@ class MultiFormatReportIntegration:
             self.available = False
             logger.warning(f"[MultiFormat] Orchestrator not available: {e}")
 
-    def generate_multiformat_reports(self, insights: List[Dict]) -> Tuple[str, Dict]:
+    def generate_multiformat_reports(
+        self,
+        insights: List[Dict],
+        all_sources: Optional[List[Dict]] = None,
+    ) -> Tuple[str, Dict]:
         """
         Generate all report formats for the given insights
 
@@ -55,7 +59,7 @@ class MultiFormatReportIntegration:
 
         try:
             # Generate all formats
-            results = self.orchestrator.generate_all(insights)
+            results = self.orchestrator.generate_all(insights, all_sources=all_sources)
 
             # Get email HTML content
             email_html = self._read_email_report()
@@ -98,7 +102,13 @@ class MultiFormatReportIntegration:
         attachments = []
 
         # Fixed-name files — always in output_dir
-        for filename in ["report.pdf", "report.pptx", "transcript.txt", "summary.txt"]:
+        for filename in [
+            "report.pdf",
+            "report.pptx",
+            "transcript.txt",
+            "summary.txt",
+            "source_index.json",
+        ]:
             filepath = os.path.join(self.output_dir, filename)
             if os.path.exists(filepath):
                 attachments.append(filepath)
@@ -146,7 +156,11 @@ class MultiFormatReportIntegration:
         return stats
 
 
-def generate_multiformat_email_report(papers: List[Dict], output_dir: str = "results/reports") -> Tuple[str, List[str], Dict]:
+def generate_multiformat_email_report(
+    papers: List[Dict],
+    output_dir: str = "results/reports",
+    all_sources: Optional[List[Dict]] = None,
+) -> Tuple[str, List[str], Dict]:
     """
     Convenience function to generate multi-format reports and return email content + attachments
 
@@ -165,7 +179,10 @@ def generate_multiformat_email_report(papers: List[Dict], output_dir: str = "res
     integration = MultiFormatReportIntegration(output_dir=output_dir)
 
     # Generate all formats
-    email_html, results = integration.generate_multiformat_reports(papers)
+    email_html, results = integration.generate_multiformat_reports(
+        papers,
+        all_sources=all_sources,
+    )
 
     # Get attachments
     attachments = integration.get_attachment_paths()

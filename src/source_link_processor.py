@@ -1,15 +1,13 @@
 """
 Source Link Processor
 
-Handles URL normalization, deduplication, pagination, and hyperlink creation
-for PDF and PowerPoint presentations.
+Handles URL normalization, deduplication, pagination, hyperlink creation,
+and source appendix shaping for PDF and PowerPoint presentations.
 """
 
 import logging
-from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple
 from urllib.parse import urlparse
-import re
 
 logger = logging.getLogger(__name__)
 
@@ -98,7 +96,7 @@ class SourceLinkProcessor:
 
         for idx, paper in enumerate(papers, 1):
             # Extract and normalize URL
-            url = paper.get("link", "")
+            url = paper.get("url") or paper.get("link") or ""
             if not url:
                 continue
 
@@ -119,7 +117,21 @@ class SourceLinkProcessor:
             source = {
                 "title": paper.get("title", "Unknown Title"),
                 "url": url,
-                "source_platform": paper.get("source", "Unknown"),
+                "source_platform": paper.get(
+                    "source_platform",
+                    paper.get("source", "Unknown"),
+                ),
+                "source_type": paper.get("source_type", "unknown"),
+                "published_at": paper.get("published_at", paper.get("published", "")),
+                "fetched_at": paper.get(
+                    "fetched_at",
+                    paper.get("scraped_at", paper.get("collected_at", "")),
+                ),
+                "author": paper.get("author", ""),
+                "content_excerpt": paper.get(
+                    "content_excerpt",
+                    paper.get("summary", paper.get("abstract", paper.get("full_text", ""))),
+                ),
                 "relevance_score": float(paper.get("relevance_score", 0)),
                 "summary": paper.get("summary", ""),
             }

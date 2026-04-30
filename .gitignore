@@ -11,3 +11,9 @@ pytest-cache-files-*/
 # Virtual environments
 .venv
 .env
+<<<<<<< HEAD
+=======
+results/
+dump/
+logs/
+>>>>>>> 8a3e05bce0fcb57f4b95a6e13f600a27b9c97db1

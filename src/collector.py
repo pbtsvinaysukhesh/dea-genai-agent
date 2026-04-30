@@ -13,6 +13,12 @@ from typing import List, Dict
 from urllib.parse import quote
 from bs4 import BeautifulSoup
 
+try:
+    from src.retry import retry_with_backoff, CircuitBreaker
+    HAS_RETRY = True
+except ImportError:
+    HAS_RETRY = False
+
 logger = logging.getLogger(__name__)
 
 class CollectorConfig:
@@ -34,6 +40,8 @@ class Collector:
     def __init__(self, config: CollectorConfig = None):
         self.config = config or CollectorConfig()
         self.stats = {'total': 0, 'rss': 0, 'scraped': 0, 'failed': 0}
+        # Circuit breaker per-source to avoid hammering dead endpoints
+        self._breakers = {}
     
     def fetch_all(self, config: Dict) -> List[Dict]:
         """Main entry point to fetch from all configured sources"""
@@ -65,10 +73,15 @@ class Collector:
                     articles.append({
                         "title": entry.title.replace('\n', ' ').strip(),
                         "link": entry.link,
+                        "url": entry.link,
                         "summary": entry.summary.replace('\n', ' ').strip(),
                         "source": "arXiv",
+                        "source_type": "arxiv",
                         "published": entry.published[:10] if hasattr(entry, 'published') else str(datetime.date.today()),
-                        "collected_at": datetime.datetime.now().isoformat()
+                        "collected_at": datetime.datetime.now().isoformat(),
+                        "crawl_confidence": 0.85,
+                        "author": "",
+                        "tags": [],
                     })
                 time.sleep(self.config.RATE_LIMIT_DELAY)
             except Exception as e:
@@ -154,10 +167,15 @@ class Collector:
                     results.append({
                         "title": title_tag.get_text(strip=True),
                         "link": link or url,
+                        "url": link or url,
                         "summary": art.get_text(strip=True)[:500],
                         "source": f"{source_name} (Scraped)",
+                        "source_type": "html_scrape",
                         "published": str(datetime.date.today()),
-                        "collected_at": datetime.datetime.now().isoformat()
+                        "collected_at": datetime.datetime.now().isoformat(),
+                        "crawl_confidence": 0.75,
+                        "author": "",
+                        "tags": [],
                     })
                 return results
 
@@ -170,10 +188,15 @@ class Collector:
                 return {
                     "title": title.get_text(strip=True),
                     "link": url,
+                    "url": url,
                     "summary": summary,
                     "source": f"{source_name} (Scraped)",
+                    "source_type": "html_scrape",
                     "published": str(datetime.date.today()),
-                    "collected_at": datetime.datetime.now().isoformat()
+                    "collected_at": datetime.datetime.now().isoformat(),
+                    "crawl_confidence": 0.7,
+                    "author": "",
+                    "tags": [],
                 }
             return None
         except Exception as e:
@@ -189,12 +212,31 @@ class Collector:
                     headers={'User-Agent': self.config.USER_AGENT}
                 )
                 if response.status_code == 200: return response
-                
+
+                # 429 Too Many Requests — honour Retry-After
+                if response.status_code == 429:
+                    if HAS_RETRY:
+                        from src.retry import smart_rate_limit_sleep
+                        smart_rate_limit_sleep(
+                            Exception(f"HTTP 429 from {url}"), attempt
+                        )
+                    else:
+                        retry_after = response.headers.get('Retry-After', '30')
+                        try:
+                            wait = min(float(retry_after), 120)
+                        except ValueError:
+                            wait = 30
+                        logger.warning(
+                            f"[Collector] 429 from {url} — sleeping {wait}s"
+                        )
+                        time.sleep(wait)
+                    continue
+
                 # Do not retry 400/403/404
                 if response.status_code in [400, 401, 403, 404]:
                     logger.warning(f"Dead Link ({response.status_code}): {url}")
                     return None
-            except: pass
+            except Exception: pass
             time.sleep(self.config.RETRY_DELAY)
         return None
 
@@ -214,10 +256,15 @@ class Collector:
             return {
                 "title": title,
                 "link": entry.link,
+                "url": entry.link,
                 "summary": summary,
                 "source": source,
+                "source_type": "rss",
                 "published": getattr(entry, 'published', getattr(entry, 'updated', str(datetime.date.today()))),
-                "collected_at": datetime.datetime.now().isoformat()
+                "collected_at": datetime.datetime.now().isoformat(),
+                "crawl_confidence": 0.65,
+                "author": "",
+                "tags": [],
             }
         except AttributeError as e:
             logger.debug(f"Missing attribute in RSS entry: {e}")
@@ -232,7 +279,7 @@ class Collector:
             if len(parts) >= 5: return f"GitHub ({parts[4]})"
             return "GitHub"
         try: return url.split('/')[2].replace('www.', '').capitalize()
-        except: return "Web"
+        except Exception: return "Web"
 
     def get_statistics(self) -> Dict:
         return {**self.stats}

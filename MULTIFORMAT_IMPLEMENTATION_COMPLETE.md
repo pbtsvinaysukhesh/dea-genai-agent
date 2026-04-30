@@ -68,7 +68,7 @@ Fixed `src/multi_format_orchestrator.py` to use relative imports:
 
 ### 4. Test Suite Added
 
-Created `test_multiformat.py` to validate all formats:
+Created a format validation script to validate all formats:
 - ✅ Dependency checking
 - ✅ Sample data generation
 - ✅ Multi-format report generation
@@ -438,7 +438,7 @@ mailer.py (MODIFIED)
 
 1. **Verify Setup:**
    ```bash
-   python test_multiformat.py
+   Run the active focused tests in `tests/` or use a local validation script from `dump/unused_tests/` if you need the archived legacy flow.
    ```
 
 2. **Run Full Pipeline:**
@@ -498,7 +498,7 @@ See **MULTIFORMAT_INTEGRATION_SETUP.md** for:
 - **Phase 1:** Code review & RAG implementation
 - **Phase 2:** Google Scholar integration
 - **Phase 3:** Docker & GitHub CI/CD
-- **Phase 4:** Bug fixes (dict lowercase error)
+- **Phase 4:** Bug fixes and cleanup
 - **Phase 5:** Multi-format reports (CURRENT) ✅
 
 ---

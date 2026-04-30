@@ -281,7 +281,7 @@ class HybridAGISystem:
             try:
                 self.crew = ResearchCrew()
                 logger.info("[Hybrid] CrewAI enabled")
-            except:
+            except Exception:
                 self.use_crewai = False
                 logger.warning("[Hybrid] CrewAI disabled")
         

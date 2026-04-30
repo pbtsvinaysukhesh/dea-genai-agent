@@ -14,3 +14,5 @@ services:
         sync: false          # set in Render dashboard
       - key: GOOGLE_API_KEY
         sync: false
+      - key: NVIDIA_NIM_API_KEY
+        sync: false

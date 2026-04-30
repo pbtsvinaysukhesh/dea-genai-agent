@@ -96,7 +96,7 @@ class Mailer:
         # Generate subject if not provided
         if not subject:
             today = datetime.now().strftime("%B %d, %Y")
-            subject = f"On-Device AI Memory Intelligence - {today}"
+            subject = f"DEA News - {today}"
         
         try:
             # Create message
